@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="bibtextproj"
+		transaction-type="RESOURCE_LOCAL">
+		
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		
+		<class>entities.Article</class>
+		<class>entities.EntryTypes</class>
+		<class>entities.Book</class>
+		<class>entities.Booklet</class>
+		<class>entities.Conference</class>
+		<class>entities.Inbook</class>
+		<class>entities.Incollection</class>
+		<class>entities.Inproceedings</class>
+		<class>entities.Manual</class>
+		<class>entities.Masterthesis</class>
+		<class>entities.Misc</class>
+		<class>entities.Phgthesis</class>
+		<class>entities.Proceedings</class>
+		<class>entities.Techreport</class>
+		<class>entities.Unpublished</class>
+		
+		
+		<properties>
+
+
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres?currentSchema=bibtext" />
+			<property name="javax.persistence.jdbc.user" value="postgres" />
+			<property name="javax.persistence.jdbc.password" value="admin" />
+
+
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+
+
+		</properties>
+	</persistence-unit>
+
+</persistence>
