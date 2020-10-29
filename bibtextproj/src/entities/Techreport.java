@@ -6,23 +6,44 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "Techreport")
-public class Techreport extends EntryTypes{
+public class Techreport extends EntryTypes {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// required
+	@Column(name = "author")
 	private String author;
+
+	@Column(name = "title")
 	private String title;
+
+	@Column(name = "institution")
 	private String institution;
+
+	@Column(name = "year")
 	private String year;
 
 	// optional
+	@Column(name = "type")
 	private String type;
+
+	@Column(name = "number")
 	private String number;
+
+	@Column(name = "address")
 	private String address;
+
+	@Column(name = "month")
 	private String month;
+
+	@Column(name = "note")
 	private String note;
+
+	@Column(name = "key")
 	private String key;
 
-	@Column(name = "author")
 	public String getAuthor() {
 		return author;
 	}
@@ -31,7 +52,6 @@ public class Techreport extends EntryTypes{
 		this.author = author;
 	}
 
-	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -40,7 +60,6 @@ public class Techreport extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "institution")
 	public String getInstitution() {
 		return institution;
 	}
@@ -49,7 +68,6 @@ public class Techreport extends EntryTypes{
 		this.institution = institution;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -58,7 +76,6 @@ public class Techreport extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "type")
 	public String getType() {
 		return type;
 	}
@@ -67,7 +84,6 @@ public class Techreport extends EntryTypes{
 		this.type = type;
 	}
 
-	@Column(name = "number")
 	public String getNumber() {
 		return number;
 	}
@@ -76,7 +92,6 @@ public class Techreport extends EntryTypes{
 		this.number = number;
 	}
 
-	@Column(name = "address")
 	public String getAddress() {
 		return address;
 	}
@@ -85,7 +100,6 @@ public class Techreport extends EntryTypes{
 		this.address = address;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -94,7 +108,6 @@ public class Techreport extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "note")
 	public String getNote() {
 		return note;
 	}
@@ -103,7 +116,6 @@ public class Techreport extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "key")
 	public String getKey() {
 		return key;
 	}

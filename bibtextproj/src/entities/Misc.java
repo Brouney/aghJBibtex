@@ -6,18 +6,35 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "Misc")
-public class Misc extends EntryTypes{
+public class Misc extends EntryTypes {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// optional
+	@Column(name = "author")
 	private String author;
+
+	@Column(name = "title")
 	private String title;
+
+	@Column(name = "howpublished")
 	private String howpublished;
+
+	@Column(name = "month")
 	private String month;
+
+	@Column(name = "year")
 	private String year;
+
+	@Column(name = "note")
 	private String note;
+
+	@Column(name = "key")
 	private String key;
 
-	@Column(name = "author")
 	public String getAuthor() {
 		return author;
 	}
@@ -26,7 +43,6 @@ public class Misc extends EntryTypes{
 		this.author = author;
 	}
 
-	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -35,7 +51,6 @@ public class Misc extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "howpublished")
 	public String getHowpublished() {
 		return howpublished;
 	}
@@ -44,7 +59,6 @@ public class Misc extends EntryTypes{
 		this.howpublished = howpublished;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -53,7 +67,6 @@ public class Misc extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -62,7 +75,6 @@ public class Misc extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "note")
 	public String getNote() {
 		return note;
 	}
@@ -71,7 +83,6 @@ public class Misc extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "key")
 	public String getKey() {
 		return key;
 	}

@@ -1,5 +1,7 @@
 package entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -12,27 +14,35 @@ import javax.persistence.InheritanceType;
 @Entity(name = "fields")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "bibitem")
-public abstract class EntryTypes {
-	private Long ID;
-	private String bibitem;
-	
-	
+public abstract class EntryTypes implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	private Long ID;
+
+	@Column(name = "bibitem", insertable = false, updatable = false)
+	private String bibitem;
+
 	public Long getID() {
 		return ID;
 	}
+
 	public void setID(Long iD) {
 		ID = iD;
 	}
-	
-	@Column(name="bibitem", insertable=false, updatable=false)
+
 	public String getBibitem() {
 		return bibitem;
 	}
+
 	public void setBibitem(String bibitem) {
 		this.bibitem = bibitem;
 	}
-	
+
 }

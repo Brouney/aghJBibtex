@@ -6,30 +6,65 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "Incollection")
-public class Incollection extends EntryTypes{
+public class Incollection extends EntryTypes {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// required
+	@Column(name = "author")
 	private String author;
+
+	@Column(name = "title")
 	private String title;
+
+	@Column(name = "booktitle")
 	private String booktitle;
+
+	@Column(name = "publisher")
 	private String publisher;
+
+	@Column(name = "year")
 	private String year;
 
 	// optional
+	@Column(name = "editor")
 	private String editor;
+
+	@Column(name = "volume")
 	private String volume;
+
+	@Column(name = "number")
 	private String number;
+
+	@Column(name = "series")
 	private String series;
+
+	@Column(name = "type")
 	private String type;
+
+	@Column(name = "chapter")
 	private String chapter;
+
+	@Column(name = "pages")
 	private String pages;
+
+	@Column(name = "address")
 	private String address;
+
+	@Column(name = "edition")
 	private String edition;
+
+	@Column(name = "month")
 	private String month;
+
+	@Column(name = "note")
 	private String note;
+
+	@Column(name = "key")
 	private String key;
 
-	@Column(name = "author")
 	public String getAuthor() {
 		return author;
 	}
@@ -38,7 +73,6 @@ public class Incollection extends EntryTypes{
 		this.author = author;
 	}
 
-	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -47,7 +81,6 @@ public class Incollection extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "booktitle")
 	public String getBooktitle() {
 		return booktitle;
 	}
@@ -56,7 +89,6 @@ public class Incollection extends EntryTypes{
 		this.booktitle = booktitle;
 	}
 
-	@Column(name = "publisher")
 	public String getPublisher() {
 		return publisher;
 	}
@@ -65,7 +97,6 @@ public class Incollection extends EntryTypes{
 		this.publisher = publisher;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -74,7 +105,6 @@ public class Incollection extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "editor")
 	public String getEditor() {
 		return editor;
 	}
@@ -83,7 +113,6 @@ public class Incollection extends EntryTypes{
 		this.editor = editor;
 	}
 
-	@Column(name = "volume")
 	public String getVolume() {
 		return volume;
 	}
@@ -92,7 +121,6 @@ public class Incollection extends EntryTypes{
 		this.volume = volume;
 	}
 
-	@Column(name = "number")
 	public String getNumber() {
 		return number;
 	}
@@ -101,7 +129,6 @@ public class Incollection extends EntryTypes{
 		this.number = number;
 	}
 
-	@Column(name = "series")
 	public String getSeries() {
 		return series;
 	}
@@ -110,7 +137,6 @@ public class Incollection extends EntryTypes{
 		this.series = series;
 	}
 
-	@Column(name = "type")
 	public String getType() {
 		return type;
 	}
@@ -119,7 +145,6 @@ public class Incollection extends EntryTypes{
 		this.type = type;
 	}
 
-	@Column(name = "chapter")
 	public String getChapter() {
 		return chapter;
 	}
@@ -128,7 +153,6 @@ public class Incollection extends EntryTypes{
 		this.chapter = chapter;
 	}
 
-	@Column(name = "pages")
 	public String getPages() {
 		return pages;
 	}
@@ -137,7 +161,6 @@ public class Incollection extends EntryTypes{
 		this.pages = pages;
 	}
 
-	@Column(name = "address")
 	public String getAddress() {
 		return address;
 	}
@@ -146,7 +169,6 @@ public class Incollection extends EntryTypes{
 		this.address = address;
 	}
 
-	@Column(name = "edition")
 	public String getEdition() {
 		return edition;
 	}
@@ -155,7 +177,6 @@ public class Incollection extends EntryTypes{
 		this.edition = edition;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -164,7 +185,6 @@ public class Incollection extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "note")
 	public String getNote() {
 		return note;
 	}
@@ -173,7 +193,6 @@ public class Incollection extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "key")
 	public String getKey() {
 		return key;
 	}

@@ -8,20 +8,41 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Manual")
 public class Manual extends EntryTypes{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// required
+	@Column(name = "title")
 	private String title;
 
 	// optional
+	@Column(name = "author")
 	private String author;
+	
+	@Column(name = "organization")
 	private String organization;
+	
+	@Column(name = "address")
 	private String address;
+	
+	@Column(name = "edition")
 	private String edition;
+	
+	@Column(name = "month")
 	private String month;
+	
+	@Column(name = "year")
 	private String year;
+	
+	@Column(name = "note")
 	private String note;
+	
+	@Column(name = "key")
 	private String key;
 
-	@Column(name = "title")
+
 	public String getTitle() {
 		return title;
 	}
@@ -30,7 +51,6 @@ public class Manual extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "author")
 	public String getAuthor() {
 		return author;
 	}
@@ -39,7 +59,6 @@ public class Manual extends EntryTypes{
 		this.author = author;
 	}
 
-	@Column(name = "organization")
 	public String getOrganization() {
 		return organization;
 	}
@@ -48,7 +67,6 @@ public class Manual extends EntryTypes{
 		this.organization = organization;
 	}
 
-	@Column(name = "address")
 	public String getAddress() {
 		return address;
 	}
@@ -57,7 +75,6 @@ public class Manual extends EntryTypes{
 		this.address = address;
 	}
 
-	@Column(name = "edition")
 	public String getEdition() {
 		return edition;
 	}
@@ -66,7 +83,6 @@ public class Manual extends EntryTypes{
 		this.edition = edition;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -75,7 +91,6 @@ public class Manual extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -84,7 +99,6 @@ public class Manual extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "note")
 	public String getNote() {
 		return note;
 	}
@@ -93,7 +107,6 @@ public class Manual extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "key")
 	public String getKey() {
 		return key;
 	}

@@ -6,25 +6,52 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "Proceedings")
-public class Proceedings extends EntryTypes{
+public class Proceedings extends EntryTypes {
+
 	// required
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "title")
 	private String title;
+
+	@Column(name = "year")
 	private String year;
 
 	// optional
+	@Column(name = "editor")
 	private String editor;
+
+	@Column(name = "volume")
 	private String volume;
+
+	@Column(name = "number")
 	private String number;
+
+	@Column(name = "series")
 	private String series;
+
+	@Column(name = "address")
 	private String address;
+
+	@Column(name = "month")
 	private String month;
+
+	@Column(name = "organization")
 	private String organization;
+
+	@Column(name = "publisher")
 	private String publisher;
+
+	@Column(name = "note")
 	private String note;
+
+	@Column(name = "key")
 	private String key;
 
-	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -33,7 +60,6 @@ public class Proceedings extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -42,7 +68,6 @@ public class Proceedings extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "editor")
 	public String getEditor() {
 		return editor;
 	}
@@ -51,7 +76,6 @@ public class Proceedings extends EntryTypes{
 		this.editor = editor;
 	}
 
-	@Column(name = "volume")
 	public String getVolume() {
 		return volume;
 	}
@@ -60,7 +84,6 @@ public class Proceedings extends EntryTypes{
 		this.volume = volume;
 	}
 
-	@Column(name = "number")
 	public String getNumber() {
 		return number;
 	}
@@ -69,7 +92,6 @@ public class Proceedings extends EntryTypes{
 		this.number = number;
 	}
 
-	@Column(name = "series")
 	public String getSeries() {
 		return series;
 	}
@@ -78,7 +100,6 @@ public class Proceedings extends EntryTypes{
 		this.series = series;
 	}
 
-	@Column(name = "address")
 	public String getAddress() {
 		return address;
 	}
@@ -87,7 +108,6 @@ public class Proceedings extends EntryTypes{
 		this.address = address;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -96,7 +116,6 @@ public class Proceedings extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "organization")
 	public String getOrganization() {
 		return organization;
 	}
@@ -105,7 +124,6 @@ public class Proceedings extends EntryTypes{
 		this.organization = organization;
 	}
 
-	@Column(name = "publisher")
 	public String getPublisher() {
 		return publisher;
 	}
@@ -114,7 +132,6 @@ public class Proceedings extends EntryTypes{
 		this.publisher = publisher;
 	}
 
-	@Column(name = "note")
 	public String getNote() {
 		return note;
 	}
@@ -123,7 +140,6 @@ public class Proceedings extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "key")
 	public String getKey() {
 		return key;
 	}

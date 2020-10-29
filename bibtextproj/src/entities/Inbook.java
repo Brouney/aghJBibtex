@@ -8,26 +8,59 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Inbook")
 public class Inbook extends EntryTypes{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	// required
+	@Column(name = "author")
 	private String author;
+	
+	@Column(name = "editor")
 	private String editor;
+	
+	@Column(name = "title")
 	private String title;
+	
+	@Column(name = "year")
 	private String year;
+	
+	@Column(name = "publisher")
 	private String publisher;
 
 	// optional
+	@Column(name = "volume")
 	private String volume;
+	
+	@Column(name = "number")
 	private String number;
+	
+	@Column(name = "series")
 	private String series;
+	
+	@Column(name = "type")
 	private String type;
+	
+	@Column(name = "address")
 	private String address;
+	
+	@Column(name = "edition")
 	private String edition;
+	
+	@Column(name = "month")
 	private String month;
+	
+	@Column(name = "note")
 	private String note;
+	
+	@Column(name = "key")
 	private String key;
+	
+	@Column(name = "url")
 	private String url;
 
-	@Column(name = "type")
+	
 	public String getType() {
 		return type;
 	}
@@ -36,7 +69,7 @@ public class Inbook extends EntryTypes{
 		this.type = type;
 	}
 
-	@Column(name = "author")
+	
 	public String getAuthor() {
 		return author;
 	}
@@ -45,7 +78,7 @@ public class Inbook extends EntryTypes{
 		this.author = author;
 	}
 
-	@Column(name = "editor")
+	
 	public String getEditor() {
 		return editor;
 	}
@@ -54,7 +87,7 @@ public class Inbook extends EntryTypes{
 		this.editor = editor;
 	}
 
-	@Column(name = "title")
+	
 	public String getTitle() {
 		return title;
 	}
@@ -63,7 +96,7 @@ public class Inbook extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "year")
+	
 	public String getYear() {
 		return year;
 	}
@@ -72,7 +105,7 @@ public class Inbook extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "publisher")
+	
 	public String getPublisher() {
 		return publisher;
 	}
@@ -81,7 +114,7 @@ public class Inbook extends EntryTypes{
 		this.publisher = publisher;
 	}
 
-	@Column(name = "volume")
+	
 	public String getVolume() {
 		return volume;
 	}
@@ -90,7 +123,7 @@ public class Inbook extends EntryTypes{
 		this.volume = volume;
 	}
 
-	@Column(name = "number")
+	
 	public String getNumber() {
 		return number;
 	}
@@ -99,7 +132,7 @@ public class Inbook extends EntryTypes{
 		this.number = number;
 	}
 
-	@Column(name = "series")
+	
 	public String getSeries() {
 		return series;
 	}
@@ -108,7 +141,7 @@ public class Inbook extends EntryTypes{
 		this.series = series;
 	}
 
-	@Column(name = "address")
+	
 	public String getAddress() {
 		return address;
 	}
@@ -117,7 +150,7 @@ public class Inbook extends EntryTypes{
 		this.address = address;
 	}
 
-	@Column(name = "edition")
+	
 	public String getEdition() {
 		return edition;
 	}
@@ -126,7 +159,7 @@ public class Inbook extends EntryTypes{
 		this.edition = edition;
 	}
 
-	@Column(name = "month")
+	
 	public String getMonth() {
 		return month;
 	}
@@ -135,7 +168,7 @@ public class Inbook extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "note")
+	
 	public String getNote() {
 		return note;
 	}
@@ -144,7 +177,7 @@ public class Inbook extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "key")
+	
 	public String getKey() {
 		return key;
 	}
@@ -153,7 +186,7 @@ public class Inbook extends EntryTypes{
 		this.key = key;
 	}
 
-	@Column(name = "url")
+	
 	public String getUrl() {
 		return url;
 	}

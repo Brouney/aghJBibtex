@@ -1,31 +1,55 @@
 package entities;
 
+
+
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "Article")
-public class Article extends EntryTypes {
-	
+public class Article extends EntryTypes{
 
-	//required
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	// required
+	@Column(name = "author")
 	private String author;
+	
+	@Column(name = "title")
 	private String title;
+	
+	@Column(name = "year")
 	private String year;
+	
+	@Column(name = "volume")
 	private String volume;
-	private String journal;
-	
-	//optional
-	private String number;
-	private String pages;
-	private String month;
-	private String doi;
-	private String note;
-	private String key;
-	
 
 	@Column(name = "journal")
+	private String journal;
+
+	// optional
+	@Column(name = "number")
+	private String number;
+	
+	@Column(name = "pages")
+	private String pages;
+	
+	@Column(name = "month")
+	private String month;
+	
+	@Column(name = "doi")
+	private String doi;
+	
+	@Column(name = "note")
+	private String note;
+
+	@Column(name = "key")
+	private String key;
+
 	public String getJournal() {
 		return journal;
 	}
@@ -34,7 +58,6 @@ public class Article extends EntryTypes {
 		this.journal = journal;
 	}
 
-	@Column(name = "author")
 	public String getAuthor() {
 		return author;
 	}
@@ -43,7 +66,6 @@ public class Article extends EntryTypes {
 		this.author = author;
 	}
 
-	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -52,7 +74,6 @@ public class Article extends EntryTypes {
 		this.title = title;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -61,7 +82,6 @@ public class Article extends EntryTypes {
 		this.year = year;
 	}
 
-	@Column(name = "volume")
 	public String getVolume() {
 		return volume;
 	}
@@ -70,7 +90,6 @@ public class Article extends EntryTypes {
 		this.volume = volume;
 	}
 
-	@Column(name = "number")
 	public String getNumber() {
 		return number;
 	}
@@ -79,7 +98,6 @@ public class Article extends EntryTypes {
 		this.number = number;
 	}
 
-	@Column(name = "pages")
 	public String getPages() {
 		return pages;
 	}
@@ -88,7 +106,6 @@ public class Article extends EntryTypes {
 		this.pages = pages;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -97,7 +114,6 @@ public class Article extends EntryTypes {
 		this.month = month;
 	}
 
-	@Column(name = "doi")
 	public String getDoi() {
 		return doi;
 	}
@@ -106,7 +122,7 @@ public class Article extends EntryTypes {
 		this.doi = doi;
 	}
 
-	@Column(name = "note")
+	
 	public String getNote() {
 		return note;
 	}
@@ -115,7 +131,7 @@ public class Article extends EntryTypes {
 		this.note = note;
 	}
 
-	@Column(name = "key")
+	
 	public String getKey() {
 		return key;
 	}

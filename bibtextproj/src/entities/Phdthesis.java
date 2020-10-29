@@ -6,21 +6,43 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "Phdthesis")
-public class Phdthesis extends EntryTypes{
+public class Phdthesis extends EntryTypes {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// required
-	private String author;
-	private String title;
-	private String school;
-	private String year;
-	// optional
-	private String type;
-	private String address;
-	private String month;
-	private String note;
-	private String key;
 
 	@Column(name = "author")
+	private String author;
+
+	@Column(name = "title")
+	private String title;
+
+	@Column(name = "school")
+	private String school;
+
+	@Column(name = "year")
+	private String year;
+
+	// optional
+	@Column(name = "type")
+	private String type;
+
+	@Column(name = "address")
+	private String address;
+
+	@Column(name = "month")
+	private String month;
+
+	@Column(name = "note")
+	private String note;
+
+	@Column(name = "key")
+	private String key;
+
 	public String getAuthor() {
 		return author;
 	}
@@ -29,7 +51,6 @@ public class Phdthesis extends EntryTypes{
 		this.author = author;
 	}
 
-	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -38,7 +59,6 @@ public class Phdthesis extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "school")
 	public String getSchool() {
 		return school;
 	}
@@ -47,7 +67,6 @@ public class Phdthesis extends EntryTypes{
 		this.school = school;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -56,7 +75,6 @@ public class Phdthesis extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "type")
 	public String getType() {
 		return type;
 	}
@@ -65,7 +83,6 @@ public class Phdthesis extends EntryTypes{
 		this.type = type;
 	}
 
-	@Column(name = "address")
 	public String getAddress() {
 		return address;
 	}
@@ -74,7 +91,6 @@ public class Phdthesis extends EntryTypes{
 		this.address = address;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -83,7 +99,6 @@ public class Phdthesis extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "note")
 	public String getNote() {
 		return note;
 	}
@@ -92,7 +107,6 @@ public class Phdthesis extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "key")
 	public String getKey() {
 		return key;
 	}

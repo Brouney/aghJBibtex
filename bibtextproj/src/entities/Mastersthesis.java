@@ -8,19 +8,40 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value = "Mastersthesis")
 public class Mastersthesis extends EntryTypes{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// required
+	@Column(name = "author")
 	private String author;
+	
+	@Column(name = "title")
 	private String title;
+	
+	@Column(name = "school")
 	private String school;
+	
+	@Column(name = "year")
 	private String year;
+	
 	// optional
+	@Column(name = "type")
 	private String type;
+	
+	@Column(name = "address")
 	private String address;
+	
+	@Column(name = "month")
 	private String month;
+	
+	@Column(name = "note")
 	private String note;
+	
+	@Column(name = "key")
 	private String key;
 
-	@Column(name = "author")
+	
 	public String getAuthor() {
 		return author;
 	}
@@ -29,7 +50,6 @@ public class Mastersthesis extends EntryTypes{
 		this.author = author;
 	}
 
-	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -38,7 +58,6 @@ public class Mastersthesis extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "school")
 	public String getSchool() {
 		return school;
 	}
@@ -47,7 +66,6 @@ public class Mastersthesis extends EntryTypes{
 		this.school = school;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -56,7 +74,6 @@ public class Mastersthesis extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "type")
 	public String getType() {
 		return type;
 	}
@@ -65,7 +82,6 @@ public class Mastersthesis extends EntryTypes{
 		this.type = type;
 	}
 
-	@Column(name = "address")
 	public String getAddress() {
 		return address;
 	}
@@ -74,7 +90,6 @@ public class Mastersthesis extends EntryTypes{
 		this.address = address;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -83,7 +98,6 @@ public class Mastersthesis extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "note")
 	public String getNote() {
 		return note;
 	}
@@ -92,7 +106,6 @@ public class Mastersthesis extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "key")
 	public String getKey() {
 		return key;
 	}

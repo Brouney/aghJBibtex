@@ -6,17 +6,31 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue(value = "Unpublished")
-public class Unpublished extends EntryTypes{
+public class Unpublished extends EntryTypes {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// required
+	@Column(name = "author")
 	private String author;
+
+	@Column(name = "title")
 	private String title;
+
+	@Column(name = "note")
 	private String note;
+
 	// optional
+	@Column(name = "month")
 	private String month;
+
+	@Column(name = "year")
 	private String year;
+
+	@Column(name = "key")
 	private String key;
 
-	@Column(name = "author")
 	public String getAuthor() {
 		return author;
 	}
@@ -25,7 +39,6 @@ public class Unpublished extends EntryTypes{
 		this.author = author;
 	}
 
-	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -34,7 +47,6 @@ public class Unpublished extends EntryTypes{
 		this.title = title;
 	}
 
-	@Column(name = "note")
 	public String getNote() {
 		return note;
 	}
@@ -43,7 +55,6 @@ public class Unpublished extends EntryTypes{
 		this.note = note;
 	}
 
-	@Column(name = "month")
 	public String getMonth() {
 		return month;
 	}
@@ -52,7 +63,6 @@ public class Unpublished extends EntryTypes{
 		this.month = month;
 	}
 
-	@Column(name = "year")
 	public String getYear() {
 		return year;
 	}
@@ -61,7 +71,6 @@ public class Unpublished extends EntryTypes{
 		this.year = year;
 	}
 
-	@Column(name = "key")
 	public String getKey() {
 		return key;
 	}
