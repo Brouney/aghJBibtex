@@ -182,5 +182,27 @@ public class Book extends EntryTypes {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	public boolean equals(Book toCompare) {
+	if(
+			(this.address.equals(toCompare.getAddress())) &&
+			(this.editor.equals(toCompare.getEditor())) && 
+			(this.title.equals(toCompare.getTitle()))&&
+			(this.year.equals(toCompare.getYear()))&&
+			(this.publisher.equals(toCompare.getPublisher()))&&
+			(this.author.equals(toCompare.getAuthor()))&&
+			(this.volume.equals(toCompare.getVolume()))&&
+			(this.number.equals(toCompare.getNumber()))&&
+			(this.series.equals(toCompare.getSeries()))&&
+			(this.edition.equals(toCompare.getEdition()))&&
+			(this.month.equals(toCompare.getMonth())) &&
+			(this.note.equals(toCompare.getNote())) &&
+			(this.key.equals(toCompare.getKey())) &&
+			(this.url.equals(toCompare.getUrl())) 
+			) {return true;}
+	else {return false;}
+	
+	}
+	
 
 }

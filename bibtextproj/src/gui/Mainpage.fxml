@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SampleController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guicontrollers.MainPageController">
    <children>
       <BorderPane fx:id="mainBorderPane" layoutX="2.0" layoutY="1.0" prefHeight="910.0" prefWidth="1270.0">
          <left>
@@ -96,7 +96,7 @@
                      <children>
                         <VBox prefHeight="900.0" prefWidth="81.0">
                            <children>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="0">
+                              <Label fx:id="bookCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="5.0" />
                                  </VBox.margin>

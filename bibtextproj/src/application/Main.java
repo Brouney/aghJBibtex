@@ -9,18 +9,35 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Book;
+import entities.EntryTypes;
+import guicontrollers.MainPageController;
 
 public class Main extends Application {
+	
+	
+	public static MainPageController mainController;
+	
+	
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
+		
+		
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/gui/Sample.fxml"));
+			FXMLLoader loaderr = new FXMLLoader();
+			
+			AnchorPane root = (AnchorPane)loaderr.load(getClass().getResource("/gui/Mainpage.fxml").openStream());
 			Scene scene = new Scene(root,1270,915);
 			scene.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
-	
+			mainController = loaderr.getController();
+			//System.out.println(mainController.getClass().getName());
 			
 		} catch(Exception e) {
 			e.printStackTrace();
