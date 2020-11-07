@@ -140,6 +140,25 @@ public class Article extends EntryTypes{
 		this.key = key;
 	}
 
+	public boolean equals(Article toCompare) {
+		if(
+				(this.author.equals(toCompare.getAuthor())) &&
+				(this.journal.equals(toCompare.getJournal())) && 
+				(this.title.equals(toCompare.getTitle()))&&
+				(this.year.equals(toCompare.getYear()))&&
+				(this.volume.equals(toCompare.getVolume()))&&	
+				(this.pages.equals(toCompare.getPages()))&&
+				(this.number.equals(toCompare.getNumber()))&&
+				(this.month.equals(toCompare.getMonth())) &&
+				(this.note.equals(toCompare.getNote())) &&
+				(this.key.equals(toCompare.getKey())) &&
+				(this.doi.equals(toCompare.getDoi())) 
+				) {return true;}
+		else {return false;}
+		
+		}
+	
+	
 	@Override
 	public String toString() {
 		return "autor: " + author + " title: " + title;

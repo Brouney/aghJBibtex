@@ -167,7 +167,7 @@ public class BookController implements Initializable {
 		System.out.println("przed refresh");
 		refresh();
 		System.out.println("przed zmiana label");
-		Main.mainController.changeLabelCount(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
 
 	}
 
@@ -194,7 +194,7 @@ public class BookController implements Initializable {
 	void deleteAllFromList(ActionEvent event) {
 		listOfBooks.clear();
 		refresh();
-		Main.mainController.changeLabelCount(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
 	}
 
 	@FXML
@@ -224,7 +224,7 @@ public class BookController implements Initializable {
 		}
 		System.out.println("przed refresh");
 		refresh();
-		Main.mainController.changeLabelCount(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
 
 	}
 

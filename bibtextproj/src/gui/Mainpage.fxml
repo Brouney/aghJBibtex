@@ -23,67 +23,67 @@
                                     <Insets left="20.0" top="5.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Articlebt" mnemonicParsing="false" onAction="#showArticle" prefHeight="41.0" prefWidth="93.0" text="Article">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Bookletbt" mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Booklet">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Conferencebt" mnemonicParsing="false" onAction="#showConference" prefHeight="41.0" prefWidth="93.0" text="Conference">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Inbookbt" mnemonicParsing="false" onAction="#showInbook" prefHeight="41.0" prefWidth="93.0" text="Inbook">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Incollectionbt" mnemonicParsing="false" onAction="#showIncollection" prefHeight="41.0" prefWidth="93.0" text="Incollection">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Inproceedingsbt" mnemonicParsing="false" onAction="#showInproceedings" prefHeight="41.0" prefWidth="93.0" text="Inproceedings">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Manualbt" mnemonicParsing="false" onAction="#showManual" prefHeight="41.0" prefWidth="93.0" text="Manual">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Mastersthesisbt" mnemonicParsing="false" onAction="#showMastersthesis" prefHeight="41.0" prefWidth="93.0" text="Mastersthesis">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Miscbt" mnemonicParsing="false" onAction="#showMisc" prefHeight="41.0" prefWidth="93.0" text="Misc">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Phdthesisbt" mnemonicParsing="false" onAction="#showPhdthesis" prefHeight="41.0" prefWidth="93.0" text="Phdthesis">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Proceedingsbt" mnemonicParsing="false" onAction="#showProceedings" prefHeight="41.0" prefWidth="93.0" text="Proceedings">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Techreportbt" mnemonicParsing="false" onAction="#showTechreport" prefHeight="41.0" prefWidth="93.0" text="Techreport">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="93.0" text="Button">
+                              <Button fx:id="Unpublishedbt" mnemonicParsing="false" onAction="#showUnpublished" prefHeight="41.0" prefWidth="93.0" text="Unpublished">
                                  <VBox.margin>
                                     <Insets left="20.0" top="25.0" />
                                  </VBox.margin>
@@ -104,7 +104,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="articleCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -112,7 +112,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="bookletCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -120,7 +120,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="70.0" text="Label">
+                              <Label fx:id="conferenceCount" prefHeight="41.0" prefWidth="70.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -128,7 +128,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="inbookCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -136,7 +136,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="incollectionCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -144,7 +144,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="70.0" text="Label">
+                              <Label fx:id="inproceedingsCount" prefHeight="41.0" prefWidth="70.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -152,7 +152,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="manualCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -160,7 +160,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="mastersthesisCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -168,7 +168,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="miscCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -176,7 +176,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="72.0" text="Label">
+                              <Label fx:id="phdthesisCount" prefHeight="41.0" prefWidth="72.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -184,7 +184,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="proceedingsCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -192,7 +192,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="techreportCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
@@ -200,7 +200,7 @@
                                     <Insets left="27.0" />
                                  </padding>
                               </Label>
-                              <Label prefHeight="41.0" prefWidth="65.0" text="Label">
+                              <Label fx:id="unpublishedCount" prefHeight="41.0" prefWidth="65.0" text="0">
                                  <VBox.margin>
                                     <Insets left="5.0" top="25.0" />
                                  </VBox.margin>
