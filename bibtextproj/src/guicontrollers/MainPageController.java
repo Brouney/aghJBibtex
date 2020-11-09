@@ -109,28 +109,45 @@ public class MainPageController implements Initializable {
 	}
 
 	@FXML
+	void showBooklet(ActionEvent event) {
+		FxmlLoader loader = new FxmlLoader();
+    	Pane view = loader.getPage("Booklet");
+    	mainBorderPane.setCenter(view);
+	}
+	
+	@FXML
 	void showConference(ActionEvent event) {
-
+		FxmlLoader loader = new FxmlLoader();
+    	Pane view = loader.getPage("Conference");
+    	mainBorderPane.setCenter(view);
 	}
 
 	@FXML
 	void showInbook(ActionEvent event) {
-
+		FxmlLoader loader = new FxmlLoader();
+    	Pane view = loader.getPage("Inbook");
+    	mainBorderPane.setCenter(view);
 	}
 
 	@FXML
 	void showIncollection(ActionEvent event) {
-
+		FxmlLoader loader = new FxmlLoader();
+    	Pane view = loader.getPage("Incollection");
+    	mainBorderPane.setCenter(view);
 	}
 
 	@FXML
 	void showInproceedings(ActionEvent event) {
-
+		FxmlLoader loader = new FxmlLoader();
+    	Pane view = loader.getPage("Inproceedings");
+    	mainBorderPane.setCenter(view);
 	}
 
 	@FXML
 	void showManual(ActionEvent event) {
-
+		FxmlLoader loader = new FxmlLoader();
+    	Pane view = loader.getPage("Manual");
+    	mainBorderPane.setCenter(view);
 	}
 
 	@FXML

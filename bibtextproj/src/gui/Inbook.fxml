@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="907.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guicontrollers.BookletController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="907.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guicontrollers.InbookController">
    <children>
       <SplitPane dividerPositions="0.4707182320441989" layoutY="-1.0" orientation="VERTICAL" prefHeight="907.0" prefWidth="1050.0">
         <items>
@@ -22,19 +22,44 @@
                            <children>
                               <VBox layoutX="6.0" prefHeight="421.0" prefWidth="93.0">
                                  <children>
+                                    <Label prefHeight="17.0" prefWidth="54.0" text="Author*">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label prefHeight="17.0" prefWidth="56.0" text="Editor*">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
                                     <Label prefHeight="17.0" prefWidth="57.0" text="Title*">
                                        <VBox.margin>
-                                          <Insets left="30.0" top="15.0" />
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label prefHeight="17.0" prefWidth="57.0" text="Year*">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label prefHeight="17.0" prefWidth="54.0" text="Publisher*">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
                                  </children>
                               </VBox>
                               <VBox layoutX="100.0" prefHeight="421.0" prefWidth="424.0">
                                  <children>
-                                    <TextField fx:id="tfTitle">
+                                    <TextField fx:id="tfAuthor">
                                        <VBox.margin>
-                                          <Insets top="15.0" />
-                                       </VBox.margin></TextField>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="tfEditor" />
+                                    <TextField fx:id="tfTitle" />
+                                    <TextField fx:id="tfYear" />
+                                    <TextField fx:id="tfPublisher" />
                                  </children>
                               </VBox>
                            </children>
@@ -43,14 +68,19 @@
                            <children>
                               <VBox layoutX="7.0" prefHeight="421.0" prefWidth="86.0">
                                  <children>
-                                    <Label text="Author">
+                                    <Label prefHeight="17.0" prefWidth="51.0" text="Volume">
                                        <VBox.margin>
-                                          <Insets left="30.0" top="18.0" />
+                                          <Insets left="30.0" top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label prefHeight="17.0" prefWidth="82.0" text="Howpublished">
+                                    <Label text="Number">
                                        <VBox.margin>
-                                          <Insets top="8.0" />
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="Series">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
                                     <Label text="Address">
@@ -58,7 +88,7 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label text="Year">
+                                    <Label text="Edition">
                                        <VBox.margin>
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
@@ -78,20 +108,28 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
+                                    <Label text="Url">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
                                  </children>
                               </VBox>
                               <VBox layoutX="92.0" prefHeight="421.0" prefWidth="424.0">
                                  <children>
-                                    <TextField fx:id="tfAuthor">
+                                    <TextField fx:id="tfVolume">
                                        <VBox.margin>
-                                          <Insets top="15.0" />
-                                       </VBox.margin></TextField>
-                                    <TextField fx:id="tfHowpublished" />
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="tfNumber" />
+                                    <TextField fx:id="tfSeries" />
                                     <TextField fx:id="tfAddress" />
-                                    <TextField fx:id="tfYear" />
+                                    <TextField fx:id="tfEdition" />
                                     <TextField fx:id="tfMonth" />
                                     <TextField fx:id="tfNote" />
                                     <TextField fx:id="tfKey" />
+                                    <TextField fx:id="tfUrl" />
                                     <Button fx:id="cleantextid" mnemonicParsing="false" onAction="#cleanText" prefHeight="25.0" prefWidth="144.0" text="Wyczyść pola tekstowe">
                                        <VBox.margin>
                                           <Insets left="250.0" top="10.0" />
@@ -127,16 +165,22 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView fx:id="tvBooklet" layoutY="-1.0" prefHeight="423.0" prefWidth="1048.0">
+                  <TableView fx:id="tvInbook" layoutY="-1.0" prefHeight="423.0" prefWidth="1048.0">
                     <columns>
-                        <TableColumn fx:id="tcTitle" prefWidth="75.0" text="Title" />
                       <TableColumn fx:id="tcAuthor" prefWidth="75.0" text="Author" />
-                        <TableColumn fx:id="tcHowpublished" prefWidth="104.0" text="Howpublished" />
-                        <TableColumn fx:id="tcAddress" prefWidth="75.0" text="Address" />
+                      <TableColumn fx:id="tcEditor" prefWidth="75.0" text="Editor" />
+                        <TableColumn fx:id="tcTitle" prefWidth="75.0" text="Title" />
                         <TableColumn fx:id="tcYear" prefWidth="75.0" text="Year" />
+                        <TableColumn fx:id="tcPublisher" prefWidth="75.0" text="Publisher" />
+                        <TableColumn fx:id="tcVolume" prefWidth="75.0" text="Volume" />
+                        <TableColumn fx:id="tcNumber" prefWidth="75.0" text="Number" />
+                        <TableColumn fx:id="tcSeries" prefWidth="75.0" text="Series" />
+                        <TableColumn fx:id="tcAddress" prefWidth="75.0" text="Address" />
+                        <TableColumn fx:id="tcEdition" prefWidth="75.0" text="Edition" />
                         <TableColumn fx:id="tcMonth" prefWidth="75.0" text="Month" />
                         <TableColumn fx:id="tcNote" prefWidth="75.0" text="Note" />
                         <TableColumn fx:id="tcKey" prefWidth="75.0" text="Key" />
+                        <TableColumn fx:id="tcUrl" prefWidth="75.0" text="Url" />
                     </columns>
                   </TableView>
                </children></AnchorPane>
