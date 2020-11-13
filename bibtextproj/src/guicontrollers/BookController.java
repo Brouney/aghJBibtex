@@ -23,7 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class BookController implements Initializable {
 
 	public static List<EntryTypes> mainListOfTypes = new ArrayList<EntryTypes>();
-	public static List<Book> listOfBooks = new ArrayList<Book>();
+	
 
 	@FXML
 	private TextField tfAuthor;
@@ -159,7 +159,7 @@ public class BookController implements Initializable {
 
 			System.out.println("przed add");
 
-			listOfBooks.add(bookToAdd);
+			ClassOfLists.listOfBooks.add(bookToAdd);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -167,7 +167,7 @@ public class BookController implements Initializable {
 		System.out.println("przed refresh");
 		refresh();
 		System.out.println("przed zmiana label");
-		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
 
 	}
 
@@ -192,9 +192,9 @@ public class BookController implements Initializable {
 
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
-		listOfBooks.clear();
+		ClassOfLists.listOfBooks.clear();
 		refresh();
-		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
 	}
 
 	@FXML
@@ -216,15 +216,18 @@ public class BookController implements Initializable {
 		bookToDelete.setKey(tfKey.getText());
 		bookToDelete.setUrl(tfUrl.getText());
 		
+		int toDelInLoop = 0;
 		System.out.println("przed forem");
-		for (Book book : listOfBooks) {
+		for (Book book : ClassOfLists.listOfBooks) {
 			if (bookToDelete.equals(book)) {
-				listOfBooks.remove(book);
+				ClassOfLists.listOfBooks.remove(toDelInLoop);
+				break;
 			}
+			toDelInLoop+=1;
 		}
 		System.out.println("przed refresh");
 		refresh();
-		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
 
 	}
 
@@ -249,7 +252,7 @@ public class BookController implements Initializable {
 
 	void refresh() {
 
-		ObservableList<Book> tableViewList = FXCollections.observableArrayList(listOfBooks);
+		ObservableList<Book> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfBooks);
 
 		tvBooks.setItems(tableViewList);
 	}

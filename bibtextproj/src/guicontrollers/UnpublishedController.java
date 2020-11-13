@@ -1,92 +1,165 @@
 package guicontrollers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import application.Main;
 import entities.Unpublished;
+import entities.Unpublished;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class UnpublishedController {
+public class UnpublishedController implements Initializable {
 
-    @FXML
-    private TextField tfAuthor;
+	@FXML
+	private TextField tfAuthor;
 
-    @FXML
-    private TextField tfTitle;
+	@FXML
+	private TextField tfTitle;
 
-    @FXML
-    private TextField tfNote;
+	@FXML
+	private TextField tfNote;
 
-    @FXML
-    private TextField tfYear;
+	@FXML
+	private TextField tfYear;
 
-    @FXML
-    private TextField tfMonth;
+	@FXML
+	private TextField tfMonth;
 
-    @FXML
-    private TextField tfKey;
+	@FXML
+	private TextField tfKey;
 
-    @FXML
-    private Button cleantextid;
+	@FXML
+	private Button cleantextid;
 
-    @FXML
-    private Button addelementtolistid;
+	@FXML
+	private Button addelementtolistid;
 
-    @FXML
-    private Button deleteelementfromlistid;
+	@FXML
+	private Button deleteelementfromlistid;
 
-    @FXML
-    private Button deleteallfromlistid;
+	@FXML
+	private Button deleteallfromlistid;
 
-    @FXML
-    private Button addalltodbid;
+	@FXML
+	private Button addalltodbid;
 
-    @FXML
-    private TableView<Unpublished> tvUnpublished;
+	@FXML
+	private TableView<Unpublished> tvUnpublished;
 
-    @FXML
-    private TableColumn<Unpublished,String> tcAuthor;
+	@FXML
+	private TableColumn<Unpublished, String> tcAuthor;
 
-    @FXML
-    private TableColumn<Unpublished,String> tcTitle;
+	@FXML
+	private TableColumn<Unpublished, String> tcTitle;
 
-    @FXML
-    private TableColumn<Unpublished,String> tcNote;
+	@FXML
+	private TableColumn<Unpublished, String> tcNote;
 
-    @FXML
-    private TableColumn<Unpublished,String> tcYear;
+	@FXML
+	private TableColumn<Unpublished, String> tcYear;
 
-    @FXML
-    private TableColumn<Unpublished,String> tcMonth;
+	@FXML
+	private TableColumn<Unpublished, String> tcMonth;
 
-    @FXML
-    private TableColumn<Unpublished,String> tcKey;
+	@FXML
+	private TableColumn<Unpublished, String> tcKey;
 
-    @FXML
-    void addAllToDB(ActionEvent event) {
+	@FXML
+	void addAllToDB(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void addElementToList(ActionEvent event) {
+	@FXML
+	void addElementToList(ActionEvent event) {
+		Unpublished unpublishedToAdd = new Unpublished();
 
-    }
+		unpublishedToAdd.setAuthor(tfAuthor.getText());
+		unpublishedToAdd.setTitle(tfTitle.getText());
+		unpublishedToAdd.setYear(tfYear.getText());
+		unpublishedToAdd.setMonth(tfMonth.getText());
+		unpublishedToAdd.setNote(tfNote.getText());
+		unpublishedToAdd.setKey(tfKey.getText());
+	
+		
+		System.out.println("przed add");
 
-    @FXML
-    void cleanText(ActionEvent event) {
+		ClassOfLists.listOfUnpublished.add(unpublishedToAdd);
+		
+		refresh();
+		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
 
-    }
+	}
+	void refresh() {
 
-    @FXML
-    void deleteAllFromList(ActionEvent event) {
+		ObservableList<Unpublished> tableViewList = FXCollections
+				.observableArrayList(ClassOfLists.listOfUnpublished);
 
-    }
+		tvUnpublished.setItems(tableViewList);
+	}
+	@FXML
+	void cleanText(ActionEvent event) {
+		tfAuthor.setText("");
+		tfTitle.setText("");
+		tfYear.setText("");
+		tfMonth.setText("");
+		tfNote.setText("");
+		tfKey.setText("");
+	}
 
-    @FXML
-    void deleteElementFromList(ActionEvent event) {
+	@FXML
+	void deleteAllFromList(ActionEvent event) {
+		ClassOfLists.listOfUnpublished.clear();
+		refresh();
+		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
 
-    }
+	}
+
+	@FXML
+	void deleteElementFromList(ActionEvent event) {
+		Unpublished unpublishedToDel = new Unpublished();
+
+		
+		unpublishedToDel.setAuthor(tfAuthor.getText());
+		unpublishedToDel.setTitle(tfTitle.getText());
+		unpublishedToDel.setYear(tfYear.getText());
+		unpublishedToDel.setMonth(tfMonth.getText());
+		unpublishedToDel.setNote(tfNote.getText());
+		unpublishedToDel.setKey(tfKey.getText());
+		
+		int toDelInLoop = 0;
+		for (Unpublished todel : ClassOfLists.listOfUnpublished) {
+			if (unpublishedToDel.myequals(todel)) {
+				ClassOfLists.listOfUnpublished.remove( toDelInLoop);
+				break;
+			}
+			toDelInLoop+=1;
+		}
+		refresh();
+		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
+
+		
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		tcAuthor.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Author"));
+		tcTitle.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Title"));
+		tcYear.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Year"));
+		tcMonth.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Month"));
+		tcNote.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Note"));
+		tcKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Key"));
+		
+		
+	}
 
 }

@@ -123,5 +123,19 @@ public class Techreport extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
-
+	public boolean myequals(Techreport toCompare) {
+		if(
+				(this.address.equals(toCompare.getAddress())) &&
+				(this.title.equals(toCompare.getTitle()))&&
+				(this.year.equals(toCompare.getYear()))&&
+				(this.author.equals(toCompare.getAuthor()))&&
+				(this.month.equals(toCompare.getMonth())) &&
+				(this.note.equals(toCompare.getNote())) &&
+				(this.key.equals(toCompare.getKey())) &&
+				(this.type.equals(toCompare.getType())) &&
+				(this.institution.equals(toCompare.getInstitution())) 
+				) {return true;}
+		else {return false;}
+		
+		}
 }

@@ -94,7 +94,7 @@
                                     </TextField>
                                     <TextField fx:id="tfYear" />
                                     <TextField fx:id="tfAddress" />
-                                    <TextField fx:id="tfOrhanization" />
+                                    <TextField fx:id="tfOrganization" />
                                     <TextField fx:id="tfMonth" />
                                     <TextField fx:id="tfNote" />
                                     <TextField fx:id="tfKey" />

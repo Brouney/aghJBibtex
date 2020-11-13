@@ -3,7 +3,11 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import entities.Misc;
+import entities.Misc;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class MiscController  implements Initializable{
 
@@ -81,28 +86,102 @@ public class MiscController  implements Initializable{
 
     @FXML
     void addElementToList(ActionEvent event) {
+    	System.out.println("przed try");
+		try {
+			Misc miscToAdd = new Misc();
+
+			System.out.println("po try");
+
+			miscToAdd.setAuthor(tfAuthor.getText());
+			miscToAdd.setTitle(tfTitle.getText());
+			miscToAdd.setYear(tfYear.getText());
+			miscToAdd.setMonth(tfMonth.getText());
+			miscToAdd.setNote(tfNote.getText());
+			miscToAdd.setKey(tfKey.getText());
+			miscToAdd.setHowpublished(tfHowpublished.getText());
+
+			System.out.println("przed add");
+
+			ClassOfLists.listOfMisc.add(miscToAdd);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		System.out.println("przed refresh");
+		refresh();
+		System.out.println("przed zmiana label");
+		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
     }
+    void refresh() {
 
+		ObservableList<Misc> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfMisc);
+
+		tvMisc.setItems(tableViewList);
+	}
     @FXML
     void cleanText(ActionEvent event) {
-
+    	tfAuthor.setText("");
+		tfTitle.setText("");
+		tfYear.setText("");
+		tfMonth.setText("");
+		tfNote.setText("");
+		tfKey.setText("");
+		tfHowpublished.setText("");
     }
 
     @FXML
     void deleteAllFromList(ActionEvent event) {
+    	ClassOfLists.listOfMisc.clear();
+		refresh();
+		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
+	
     }
 
     @FXML
     void deleteElementFromList(ActionEvent event) {
+    	Misc miscToDel = new Misc();
 
+ 
+		System.out.println("po try");
+
+		miscToDel.setAuthor(tfAuthor.getText());
+		miscToDel.setTitle(tfTitle.getText());
+		miscToDel.setYear(tfYear.getText());
+		miscToDel.setMonth(tfMonth.getText());
+		miscToDel.setNote(tfNote.getText());
+		miscToDel.setKey(tfKey.getText());
+		miscToDel.setHowpublished(tfHowpublished.getText());
+		
+		int toDelInLoop = 0;
+		for (Misc todel : ClassOfLists.listOfMisc) {
+			if (miscToDel.myequals(todel)) {
+				ClassOfLists.listOfMisc.remove(toDelInLoop);
+				System.out.println("usunieto");
+				break;
+
+			}
+			toDelInLoop += 1;
+		}
+		
+		refresh();
+		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
+
+		
     }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+		tcAuthor.setCellValueFactory(new PropertyValueFactory<Misc, String>("Author"));
+		tcTitle.setCellValueFactory(new PropertyValueFactory<Misc, String>("Title"));
+		tcYear.setCellValueFactory(new PropertyValueFactory<Misc, String>("Year"));
+		tcMonth.setCellValueFactory(new PropertyValueFactory<Misc, String>("Month"));
+		tcNote.setCellValueFactory(new PropertyValueFactory<Misc, String>("Note"));
+		tcKey.setCellValueFactory(new PropertyValueFactory<Misc, String>("Key"));
+		tcHowpublished.setCellValueFactory(new PropertyValueFactory<Misc, String>("Howpublished"));
+
 	}
 
 }

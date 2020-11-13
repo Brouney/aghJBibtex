@@ -21,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ArticleController implements Initializable {
 
-	public static List<Article> listOfArticles = new ArrayList<Article>();
+	
 
 	@FXML
 	private TextField tfAuthor;
@@ -131,13 +131,13 @@ public class ArticleController implements Initializable {
 		bookToAdd.setKey(tfKey.getText());
 		bookToAdd.setDoi(tfDoi.getText());
 		
-		listOfArticles.add(bookToAdd);
+		ClassOfLists.listOfArticles.add(bookToAdd);
 		refresh();
-		Main.mainController.changeLabelCountArticle(Integer.toString((listOfArticles.size())));
+		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
 	}
 
 	void refresh() {
-		ObservableList<Article> tableViewList = FXCollections.observableArrayList(listOfArticles);
+		ObservableList<Article> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfArticles);
 
 		tvArticles.setItems(tableViewList);
 	}
@@ -161,9 +161,9 @@ public class ArticleController implements Initializable {
 
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
-		listOfArticles.clear();
+		ClassOfLists.listOfArticles.clear();
 		refresh();
-		Main.mainController.changeLabelCountArticle(Integer.toString((listOfArticles.size())));
+		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
 	}
 
 	@FXML
@@ -185,15 +185,17 @@ public class ArticleController implements Initializable {
 		articleToDel.setKey(tfKey.getText());
 		articleToDel.setDoi(tfDoi.getText());
 		
+		int toDelInLoop = 0;
 		System.out.println("przed forem");
-		for (Article art : listOfArticles) {
+		for (Article art : ClassOfLists.listOfArticles) {
 			if (articleToDel.equals(art)) {
-				listOfArticles.remove(art);
+				ClassOfLists.listOfArticles.remove(toDelInLoop);
 			}
+			toDelInLoop+=1;
 		}
 		System.out.println("przed refresh");
 		refresh();
-		Main.mainController.changeLabelCountArticle(Integer.toString((listOfArticles.size())));
+		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
 		
 	}
 

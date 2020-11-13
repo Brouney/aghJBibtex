@@ -90,5 +90,18 @@ public class Misc extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
+	public boolean myequals(Misc toCompare) {
+		if(
+				(this.title.equals(toCompare.getTitle()))&&
+				(this.year.equals(toCompare.getYear()))&&
+				(this.author.equals(toCompare.getAuthor()))&&
+				(this.month.equals(toCompare.getMonth())) &&
+				(this.note.equals(toCompare.getNote())) &&
+				(this.key.equals(toCompare.getKey())) &&
+				(this.howpublished.equals(toCompare.getHowpublished())) 
+				) {return true;}
+		else {return false;}
+		
+		}
 
 }

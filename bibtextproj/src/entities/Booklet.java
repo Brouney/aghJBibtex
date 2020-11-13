@@ -110,5 +110,20 @@ public class Booklet extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
+	public boolean myequals(Booklet toCompare) {
+		if(
+				(this.author.equals(toCompare.getAuthor())) &&
+				(this.title.equals(toCompare.getTitle()))&&
+				(this.year.equals(toCompare.getYear()))&&
+				
+				(this.month.equals(toCompare.getMonth())) &&
+				(this.note.equals(toCompare.getNote())) &&
+				(this.key.equals(toCompare.getKey())) &&
+				(this.howpublished.equals(toCompare.getHowpublished())) &&
+				(this.address.equals(toCompare.getAddress())) 
+				) {return true;}
+		else {return false;}
+		
+		}
 
 }

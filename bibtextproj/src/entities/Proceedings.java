@@ -147,4 +147,23 @@ public class Proceedings extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
+	
+	public boolean myequals(Proceedings toCompare) {
+		if(
+				(this.address.equals(toCompare.getAddress())) &&
+				(this.editor.equals(toCompare.getEditor())) && 
+				(this.title.equals(toCompare.getTitle()))&&
+				(this.year.equals(toCompare.getYear()))&&
+				(this.publisher.equals(toCompare.getPublisher()))&&
+				(this.volume.equals(toCompare.getVolume()))&&
+				(this.number.equals(toCompare.getNumber()))&&
+				(this.series.equals(toCompare.getSeries()))&&
+				(this.month.equals(toCompare.getMonth())) &&
+				(this.note.equals(toCompare.getNote())) &&
+				(this.key.equals(toCompare.getKey())) &&
+				(this.organization.equals(toCompare.getOrganization())) 
+				) {return true;}
+		else {return false;}
+		
+		}
 }

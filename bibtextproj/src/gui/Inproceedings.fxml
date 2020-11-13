@@ -68,7 +68,7 @@
                                        <VBox.margin>
                                           <Insets top="75.0" />
                                        </VBox.margin></TextField>
-                                    <TextField />
+                                    <TextField fx:id="tfPages" />
                                  </children>
                               </VBox>
                            </children>
@@ -134,7 +134,7 @@
                                     <TextField fx:id="tfNumber" />
                                     <TextField fx:id="tfSeries" />
                                     <TextField fx:id="tfAddress" />
-                                    <TextField fx:id="tfOrhanization" />
+                                    <TextField fx:id="tfOrganization" />
                                     <TextField fx:id="tfMonth" />
                                     <TextField fx:id="tfNote" />
                                     <TextField fx:id="tfKey" />
@@ -174,7 +174,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView fx:id="tvConference" layoutY="-1.0" prefHeight="423.0" prefWidth="1048.0">
+                  <TableView fx:id="tvInproceedings" layoutY="-1.0" prefHeight="423.0" prefWidth="1048.0">
                     <columns>
                       <TableColumn fx:id="tcAuthor" prefWidth="57.0" text="Author" />
                         <TableColumn fx:id="tcBooktitle" prefWidth="78.0" text="Booktitle" />

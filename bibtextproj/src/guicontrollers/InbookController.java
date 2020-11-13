@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 import entities.EntryTypes;
 import entities.Inbook;
 import javafx.collections.FXCollections;
@@ -22,9 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class InbookController implements Initializable {
-
-	public static List<EntryTypes> mainListOfTypes = new ArrayList<EntryTypes>();
-	public static List<Inbook> listOfBooks = new ArrayList<Inbook>();
 
 	@FXML
 	private TextField tfAuthor;
@@ -160,7 +156,7 @@ public class InbookController implements Initializable {
 
 			System.out.println("przed add");
 
-			listOfBooks.add(bookToAdd);
+			ClassOfLists.listOfInbook.add(bookToAdd);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -168,7 +164,7 @@ public class InbookController implements Initializable {
 		System.out.println("przed refresh");
 		refresh();
 		System.out.println("przed zmiana label");
-		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
 
 	}
 
@@ -193,9 +189,9 @@ public class InbookController implements Initializable {
 
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
-		listOfBooks.clear();
+		ClassOfLists.listOfInbook.clear();
 		refresh();
-		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
 	}
 
 	@FXML
@@ -216,16 +212,19 @@ public class InbookController implements Initializable {
 		bookToDelete.setNote(tfNote.getText());
 		bookToDelete.setKey(tfKey.getText());
 		bookToDelete.setUrl(tfUrl.getText());
-		
+
+		int toDelInLoop = 0;
 		System.out.println("przed forem");
-		for (Inbook book : listOfBooks) {
+		for (Inbook book : ClassOfLists.listOfInbook) {
 			if (bookToDelete.equals(book)) {
-				listOfBooks.remove(book);
+				ClassOfLists.listOfInbook.remove(toDelInLoop);
+				break;
 			}
+			toDelInLoop += 1;
 		}
 		System.out.println("przed refresh");
 		refresh();
-		Main.mainController.changeLabelCountBook(Integer.toString((listOfBooks.size())));
+		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
 
 	}
 
@@ -250,7 +249,7 @@ public class InbookController implements Initializable {
 
 	void refresh() {
 
-		ObservableList<Inbook> tableViewList = FXCollections.observableArrayList(listOfBooks);
+		ObservableList<Inbook> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfInbook);
 
 		tvInbook.setItems(tableViewList);
 	}

@@ -78,4 +78,17 @@ public class Unpublished extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
+	public boolean myequals(Unpublished toCompare) {
+		if(
+				(this.title.equals(toCompare.getTitle()))&&
+				(this.year.equals(toCompare.getYear()))&&
+				(this.author.equals(toCompare.getAuthor()))&&
+				(this.month.equals(toCompare.getMonth())) &&
+				(this.note.equals(toCompare.getNote())) &&
+				(this.key.equals(toCompare.getKey())) 
+				) {return true;}
+		else {return false;}
+		
+		}
+	
 }

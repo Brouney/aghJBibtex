@@ -178,5 +178,27 @@ public class Inproceedings extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
+	
+	public boolean myequals(Inproceedings toCompare) {
+	if(
+			(this.address.equals(toCompare.getAddress())) &&
+			(this.editor.equals(toCompare.getEditor())) && 
+			(this.title.equals(toCompare.getTitle()))&&
+			(this.year.equals(toCompare.getYear()))&&
+			(this.publisher.equals(toCompare.getPublisher()))&&
+			(this.author.equals(toCompare.getAuthor()))&&
+			(this.volume.equals(toCompare.getVolume()))&&
+			(this.number.equals(toCompare.getNumber()))&&
+			(this.series.equals(toCompare.getSeries()))&&
+			(this.booktitle.equals(toCompare.getBooktitle())) &&
+			(this.month.equals(toCompare.getMonth())) &&
+			(this.note.equals(toCompare.getNote())) &&
+			(this.key.equals(toCompare.getKey())) &&
+			(this.organization.equals(toCompare.getOrganization())) &&
+			(this.pages.equals(toCompare.getPages())) 
+			) {return true;}
+	else {return false;}
+	
+	}
 
 }

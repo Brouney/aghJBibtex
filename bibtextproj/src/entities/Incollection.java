@@ -200,5 +200,30 @@ public class Incollection extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
+	
+	public boolean myequals(Incollection toCompare) {
+		if(
+				(this.author.equals(toCompare.getAuthor())) &&
+				(this.booktitle.equals(toCompare.getBooktitle())) && 
+				(this.title.equals(toCompare.getTitle()))&&
+				(this.year.equals(toCompare.getYear()))&&
+				(this.publisher.equals(toCompare.getPublisher()))&&
+				
+				(this.volume.equals(toCompare.getVolume()))&&	
+				(this.pages.equals(toCompare.getPages()))&&
+				(this.number.equals(toCompare.getNumber()))&&
+				(this.month.equals(toCompare.getMonth())) &&
+				(this.note.equals(toCompare.getNote())) &&
+				(this.key.equals(toCompare.getKey())) &&
+				//(this.editor.equals(toCompare.getEditor())) &&
+				(this.series.equals(toCompare.getSeries())) &&
+				(this.type.equals(toCompare.getType())) &&
+				(this.edition.equals(toCompare.getEdition())) &&
+				(this.chapter.equals(toCompare.getChapter())) &&
+				(this.address.equals(toCompare.getAddress())) 
+				) {return true;}
+		else {return false;}
+		
+		}
 
 }
