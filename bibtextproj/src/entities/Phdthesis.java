@@ -4,6 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.jbibtex.BibTeXEntry;
+import org.jbibtex.StringValue;
+import org.jbibtex.Value;
+
 @Entity
 @DiscriminatorValue(value = "Phdthesis")
 public class Phdthesis extends EntryTypes {
@@ -42,6 +46,61 @@ public class Phdthesis extends EntryTypes {
 
 	@Column(name = "key")
 	private String key;
+
+	public Phdthesis() {
+	}
+
+	public Phdthesis(BibTeXEntry createFrom) {
+		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
+		StringValue strval = (StringValue) val;
+		if (strval != null) {
+			this.author = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_ADDRESS);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.address = strval.toUserString();
+		}
+
+		val = createFrom.getField(createFrom.KEY_TITLE);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.title = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_YEAR);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.year = strval.toUserString();
+		}
+
+		val = createFrom.getField(createFrom.KEY_MONTH);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.month = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_NOTE);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.note = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_KEY);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.key = strval.toUserString();
+		}
+
+		val = createFrom.getField(createFrom.KEY_SCHOOL);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.school = strval.toUserString();
+		}
+
+		val = createFrom.getField(createFrom.KEY_TYPE);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.type = strval.toUserString();
+		}
+	}
 
 	public String getAuthor() {
 		return author;
@@ -114,20 +173,17 @@ public class Phdthesis extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
-	
+
 	public boolean myequals(Phdthesis toCompare) {
-		if(
-				(this.address.equals(toCompare.getAddress())) &&
-				(this.title.equals(toCompare.getTitle()))&&
-				(this.year.equals(toCompare.getYear()))&&
-				(this.author.equals(toCompare.getAuthor()))&&
-				(this.month.equals(toCompare.getMonth())) &&
-				(this.note.equals(toCompare.getNote())) &&
-				(this.key.equals(toCompare.getKey())) &&
-				(this.type.equals(toCompare.getType())) &&
-				(this.school.equals(toCompare.getSchool())) 
-				) {return true;}
-		else {return false;}
-		
+		if ((this.address.equals(toCompare.getAddress())) && (this.title.equals(toCompare.getTitle()))
+				&& (this.year.equals(toCompare.getYear())) && (this.author.equals(toCompare.getAuthor()))
+				&& (this.month.equals(toCompare.getMonth())) && (this.note.equals(toCompare.getNote()))
+				&& (this.key.equals(toCompare.getKey())) && (this.type.equals(toCompare.getType()))
+				&& (this.school.equals(toCompare.getSchool()))) {
+			return true;
+		} else {
+			return false;
 		}
+
+	}
 }

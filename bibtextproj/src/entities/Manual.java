@@ -4,9 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.jbibtex.BibTeXEntry;
+import org.jbibtex.StringValue;
+import org.jbibtex.Value;
+
 @Entity
 @DiscriminatorValue(value = "Manual")
-public class Manual extends EntryTypes{
+public class Manual extends EntryTypes {
 
 	/**
 	 * 
@@ -20,28 +24,82 @@ public class Manual extends EntryTypes{
 	// optional
 	@Column(name = "author")
 	private String author;
-	
+
 	@Column(name = "organization")
 	private String organization;
-	
+
 	@Column(name = "address")
 	private String address;
-	
+
 	@Column(name = "edition")
 	private String edition;
-	
+
 	@Column(name = "month")
 	private String month;
-	
+
 	@Column(name = "year")
 	private String year;
-	
+
 	@Column(name = "note")
 	private String note;
-	
+
 	@Column(name = "key")
 	private String key;
 
+	public Manual() {
+	}
+
+	public Manual(BibTeXEntry createFrom) {
+		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
+		StringValue strval = (StringValue) val;
+		if (strval != null) {
+			this.author = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_ADDRESS);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.address = strval.toUserString();
+		}
+
+		val = createFrom.getField(createFrom.KEY_TITLE);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.title = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_YEAR);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.year = strval.toUserString();
+		}
+
+		val = createFrom.getField(createFrom.KEY_EDITION);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.edition = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_MONTH);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.month = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_NOTE);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.note = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_KEY);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.key = strval.toUserString();
+		}
+
+		val = createFrom.getField(createFrom.KEY_ORGANIZATION);
+		strval = (StringValue) val;
+		if (strval != null) {
+			this.organization = strval.toUserString();
+		}
+
+	}
 
 	public String getTitle() {
 		return title;
@@ -114,22 +172,18 @@ public class Manual extends EntryTypes{
 	public void setKey(String key) {
 		this.key = key;
 	}
-	
+
 	public boolean myequals(Manual toCompare) {
-		if(
-				(this.author.equals(toCompare.getAuthor())) &&
-				(this.title.equals(toCompare.getTitle()))&&
-				(this.year.equals(toCompare.getYear()))&&
-				(this.edition.equals(toCompare.getEdition())) &&
-				(this.month.equals(toCompare.getMonth())) &&
-				(this.note.equals(toCompare.getNote())) &&
-				(this.key.equals(toCompare.getKey())) &&
-				(this.organization.equals(toCompare.getOrganization())) &&
-				(this.address.equals(toCompare.getAddress())) 
-				) {return true;}
-		else {return false;}
-		
+		if ((this.author.equals(toCompare.getAuthor())) && (this.title.equals(toCompare.getTitle()))
+				&& (this.year.equals(toCompare.getYear())) && (this.edition.equals(toCompare.getEdition()))
+				&& (this.month.equals(toCompare.getMonth())) && (this.note.equals(toCompare.getNote()))
+				&& (this.key.equals(toCompare.getKey())) && (this.organization.equals(toCompare.getOrganization()))
+				&& (this.address.equals(toCompare.getAddress()))) {
+			return true;
+		} else {
+			return false;
 		}
 
+	}
 
 }

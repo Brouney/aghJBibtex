@@ -4,6 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.jbibtex.BibTeXEntry;
+import org.jbibtex.StringValue;
+import org.jbibtex.Value;
+
 @Entity
 @DiscriminatorValue(value = "Inproceedings")
 public class Inproceedings extends EntryTypes {
@@ -59,6 +63,93 @@ public class Inproceedings extends EntryTypes {
 	@Column(name = "key")
 	private String key;
 
+	
+	public Inproceedings() {}
+	public Inproceedings(BibTeXEntry createFrom) {
+		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
+		StringValue strval = (StringValue) val;
+		if(strval!= null) {
+			this.author = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_ADDRESS);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.address = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_EDITOR);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.editor = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_TITLE);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.title = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_YEAR);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.year = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_PUBLISHER);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.publisher = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_VOLUME);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.volume = strval.toUserString();
+		}
+		
+		val = createFrom.getField(createFrom.KEY_NUMBER);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.number = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_SERIES);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.series = strval.toUserString();
+		}
+		
+		val = createFrom.getField(createFrom.KEY_MONTH);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.month = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_NOTE);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.note = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_KEY);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.key = strval.toUserString();
+		}
+		
+		
+		val = createFrom.getField(createFrom.KEY_BOOKTITLE);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.booktitle = strval.toUserString();
+		}
+		
+		val = createFrom.getField(createFrom.KEY_ORGANIZATION);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.organization = strval.toUserString();
+		}
+		val = createFrom.getField(createFrom.KEY_PAGES);
+		strval = (StringValue) val;
+		if(strval!= null) {
+			this.pages = strval.toUserString();
+		}
+	
+	}
+	
+	
 	public String getAuthor() {
 		return author;
 	}

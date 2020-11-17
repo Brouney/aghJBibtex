@@ -1,8 +1,29 @@
 package guicontrollers;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.jbibtex.BibTeXDatabase;
+import org.jbibtex.BibTeXEntry;
+import org.jbibtex.BibTeXObject;
+import org.jbibtex.BibTeXParser;
+import org.jbibtex.Key;
+import org.jbibtex.ParseException;
+import org.jbibtex.StringValue;
+import org.jbibtex.TokenMgrException;
+import org.jbibtex.Value;
+
+import entities.Article;
+import entities.*;
 import gui.FxmlLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -102,10 +123,118 @@ public class MainPageController implements Initializable {
 	private Label unpublishedCount;
 
 	@FXML
+	private Button Loadfilebt;
+
+	@FXML
+	void loadFileMethod(ActionEvent event) throws Exception {
+		
+		File input = new File("C:\\Users\\Piotrkonto\\Desktop\\INZYNIER\\aghJBibtex\\bibtextproj\\src\\test\\file.bib");
+		
+		
+		BibTeXDatabase database = parseBibTeX(input);
+		
+		List<BibTeXObject> obj = database.getObjects();
+		Map<Key, BibTeXEntry> entries = database.getEntries();
+		Collection<BibTeXEntry> values = entries.values();
+		
+		
+		for(BibTeXEntry entry : values){
+
+			//System.out.println(entry.getType());
+			String toswitch = entry.getType().toString();
+			switch(toswitch) {
+			case "article":
+				ClassOfLists.listOfArticles.add(new Article(entry));
+				changeLabelCountArticle(Integer.toString(ClassOfLists.listOfArticles.size()));
+				break;
+			case "book":
+				ClassOfLists.listOfBooks.add(new Book(entry));
+				changeLabelCountBook(Integer.toString(ClassOfLists.listOfBooks.size()));
+				break;
+			case "booklet":
+				ClassOfLists.listOfBooklet.add(new Booklet(entry));
+				changeLabelCountBooklet(Integer.toString(ClassOfLists.listOfBooklet.size()));
+				break;
+			case "conference":
+				ClassOfLists.listOfConference.add(new Conference(entry));
+				changeLabelCountConference(Integer.toString(ClassOfLists.listOfConference.size()));
+				break;
+			case "inbook":
+				ClassOfLists.listOfInbook.add(new Inbook(entry));
+				changeLabelCountInbook(Integer.toString(ClassOfLists.listOfInbook.size()));
+				break;
+			case "incollection":
+				ClassOfLists.listOfIncollection.add(new Incollection(entry));
+				changeLabelCountIncollection(Integer.toString(ClassOfLists.listOfIncollection.size()));
+				break;
+			case "inproceedings":
+				ClassOfLists.listOfInproceedings.add(new Inproceedings(entry));
+				changeLabelCountInproceedings(Integer.toString(ClassOfLists.listOfInproceedings.size()));
+				break;
+			case "manual":
+				ClassOfLists.listOfManual.add(new Manual(entry));
+				changeLabelCountManual(Integer.toString(ClassOfLists.listOfManual.size()));
+				break;
+			case "mastersthesis":
+				ClassOfLists.listOfMastersthesis.add(new Mastersthesis(entry));
+				changeLabelCountMastersthesis(Integer.toString(ClassOfLists.listOfMastersthesis.size()));
+				break;
+			case "misc":
+				ClassOfLists.listOfMisc.add(new Misc(entry));
+				changeLabelCountMisc(Integer.toString(ClassOfLists.listOfMisc.size()));
+				break;
+			case "phdthesis":
+				ClassOfLists.listOfPhdthesis.add(new Phdthesis(entry));
+				changeLabelCountPhdthesis(Integer.toString(ClassOfLists.listOfPhdthesis.size()));
+				break;
+			case "proceedings":
+				ClassOfLists.listOfProceedings.add(new Proceedings(entry));
+				changeLabelCountProceedings(Integer.toString(ClassOfLists.listOfProceedings.size()));
+				break;
+			case "techreport":
+				ClassOfLists.listOfTechreport.add(new Techreport(entry));
+				changeLabelCountTechreport(Integer.toString(ClassOfLists.listOfTechreport.size()));
+				break;
+			
+			case "unpublished":
+				ClassOfLists.listOfUnpublished.add(new Unpublished(entry));
+				changeLabelCountUnpublished(Integer.toString(ClassOfLists.listOfUnpublished.size()));
+				break;
+			
+			}
+			
+			
+			
+			
+			Value str = entry.getField(entry.KEY_ADDRESS);
+			StringValue strval = (StringValue) str;
+			if(strval!= null)
+			System.out.println(str.toUserString());	
+			
+		}
+		
+		
+		
+	}
+	static
+	public BibTeXDatabase parseBibTeX(File file) throws IOException, ParseException {
+		Reader reader = new FileReader(file);
+
+		try {
+			BibTeXParser parser = new BibTeXParser();
+
+			return parser.parse(reader);
+		} finally {
+			reader.close();
+		}
+	}
+	@FXML
 	void showArticle(ActionEvent event) {
 		FxmlLoader loader = new FxmlLoader();
 		Pane view = loader.getPage("Article");
 		mainBorderPane.setCenter(view);
+		
+		
 	}
 
 	@FXML
@@ -260,5 +389,29 @@ public class MainPageController implements Initializable {
 		// TODO Auto-generated method stub
 
 	}
+	
+	
+	//metody ze strony 
+	
+	static
+	private BibTeXDatabase parse(BibTeXParser parser, String path) throws Exception {
+		InputStream is = (MainPageController.class).getResourceAsStream(path);
+
+		try {
+			Reader reader = new InputStreamReader(is, "US-ASCII");
+
+			try {
+				return parser.parse(reader);
+			} finally {
+				reader.close();
+			}
+		} finally {
+			is.close();
+		}
+	
+	
+	}
+	
+	
 
 }

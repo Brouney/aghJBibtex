@@ -2,10 +2,16 @@ package guicontrollers;
 
 import application.Main;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import org.jbibtex.ParseException;
+import org.jbibtex.TokenMgrException;
 
 import entities.Book;
 import entities.EntryTypes;
@@ -128,8 +134,16 @@ public class BookController implements Initializable {
 	private TableColumn<Book, String> tcUrl;
 
 	@FXML
-	void addAllToDB(ActionEvent event) {
-
+	void addAllToDB(ActionEvent event) throws TokenMgrException, ParseException {
+		
+		
+		
+		
+		
+	
+		
+		
+		
 	}
 
 	@FXML
