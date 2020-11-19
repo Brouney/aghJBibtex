@@ -13,6 +13,6 @@
 
 
 **Do zastanowienia:**
-[NIE] logowanie - rozdzielenie administratora i użytkownika, który może mieć ograniczone możliwości np.: tylko do przeglądania
-[NIE] wprowadzenie kategoryzacji dokumentów aby rozdzielić prace przykładowo fizyków jak i informatyków - bardziej szczegółowa analiza
-[NIE] eksport do wykorzystania w MS Word lub LibreOffice Writer
+- [NIE] logowanie - rozdzielenie administratora i użytkownika, który może mieć ograniczone możliwości np.: tylko do przeglądania
+- [NIE] wprowadzenie kategoryzacji dokumentów aby rozdzielić prace przykładowo fizyków jak i informatyków - bardziej szczegółowa analiza
+- [NIE] eksport do wykorzystania w MS Word lub LibreOffice Writer
