@@ -211,6 +211,14 @@ public class MainPageController implements Initializable {
 			if(strval!= null)
 			System.out.println(str.toUserString());	
 			
+			
+			//klucze identyfikatory
+			Key str2 = entry.getKey();
+			System.out.println(str2.getValue());//kl
+			
+			
+			
+			
 		}
 		
 		
