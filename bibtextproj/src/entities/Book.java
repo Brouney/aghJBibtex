@@ -5,6 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
+import org.jbibtex.LiteralValue;
 import org.jbibtex.StringValue;
 import org.jbibtex.Value;
 
@@ -65,27 +66,27 @@ public class Book extends EntryTypes {
 	public Book() {}
 	public Book(BibTeXEntry createFrom) {
 		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
-		StringValue strval = (StringValue) val;
+		LiteralValue strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.author = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_ADDRESS);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.address = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_EDITOR);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.editor = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_TITLE);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.title = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_YEAR);
-		strval = (StringValue) val;
+		 strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.year = strval.toUserString();
 		}
@@ -95,43 +96,43 @@ public class Book extends EntryTypes {
 			this.publisher = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_VOLUME);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.volume = strval.toUserString();
 		}
 		
 		val = createFrom.getField(createFrom.KEY_NUMBER);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.number = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_SERIES);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.series = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_EDITION);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.edition = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_MONTH);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.month = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_NOTE);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.note = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_KEY);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.key = strval.toUserString();
 		}
 		val = createFrom.getField(createFrom.KEY_URL);
-		strval = (StringValue) val;
+		strval = (LiteralValue) val;
 		if(strval!= null) {
 			this.url = strval.toUserString();
 		}
