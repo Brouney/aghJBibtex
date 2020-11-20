@@ -5,6 +5,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
+import org.jbibtex.Value;
+import org.jbibtex.ReferenceValue;
 import org.jbibtex.StringValue;
 import org.jbibtex.Value;
 
@@ -73,95 +75,254 @@ public class Incollection extends EntryTypes {
 	}
 
 	public Incollection(BibTeXEntry createFrom) {
-		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
-		StringValue strval = (StringValue) val;
-		if (strval != null) {
-			this.author = strval.toUserString();
+
+		Value val = null;
+		Value strval = null;
+		ReferenceValue refval = null;
+
+		try {
+			val = createFrom.getField(createFrom.KEY_AUTHOR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.author = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.author = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
 		}
-		val = createFrom.getField(createFrom.KEY_ADDRESS);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.address = strval.toUserString();
+		try {
+			val = createFrom.getField(createFrom.KEY_ADDRESS);
+			strval = (Value) val;
+			if (strval != null) {
+				this.address = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.address = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
 		}
-		val = createFrom.getField(createFrom.KEY_EDITOR);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.editor = strval.toUserString();
+		try {
+			val = createFrom.getField(createFrom.KEY_EDITOR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.editor = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.editor = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
 		}
-		val = createFrom.getField(createFrom.KEY_TITLE);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.title = strval.toUserString();
+		try {
+			val = createFrom.getField(createFrom.KEY_TITLE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.title = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.title = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
 		}
-		val = createFrom.getField(createFrom.KEY_YEAR);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.year = strval.toUserString();
+		try {
+			val = createFrom.getField(createFrom.KEY_YEAR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.year = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.year = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
 		}
-		val = createFrom.getField(createFrom.KEY_PUBLISHER);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.publisher = strval.toUserString();
+		try {
+			val = createFrom.getField(createFrom.KEY_PUBLISHER);
+			strval = (Value) val;
+			if (strval != null) {
+				this.publisher = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.publisher = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
 		}
-		val = createFrom.getField(createFrom.KEY_VOLUME);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.volume = strval.toUserString();
+		try {
+			val = createFrom.getField(createFrom.KEY_VOLUME);
+			strval = (Value) val;
+			if (strval != null) {
+				this.volume = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.volume = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_NUMBER);
+			strval = (Value) val;
+			if (strval != null) {
+				this.number = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.number = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_SERIES);
+			strval = (Value) val;
+			if (strval != null) {
+				this.series = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.series = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_EDITION);
+			strval = (Value) val;
+			if (strval != null) {
+				this.edition = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.edition = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_MONTH);
+			strval = (Value) val;
+			if (strval != null) {
+				this.month = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.month = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_NOTE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.note = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.note = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_KEY);
+			strval = (Value) val;
+			if (strval != null) {
+				this.key = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.key = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_BOOKTITLE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.booktitle = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.booktitle = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_CHAPTER);
+			strval = (Value) val;
+			if (strval != null) {
+				this.chapter = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.chapter = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_PAGES);
+			strval = (Value) val;
+			if (strval != null) {
+				this.pages = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.pages = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_TYPE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.type = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.type = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
 		}
 
-		val = createFrom.getField(createFrom.KEY_NUMBER);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.number = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_SERIES);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.series = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_EDITION);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.edition = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_MONTH);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.month = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_NOTE);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.note = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_KEY);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.key = strval.toUserString();
-		}
-
-		val = createFrom.getField(createFrom.KEY_BOOKTITLE);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.booktitle = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_CHAPTER);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.chapter = strval.toUserString();
-		}
-
-		val = createFrom.getField(createFrom.KEY_PAGES);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.pages = strval.toUserString();
-		}
-
-		val = createFrom.getField(createFrom.KEY_TYPE);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.type = strval.toUserString();
-		}
 	}
 
 	public String getAuthor() {

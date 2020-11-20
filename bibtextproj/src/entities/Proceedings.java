@@ -5,6 +5,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
+import org.jbibtex.Value;
+import org.jbibtex.ReferenceValue;
 import org.jbibtex.StringValue;
 import org.jbibtex.Value;
 
@@ -56,77 +58,190 @@ public class Proceedings extends EntryTypes {
 	@Column(name = "key")
 	private String key;
 
-	public Proceedings() {}
-	public Proceedings(BibTeXEntry createFrom) {
-		Value val = createFrom.getField(createFrom.KEY_ADDRESS);
-		StringValue strval = (StringValue) val;
-		if(strval!= null) {
-			this.address = strval.toUserString();
-		}
-	
-		val = createFrom.getField(createFrom.KEY_EDITOR);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.editor = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_TITLE);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.title = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_YEAR);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.year = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_PUBLISHER);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.publisher = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_VOLUME);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.volume = strval.toUserString();
-		}
-		
-		val = createFrom.getField(createFrom.KEY_NUMBER);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.number = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_SERIES);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.series = strval.toUserString();
-		}
-	
-		val = createFrom.getField(createFrom.KEY_MONTH);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.month = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_NOTE);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.note = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_KEY);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.key = strval.toUserString();
-		}
-		
-		
-		
-		val = createFrom.getField(createFrom.KEY_ORGANIZATION);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.organization = strval.toUserString();
-		}
-	
+	public Proceedings() {
 	}
-	
+
+	public Proceedings(BibTeXEntry createFrom) {
+
+		Value val = null;
+		Value strval = null;
+		ReferenceValue refval = null;
+
+		try {
+			val = createFrom.getField(createFrom.KEY_ADDRESS);
+			strval = (Value) val;
+			if (strval != null) {
+				this.address = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.address = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_EDITOR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.editor = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.editor = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_TITLE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.title = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.title = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_YEAR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.year = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.year = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_PUBLISHER);
+			strval = (Value) val;
+			if (strval != null) {
+				this.publisher = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.publisher = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_VOLUME);
+			strval = (Value) val;
+			if (strval != null) {
+				this.volume = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.volume = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_NUMBER);
+			strval = (Value) val;
+			if (strval != null) {
+				this.number = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.number = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_SERIES);
+			strval = (Value) val;
+			if (strval != null) {
+				this.series = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.series = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_MONTH);
+			strval = (Value) val;
+			if (strval != null) {
+				this.month = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.month = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_NOTE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.note = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.note = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_KEY);
+			strval = (Value) val;
+			if (strval != null) {
+				this.key = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.key = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_ORGANIZATION);
+			strval = (Value) val;
+			if (strval != null) {
+				this.organization = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.organization = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -222,23 +337,18 @@ public class Proceedings extends EntryTypes {
 	public void setKey(String key) {
 		this.key = key;
 	}
-	
+
 	public boolean myequals(Proceedings toCompare) {
-		if(
-				(this.address.equals(toCompare.getAddress())) &&
-				(this.editor.equals(toCompare.getEditor())) && 
-				(this.title.equals(toCompare.getTitle()))&&
-				(this.year.equals(toCompare.getYear()))&&
-				(this.publisher.equals(toCompare.getPublisher()))&&
-				(this.volume.equals(toCompare.getVolume()))&&
-				(this.number.equals(toCompare.getNumber()))&&
-				(this.series.equals(toCompare.getSeries()))&&
-				(this.month.equals(toCompare.getMonth())) &&
-				(this.note.equals(toCompare.getNote())) &&
-				(this.key.equals(toCompare.getKey())) &&
-				(this.organization.equals(toCompare.getOrganization())) 
-				) {return true;}
-		else {return false;}
-		
+		if ((this.address.equals(toCompare.getAddress())) && (this.editor.equals(toCompare.getEditor()))
+				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
+				&& (this.publisher.equals(toCompare.getPublisher())) && (this.volume.equals(toCompare.getVolume()))
+				&& (this.number.equals(toCompare.getNumber())) && (this.series.equals(toCompare.getSeries()))
+				&& (this.month.equals(toCompare.getMonth())) && (this.note.equals(toCompare.getNote()))
+				&& (this.key.equals(toCompare.getKey())) && (this.organization.equals(toCompare.getOrganization()))) {
+			return true;
+		} else {
+			return false;
 		}
+
+	}
 }

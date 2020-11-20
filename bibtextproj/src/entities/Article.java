@@ -1,39 +1,34 @@
 package entities;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
 import org.jbibtex.LiteralValue;
+import org.jbibtex.ReferenceValue;
 import org.jbibtex.StringValue;
 import org.jbibtex.Value;
 
 @Entity
 @DiscriminatorValue(value = "Article")
-public class Article extends EntryTypes{
+public class Article extends EntryTypes {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-
-	
-	
-	
 	// required
 	@Column(name = "author")
 	private String author;
-	
+
 	@Column(name = "title")
 	private String title;
-	
+
 	@Column(name = "year")
 	private String year;
-	
+
 	@Column(name = "volume")
 	private String volume;
 
@@ -43,91 +38,190 @@ public class Article extends EntryTypes{
 	// optional
 	@Column(name = "number")
 	private String number;
-	
+
 	@Column(name = "pages")
 	private String pages;
-	
+
 	@Column(name = "month")
 	private String month;
-	
+
 	@Column(name = "doi")
 	private String doi;
-	
+
 	@Column(name = "note")
 	private String note;
 
 	@Column(name = "key")
 	private String key;
 
-	
-	public Article(){}
-	public Article(BibTeXEntry createFrom){
-		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
-		LiteralValue strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.author = strval.toUserString();
-		}
-		
-		val = createFrom.getField(createFrom.KEY_JOURNAL);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.journal = strval.toUserString();
-		}
-		
-		val = createFrom.getField(createFrom.KEY_TITLE);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.title = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_YEAR);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.year = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_VOLUME);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.volume = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_PAGES);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.pages = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_NUMBER);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.number = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_MONTH);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.month = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_NOTE);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.note = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_KEY);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.key = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_DOI);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.doi = strval.toUserString();
-		}
-		
-		
-		
+	public Article() {
 	}
-	
-	
-	
-	
-	
+
+	public Article(BibTeXEntry createFrom) {
+		Value val = null;
+		ReferenceValue refval = null;
+		Value strval = null;
+		try {
+			val = createFrom.getField(createFrom.KEY_AUTHOR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.author = strval.toUserString();
+			}
+
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.author = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			val = createFrom.getField(createFrom.KEY_JOURNAL);
+			strval = (Value) val;
+			if (strval != null) {
+				this.journal = strval.toUserString();
+			}
+
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.journal = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_TITLE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.title = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.title = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			val = createFrom.getField(createFrom.KEY_YEAR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.year = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.year = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_VOLUME);
+			strval = (Value) val;
+			if (strval != null) {
+				this.volume = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.volume = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_PAGES);
+			strval = (Value) val;
+			if (strval != null) {
+				this.pages = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.pages = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_NUMBER);
+			strval = (Value) val;
+			if (strval != null) {
+				this.number = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.number = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_MONTH);
+			strval = (Value) val;
+			if (strval != null) {
+				this.month = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.month = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_NOTE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.note = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.note = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_KEY);
+			strval = (Value) val;
+			if (strval != null) {
+				this.key = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.key = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_DOI);
+			strval = (Value) val;
+			if (strval != null) {
+				this.doi = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.doi = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+
+	}
+
 	public String getJournal() {
 		return journal;
 	}
@@ -200,7 +294,6 @@ public class Article extends EntryTypes{
 		this.doi = doi;
 	}
 
-	
 	public String getNote() {
 		return note;
 	}
@@ -209,7 +302,6 @@ public class Article extends EntryTypes{
 		this.note = note;
 	}
 
-	
 	public String getKey() {
 		return key;
 	}
@@ -219,24 +311,19 @@ public class Article extends EntryTypes{
 	}
 
 	public boolean equals(Article toCompare) {
-		if(
-				(this.author.equals(toCompare.getAuthor())) &&
-				(this.journal.equals(toCompare.getJournal())) && 
-				(this.title.equals(toCompare.getTitle()))&&
-				(this.year.equals(toCompare.getYear()))&&
-				(this.volume.equals(toCompare.getVolume()))&&	
-				(this.pages.equals(toCompare.getPages()))&&
-				(this.number.equals(toCompare.getNumber()))&&
-				(this.month.equals(toCompare.getMonth())) &&
-				(this.note.equals(toCompare.getNote())) &&
-				(this.key.equals(toCompare.getKey())) &&
-				(this.doi.equals(toCompare.getDoi())) 
-				) {return true;}
-		else {return false;}
-		
+		if ((this.author.equals(toCompare.getAuthor())) && (this.journal.equals(toCompare.getJournal()))
+				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
+				&& (this.volume.equals(toCompare.getVolume())) && (this.pages.equals(toCompare.getPages()))
+				&& (this.number.equals(toCompare.getNumber())) && (this.month.equals(toCompare.getMonth()))
+				&& (this.note.equals(toCompare.getNote())) && (this.key.equals(toCompare.getKey()))
+				&& (this.doi.equals(toCompare.getDoi()))) {
+			return true;
+		} else {
+			return false;
 		}
-	
-	
+
+	}
+
 	@Override
 	public String toString() {
 		return "autor: " + author + " title: " + title;

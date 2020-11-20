@@ -5,6 +5,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
+import org.jbibtex.Value;
+import org.jbibtex.ReferenceValue;
 import org.jbibtex.StringValue;
 import org.jbibtex.Value;
 
@@ -43,43 +45,109 @@ public class Misc extends EntryTypes {
 	}
 
 	public Misc(BibTeXEntry createFrom) {
-		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
-		StringValue strval = (StringValue) val;
-		if (strval != null) {
-			this.author = strval.toUserString();
-		}
+		Value val = null;
+		Value strval = null;
+		ReferenceValue refval = null;
+		try {
+			val = createFrom.getField(createFrom.KEY_AUTHOR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.author = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.author = refval.toUserString();
+			}
 
-		val = createFrom.getField(createFrom.KEY_TITLE);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.title = strval.toUserString();
+			System.out.println(e.getMessage());System.out.print("Misc");
 		}
-		val = createFrom.getField(createFrom.KEY_YEAR);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.year = strval.toUserString();
-		}
+		try {
 
-		val = createFrom.getField(createFrom.KEY_MONTH);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.month = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_NOTE);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.note = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_KEY);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.key = strval.toUserString();
-		}
+			val = createFrom.getField(createFrom.KEY_TITLE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.title = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.title = refval.toUserString();
+			}
 
-		val = createFrom.getField(createFrom.KEY_HOWPUBLISHED);
-		strval = (StringValue) val;
-		if (strval != null) {
-			this.howpublished = strval.toUserString();
+			System.out.println(e.getMessage());System.out.print("Misc");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_YEAR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.year = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.year = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());System.out.print("Misc");
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_MONTH);
+			strval = (Value) val;
+			if (strval != null) {
+				this.month = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.month = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());System.out.print("Misc");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_NOTE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.note = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.note = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());System.out.print("Misc");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_KEY);
+			strval = (Value) val;
+			if (strval != null) {
+				this.key = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.key = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());System.out.print("Misc");
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_HOWPUBLISHED);
+			strval = (Value) val;
+			if (strval != null) {
+				this.howpublished = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.howpublished = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());System.out.print("Misc");
 		}
 
 	}

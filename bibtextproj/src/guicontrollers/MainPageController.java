@@ -128,75 +128,94 @@ public class MainPageController implements Initializable {
 	@FXML
 	void loadFileMethod(ActionEvent event) throws Exception {
 		
-		File input = new File("C:\\Users\\Piotrkonto\\Desktop\\INZYNIER\\aghJBibtex\\bibtextproj\\src\\test\\file.bib");
+		File input = new File("C:\\Users\\Piotrkonto\\Desktop\\INZYNIER\\aghJBibtex\\bibtextproj\\src\\test\\file2.bib");
 		
-		
+		try {
 		BibTeXDatabase database = parseBibTeX(input);
 		
 		List<BibTeXObject> obj = database.getObjects();
 		Map<Key, BibTeXEntry> entries = database.getEntries();
 		Collection<BibTeXEntry> values = entries.values();
-		
-		
+		int i = 0;
+		int proceed = 0;
+		int book = 0;
+		int articlee = 0;
 		for(BibTeXEntry entry : values){
-
+			
 			//System.out.println(entry.getType());
-			String toswitch = entry.getType().toString();
+			String toswitch = entry.getType().toString();//System.out.println(i++ + toswitch);
 			switch(toswitch) {
 			case "article":
+			case "Article":
 				ClassOfLists.listOfArticles.add(new Article(entry));
 				changeLabelCountArticle(Integer.toString(ClassOfLists.listOfArticles.size()));
+				articlee++;
 				break;
 			case "book":
+			case "Book":
+				book++;
 				ClassOfLists.listOfBooks.add(new Book(entry));
 				changeLabelCountBook(Integer.toString(ClassOfLists.listOfBooks.size()));
 				break;
 			case "booklet":
+			case "Booklet":
 				ClassOfLists.listOfBooklet.add(new Booklet(entry));
 				changeLabelCountBooklet(Integer.toString(ClassOfLists.listOfBooklet.size()));
 				break;
 			case "conference":
+			case "Conference":
 				ClassOfLists.listOfConference.add(new Conference(entry));
 				changeLabelCountConference(Integer.toString(ClassOfLists.listOfConference.size()));
 				break;
 			case "inbook":
+			case "Inbook":
 				ClassOfLists.listOfInbook.add(new Inbook(entry));
 				changeLabelCountInbook(Integer.toString(ClassOfLists.listOfInbook.size()));
 				break;
 			case "incollection":
+			case "Incollection":
 				ClassOfLists.listOfIncollection.add(new Incollection(entry));
 				changeLabelCountIncollection(Integer.toString(ClassOfLists.listOfIncollection.size()));
 				break;
 			case "inproceedings":
+			case "InProceedings":
 				ClassOfLists.listOfInproceedings.add(new Inproceedings(entry));
 				changeLabelCountInproceedings(Integer.toString(ClassOfLists.listOfInproceedings.size()));
 				break;
 			case "manual":
+			case "Manual":
 				ClassOfLists.listOfManual.add(new Manual(entry));
 				changeLabelCountManual(Integer.toString(ClassOfLists.listOfManual.size()));
 				break;
 			case "mastersthesis":
+			case "MastersThesis":
 				ClassOfLists.listOfMastersthesis.add(new Mastersthesis(entry));
 				changeLabelCountMastersthesis(Integer.toString(ClassOfLists.listOfMastersthesis.size()));
 				break;
 			case "misc":
+			case "Misc":
 				ClassOfLists.listOfMisc.add(new Misc(entry));
 				changeLabelCountMisc(Integer.toString(ClassOfLists.listOfMisc.size()));
 				break;
 			case "phdthesis":
+			case "PhdThesis":
 				ClassOfLists.listOfPhdthesis.add(new Phdthesis(entry));
 				changeLabelCountPhdthesis(Integer.toString(ClassOfLists.listOfPhdthesis.size()));
 				break;
 			case "proceedings":
+			case "Proceedings":
+				proceed++;
 				ClassOfLists.listOfProceedings.add(new Proceedings(entry));
 				changeLabelCountProceedings(Integer.toString(ClassOfLists.listOfProceedings.size()));
 				break;
 			case "techreport":
+			case "TechReport":
 				ClassOfLists.listOfTechreport.add(new Techreport(entry));
 				changeLabelCountTechreport(Integer.toString(ClassOfLists.listOfTechreport.size()));
 				break;
 			
 			case "unpublished":
+			case "Unpublished":
 				ClassOfLists.listOfUnpublished.add(new Unpublished(entry));
 				changeLabelCountUnpublished(Integer.toString(ClassOfLists.listOfUnpublished.size()));
 				break;
@@ -204,7 +223,7 @@ public class MainPageController implements Initializable {
 			}
 			
 			
-			
+			/*
 			
 			Value str = entry.getField(entry.KEY_ADDRESS);
 			StringValue strval = (StringValue) str;
@@ -216,10 +235,17 @@ public class MainPageController implements Initializable {
 			Key str2 = entry.getKey();
 			System.out.println(str2.getValue());//kl
 			
+			*/
 			
 			
 			
 		}
+		//System.out.println("book: "+book+"\nproceedings: "+proceed+"\narticle: "+articlee);
+		
+		
+		}catch(Exception e) {System.out.println(e.getMessage());}	
+			
+		
 		
 		
 		

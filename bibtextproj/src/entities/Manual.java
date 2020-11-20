@@ -5,7 +5,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
-import org.jbibtex.LiteralValue;
+import org.jbibtex.Value;
+import org.jbibtex.ReferenceValue;
 import org.jbibtex.StringValue;
 import org.jbibtex.Value;
 
@@ -51,53 +52,138 @@ public class Manual extends EntryTypes {
 	}
 
 	public Manual(BibTeXEntry createFrom) {
-		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
-		LiteralValue strval = (LiteralValue) val;
-		if (strval != null) {
-			this.author = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_ADDRESS);
-		strval = (LiteralValue) val;
-		if (strval != null) {
-			this.address = strval.toUserString();
-		}
+		Value val = null;
+		Value strval = null;
+		ReferenceValue refval = null;
+		
+		try {
+			val = createFrom.getField(createFrom.KEY_AUTHOR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.author = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.author = refval.toUserString();
+			}
 
-		val = createFrom.getField(createFrom.KEY_TITLE);
-		strval = (LiteralValue) val;
-		if (strval != null) {
-			this.title = strval.toUserString();
+			System.out.print(e.getMessage());System.out.println("manualau");
 		}
-		val = createFrom.getField(createFrom.KEY_YEAR);
-		strval = (LiteralValue) val;
-		if (strval != null) {
-			this.year = strval.toUserString();
-		}
+		try {
+			val = createFrom.getField(createFrom.KEY_ADDRESS);
+			strval = (Value) val;
+			if (strval != null) {
+				this.address = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.address = refval.toUserString();
+			}
 
-		val = createFrom.getField(createFrom.KEY_EDITION);
-		strval = (LiteralValue) val;
-		if (strval != null) {
-			this.edition = strval.toUserString();
+			System.out.print(e.getMessage());System.out.println("manualad");
 		}
-		val = createFrom.getField(createFrom.KEY_MONTH);
-		strval = (LiteralValue) val;
-		if (strval != null) {
-			this.month = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_NOTE);
-		strval = (LiteralValue) val;
-		if (strval != null) {
-			this.note = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_KEY);
-		strval = (LiteralValue) val;
-		if (strval != null) {
-			this.key = strval.toUserString();
-		}
+		try {
 
-		val = createFrom.getField(createFrom.KEY_ORGANIZATION);
-		strval = (LiteralValue) val;
-		if (strval != null) {
-			this.organization = strval.toUserString();
+			val = createFrom.getField(createFrom.KEY_TITLE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.title = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.title = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());System.out.println("manualtit");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_YEAR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.year = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.year = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());System.out.println("manualyea");
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_EDITION);
+			strval = (Value) val;
+			if (strval != null) {
+				this.edition = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.edition = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());System.out.println("manualed");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_MONTH);
+			strval = (Value) val;
+			if (strval != null) {
+				this.month = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.month = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());System.out.println("manualmon");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_NOTE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.note = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.note = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());System.out.println("manualnote");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_KEY);
+			strval = (Value) val;
+			if (strval != null) {
+				this.key = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.key = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());System.out.println("manualkey");
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_ORGANIZATION);
+			strval = (Value) val;
+			if (strval != null) {
+				this.organization = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.organization = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());System.out.println("manualorg");
 		}
 
 	}

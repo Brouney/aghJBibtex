@@ -5,7 +5,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
-import org.jbibtex.LiteralValue;
+import org.jbibtex.Value;
+import org.jbibtex.ReferenceValue;
 import org.jbibtex.StringValue;
 import org.jbibtex.Value;
 
@@ -21,127 +22,254 @@ public class Book extends EntryTypes {
 	// required
 	@Column(name = "author")
 	private String author;
-	
+
 	@Column(name = "editor")
 	private String editor;
-	
+
 	@Column(name = "title")
 	private String title;
-	
+
 	@Column(name = "year")
 	private String year;
-	
+
 	@Column(name = "publisher")
 	private String publisher;
 
 	// optional
 	@Column(name = "volume")
 	private String volume;
-	
+
 	@Column(name = "number")
 	private String number;
-	
+
 	@Column(name = "series")
 	private String series;
-	
+
 	@Column(name = "address")
 	private String address;
-	
+
 	@Column(name = "edition")
 	private String edition;
-	
+
 	@Column(name = "month")
 	private String month;
-	
+
 	@Column(name = "note")
 	private String note;
-	
+
 	@Column(name = "key")
 	private String key;
-	
+
 	@Column(name = "url")
 	private String url;
 
-	
-	public Book() {}
-	public Book(BibTeXEntry createFrom) {
-		Value val = createFrom.getField(createFrom.KEY_AUTHOR);
-		LiteralValue strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.author = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_ADDRESS);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.address = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_EDITOR);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.editor = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_TITLE);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.title = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_YEAR);
-		 strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.year = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_PUBLISHER);
-		strval = (StringValue) val;
-		if(strval!= null) {
-			this.publisher = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_VOLUME);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.volume = strval.toUserString();
-		}
-		
-		val = createFrom.getField(createFrom.KEY_NUMBER);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.number = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_SERIES);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.series = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_EDITION);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.edition = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_MONTH);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.month = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_NOTE);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.note = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_KEY);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.key = strval.toUserString();
-		}
-		val = createFrom.getField(createFrom.KEY_URL);
-		strval = (LiteralValue) val;
-		if(strval!= null) {
-			this.url = strval.toUserString();
-		}
-		
-		
-		
-		
+	public Book() {
 	}
-	
+
+	public Book(BibTeXEntry createFrom) {
+		Value val = null;
+		Value strval = null;
+		ReferenceValue refval = null;
+		try {
+			val = createFrom.getField(createFrom.KEY_AUTHOR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.author = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.author = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookau");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_ADDRESS);
+			strval = (Value) val;
+			if (strval != null) {
+				this.address = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.address = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookad");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_EDITOR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.editor = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.editor = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Booked");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_TITLE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.title = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.title = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Booktit");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_YEAR);
+			strval = (Value) val;
+			if (strval != null) {
+				this.year = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.year = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookyear");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_PUBLISHER);
+			strval = (Value) val;
+			if (strval != null) {
+				this.publisher = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.publisher = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookpub");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_VOLUME);
+			strval = (Value) val;
+			if (strval != null) {
+				this.volume = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.volume = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookvol");
+		}
+		try {
+
+			val = createFrom.getField(createFrom.KEY_NUMBER);
+			strval = (Value) val;
+			if (strval != null) {
+				this.number = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.number = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Booknum");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_SERIES);
+			strval = (Value) val;
+			if (strval != null) {
+				this.series = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.series = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookser");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_EDITION);
+			strval = (Value) val;
+			if (strval != null) {
+				this.edition = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.edition = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Booked");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_MONTH);
+			strval = (Value) val;
+			if (strval != null) {
+				this.month = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.month = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookmon");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_NOTE);
+			strval = (Value) val;
+			if (strval != null) {
+				this.note = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.note = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Booknote");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_KEY);
+			strval = (Value) val;
+			if (strval != null) {
+				this.key = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.key = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookkey");
+		}
+		try {
+			val = createFrom.getField(createFrom.KEY_URL);
+			strval = (Value) val;
+			if (strval != null) {
+				this.url = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.url = refval.toUserString();
+			}
+
+			System.out.print(e.getMessage());			System.out.println("Bookurl");
+		}
+
+	}
+
 	public String getAuthor() {
 		return author;
 	}
@@ -149,7 +277,6 @@ public class Book extends EntryTypes {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
 
 	public String getEditor() {
 		return editor;
@@ -159,7 +286,6 @@ public class Book extends EntryTypes {
 		this.editor = editor;
 	}
 
-	
 	public String getTitle() {
 		return title;
 	}
@@ -168,7 +294,6 @@ public class Book extends EntryTypes {
 		this.title = title;
 	}
 
-	
 	public String getYear() {
 		return year;
 	}
@@ -177,7 +302,6 @@ public class Book extends EntryTypes {
 		this.year = year;
 	}
 
-	
 	public String getPublisher() {
 		return publisher;
 	}
@@ -186,7 +310,6 @@ public class Book extends EntryTypes {
 		this.publisher = publisher;
 	}
 
-	
 	public String getVolume() {
 		return volume;
 	}
@@ -195,7 +318,6 @@ public class Book extends EntryTypes {
 		this.volume = volume;
 	}
 
-	
 	public String getNumber() {
 		return number;
 	}
@@ -204,7 +326,6 @@ public class Book extends EntryTypes {
 		this.number = number;
 	}
 
-	
 	public String getSeries() {
 		return series;
 	}
@@ -213,7 +334,6 @@ public class Book extends EntryTypes {
 		this.series = series;
 	}
 
-	
 	public String getAddress() {
 		return address;
 	}
@@ -222,7 +342,6 @@ public class Book extends EntryTypes {
 		this.address = address;
 	}
 
-	
 	public String getEdition() {
 		return edition;
 	}
@@ -231,7 +350,6 @@ public class Book extends EntryTypes {
 		this.edition = edition;
 	}
 
-	
 	public String getMonth() {
 		return month;
 	}
@@ -240,7 +358,6 @@ public class Book extends EntryTypes {
 		this.month = month;
 	}
 
-	
 	public String getNote() {
 		return note;
 	}
@@ -249,7 +366,6 @@ public class Book extends EntryTypes {
 		this.note = note;
 	}
 
-	
 	public String getKey() {
 		return key;
 	}
@@ -258,7 +374,6 @@ public class Book extends EntryTypes {
 		this.key = key;
 	}
 
-	
 	public String getUrl() {
 		return url;
 	}
@@ -266,27 +381,20 @@ public class Book extends EntryTypes {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	public boolean equals(Book toCompare) {
-	if(
-			(this.address.equals(toCompare.getAddress())) &&
-			(this.editor.equals(toCompare.getEditor())) && 
-			(this.title.equals(toCompare.getTitle()))&&
-			(this.year.equals(toCompare.getYear()))&&
-			(this.publisher.equals(toCompare.getPublisher()))&&
-			(this.author.equals(toCompare.getAuthor()))&&
-			(this.volume.equals(toCompare.getVolume()))&&
-			(this.number.equals(toCompare.getNumber()))&&
-			(this.series.equals(toCompare.getSeries()))&&
-			(this.edition.equals(toCompare.getEdition()))&&
-			(this.month.equals(toCompare.getMonth())) &&
-			(this.note.equals(toCompare.getNote())) &&
-			(this.key.equals(toCompare.getKey())) &&
-			(this.url.equals(toCompare.getUrl())) 
-			) {return true;}
-	else {return false;}
-	
+		if ((this.address.equals(toCompare.getAddress())) && (this.editor.equals(toCompare.getEditor()))
+				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
+				&& (this.publisher.equals(toCompare.getPublisher())) && (this.author.equals(toCompare.getAuthor()))
+				&& (this.volume.equals(toCompare.getVolume())) && (this.number.equals(toCompare.getNumber()))
+				&& (this.series.equals(toCompare.getSeries())) && (this.edition.equals(toCompare.getEdition()))
+				&& (this.month.equals(toCompare.getMonth())) && (this.note.equals(toCompare.getNote()))
+				&& (this.key.equals(toCompare.getKey())) && (this.url.equals(toCompare.getUrl()))) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
-	
 
 }
