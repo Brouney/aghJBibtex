@@ -32,7 +32,7 @@ public class Main extends Application {
 			FXMLLoader loaderr = new FXMLLoader();
 			
 			AnchorPane root = (AnchorPane)loaderr.load(getClass().getResource("/gui/Mainpage.fxml").openStream());
-			Scene scene = new Scene(root,1600,915);
+			Scene scene = new Scene(root,1600,1000);
 			scene.getStylesheets().add(getClass().getResource("/gui/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

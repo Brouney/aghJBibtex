@@ -26,8 +26,8 @@ public abstract class EntryTypes implements Serializable{
 	@Column(name = "ID")
 	private Long ID;
 
-	@Column(name = "bibitem", insertable = false, updatable = false)
-	private String bibitem;
+	@Column(name = "bibkey")
+	private String bibkey;
 
 	public Long getID() {
 		return ID;
@@ -37,12 +37,12 @@ public abstract class EntryTypes implements Serializable{
 		ID = iD;
 	}
 
-	public String getBibitem() {
-		return bibitem;
+	public String getBibkey() {
+		return bibkey;
 	}
 
-	public void setBibitem(String bibitem) {
-		this.bibitem = bibitem;
+	public void setBibkey(String bibitem) {
+		this.bibkey = bibitem;
 	}
 
 }

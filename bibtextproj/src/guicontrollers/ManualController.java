@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import entities.Book;
 import entities.Booklet;
 import entities.Incollection;
 import entities.Manual;
@@ -64,8 +65,18 @@ public class ManualController implements Initializable {
 	private Button addalltodbid;
 
 	@FXML
+	private TextField tfBibKey;
+	
+	@FXML
+	private TextField tfkeywords;
+
+
+	@FXML
 	private TableView<Manual> tvManual;
 
+	@FXML
+	private TableColumn<Manual, String> tcBibKey;
+	
 	@FXML
 	private TableColumn<Manual, String> tcTitle;
 
@@ -113,10 +124,10 @@ public class ManualController implements Initializable {
 		ManualToAdd.setAddress(tfAddress.getText());
 		ManualToAdd.setOrganization(tfOrganization.getText());
 		ManualToAdd.setEdition(tfEdition.getText());
-
+		ManualToAdd.setBibkey(tfBibKey.getText());
 		ClassOfLists.listOfManual.add(ManualToAdd);
 		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfManual.size())));
+		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
 	}
 
 	void refresh() {
@@ -137,14 +148,15 @@ public class ManualController implements Initializable {
 		tfAddress.setText("");
 		tfOrganization.setText("");
 		tfEdition.setText("");
-
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfManual.clear();
 		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfManual.size())));
+		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
 
 	}
 
@@ -161,6 +173,7 @@ public class ManualController implements Initializable {
 		manualToDel.setAddress(tfAddress.getText());
 		manualToDel.setEdition(tfEdition.getText());
 		manualToDel.setOrganization(tfOrganization.getText());
+		manualToDel.setBibkey(tfBibKey.getText());
 
 		int toDelInLoop = 0;
 		System.out.println("przed forem delete");
@@ -173,7 +186,7 @@ public class ManualController implements Initializable {
 		}
 
 		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfManual.size())));
+		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
 
 	}
 
@@ -189,6 +202,7 @@ public class ManualController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Manual, String>("Address"));
 		tcOrganization.setCellValueFactory(new PropertyValueFactory<Manual, String>("Organization"));
 		tcEdition.setCellValueFactory(new PropertyValueFactory<Manual, String>("Edition"));
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Manual, String>("Bibkey"));
 
 	}
 

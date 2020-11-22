@@ -47,6 +47,16 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
+                                    <Label prefHeight="17.0" prefWidth="54.0" text="BibKey*">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="KeyWords">
+                                       <padding>
+                                          <Insets left="15.0" top="70.0" />
+                                       </padding>
+                                    </Label>
                                  </children>
                               </VBox>
                               <VBox layoutX="100.0" prefHeight="421.0" prefWidth="424.0">
@@ -60,6 +70,12 @@
                                     <TextField fx:id="tfTitle" />
                                     <TextField fx:id="tfYear" />
                                     <TextField fx:id="tfPublisher" />
+                                    <TextField fx:id="tfBibKey" />
+                                    <TextField fx:id="tfkeywords">
+                                       <VBox.margin>
+                                          <Insets top="65.0" />
+                                       </VBox.margin>
+                                    </TextField>
                                  </children>
                               </VBox>
                            </children>
@@ -165,7 +181,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TableView fx:id="tvBooks" layoutY="-1.0" prefHeight="423.0" prefWidth="1048.0">
+                  <TableView fx:id="tvBooks" layoutY="-1.0" prefHeight="423.0" prefWidth="1050.0">
                     <columns>
                       <TableColumn fx:id="tcAuthor" prefWidth="75.0" text="Author" />
                       <TableColumn fx:id="tcEditor" prefWidth="75.0" text="Editor" />
@@ -176,11 +192,12 @@
                         <TableColumn fx:id="tcNumber" prefWidth="75.0" text="Number" />
                         <TableColumn fx:id="tcSeries" prefWidth="75.0" text="Series" />
                         <TableColumn fx:id="tcAddress" prefWidth="75.0" text="Address" />
-                        <TableColumn fx:id="tcEdition" prefWidth="75.0" text="Edition" />
-                        <TableColumn fx:id="tcMonth" prefWidth="75.0" text="Month" />
-                        <TableColumn fx:id="tcNote" prefWidth="75.0" text="Note" />
-                        <TableColumn fx:id="tcKey" prefWidth="75.0" text="Key" />
-                        <TableColumn fx:id="tcUrl" prefWidth="75.0" text="Url" />
+                        <TableColumn fx:id="tcEdition" prefWidth="53.0" text="Edition" />
+                        <TableColumn fx:id="tcMonth" prefWidth="61.0" text="Month" />
+                        <TableColumn fx:id="tcNote" prefWidth="62.0" text="Note" />
+                        <TableColumn fx:id="tcKey" prefWidth="52.0" text="Key" />
+                        <TableColumn fx:id="tcUrl" prefWidth="50.0" text="Url" />
+                        <TableColumn fx:id="tcBibKey" minWidth="0.0" prefWidth="100.0" text="BibKey" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

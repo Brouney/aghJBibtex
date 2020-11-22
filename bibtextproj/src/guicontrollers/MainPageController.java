@@ -128,7 +128,7 @@ public class MainPageController implements Initializable {
 	@FXML
 	void loadFileMethod(ActionEvent event) throws Exception {
 		
-		File input = new File("C:\\Users\\Piotrkonto\\Desktop\\INZYNIER\\aghJBibtex\\bibtextproj\\src\\test\\file2.bib");
+		File input = new File("C:\\Users\\Piotrkonto\\Desktop\\INZYNIER\\aghJBibtex\\bibtextproj\\src\\test\\file.bib");
 		
 		try {
 		BibTeXDatabase database = parseBibTeX(input);

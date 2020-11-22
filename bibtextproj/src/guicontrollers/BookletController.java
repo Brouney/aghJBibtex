@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import entities.Book;
 import entities.Booklet;
 import entities.Booklet;
 import javafx.collections.FXCollections;
@@ -56,10 +57,21 @@ public class BookletController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
+	
+    @FXML
+    private TextField tfBibKey;
+    
+    @FXML
+    private TextField tfkeywords;
+    
 
+    
 	@FXML
 	private TableView<Booklet> tvBooklet;
 
+    @FXML
+    private TableColumn<Booklet, String> tcBibKey;
+	
 	@FXML
 	private TableColumn<Booklet, String> tcTitle;
 
@@ -103,7 +115,7 @@ public class BookletController implements Initializable {
 		bookletToAdd.setKey(tfKey.getText());
 		bookletToAdd.setAddress(tfAddress.getText());
 		bookletToAdd.setHowpublished(tfHowpublished.getText());
-
+		bookletToAdd.setBibkey(tfBibKey.getText());
 		ClassOfLists.listOfBooklet.add(bookletToAdd);
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
@@ -126,6 +138,8 @@ public class BookletController implements Initializable {
 		tfKey.setText("");
 		tfAddress.setText("");
 		tfHowpublished.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
 	}
@@ -152,7 +166,7 @@ public class BookletController implements Initializable {
 		bookletToDel.setKey(tfKey.getText());
 		bookletToDel.setAddress(tfAddress.getText());
 		bookletToDel.setHowpublished(tfHowpublished.getText());
-
+		bookletToDel.setBibkey(tfBibKey.getText());
 		int toDelInLoop = 0;
 		for (Booklet art : ClassOfLists.listOfBooklet) {
 			if (bookletToDel.myequals(art)) {
@@ -178,6 +192,6 @@ public class BookletController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Key"));
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Address"));
 		tcHowpublished.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Howpublished"));
-
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Bibkey"));
 	}
 }

@@ -47,6 +47,16 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
+                                    <Label prefHeight="17.0" prefWidth="54.0" text="BibKey*">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="KeyWords">
+                                       <padding>
+                                          <Insets left="15.0" top="70.0" />
+                                       </padding>
+                                    </Label>
                                  </children>
                               </VBox>
                               <VBox layoutX="100.0" prefHeight="421.0" prefWidth="424.0">
@@ -60,6 +70,12 @@
                                     <TextField fx:id="tfTitle" />
                                     <TextField fx:id="tfYear" />
                                     <TextField fx:id="tfPublisher" />
+                                    <TextField fx:id="tfBibKey" />
+                                    <TextField fx:id="tfkeywords">
+                                       <VBox.margin>
+                                          <Insets top="65.0" />
+                                       </VBox.margin>
+                                    </TextField>
                                  </children>
                               </VBox>
                            </children>
@@ -181,6 +197,7 @@
                         <TableColumn fx:id="tcNote" prefWidth="75.0" text="Note" />
                         <TableColumn fx:id="tcKey" prefWidth="75.0" text="Key" />
                         <TableColumn fx:id="tcUrl" prefWidth="75.0" text="Url" />
+                        <TableColumn fx:id="tcBibKey" prefWidth="75.0" text="BibKey" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

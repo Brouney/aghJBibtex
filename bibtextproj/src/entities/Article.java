@@ -5,6 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
+import org.jbibtex.Key;
 import org.jbibtex.LiteralValue;
 import org.jbibtex.ReferenceValue;
 import org.jbibtex.StringValue;
@@ -61,6 +62,19 @@ public class Article extends EntryTypes {
 		Value val = null;
 		ReferenceValue refval = null;
 		Value strval = null;
+		try {
+			Key str2 = createFrom.getKey();
+			
+			if (str2 != null) {
+				this.setBibkey(str2.getValue()); 
+			}
+
+		} catch (Exception e) {
+			
+			System.out.println(e.getMessage());
+		}
+		
+		
 		try {
 			val = createFrom.getField(createFrom.KEY_AUTHOR);
 			strval = (Value) val;

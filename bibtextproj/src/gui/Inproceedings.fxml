@@ -42,6 +42,11 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
+                                    <Label prefHeight="17.0" prefWidth="54.0" text="BibKey*">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
                                     <Label prefHeight="17.0" prefWidth="54.0" text="Publisher">
                                        <VBox.margin>
                                           <Insets left="20.0" top="83.0" />
@@ -50,6 +55,14 @@
                                     <Label text="Pages">
                                        <VBox.margin>
                                           <Insets left="25.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="KeyWords">
+                                       <padding>
+                                          <Insets left="15.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets top="8.0" />
                                        </VBox.margin>
                                     </Label>
                                  </children>
@@ -64,11 +77,13 @@
                                     <TextField fx:id="tfBooktitle" />
                                     <TextField fx:id="tfTitle" />
                                     <TextField fx:id="tfYear" />
+                                    <TextField fx:id="tfBibKey" />
                                     <TextField fx:id="tfPublisher">
                                        <VBox.margin>
                                           <Insets top="75.0" />
                                        </VBox.margin></TextField>
                                     <TextField fx:id="tfPages" />
+                                    <TextField fx:id="tfkeywords" />
                                  </children>
                               </VBox>
                            </children>
@@ -191,6 +206,7 @@
                         <TableColumn fx:id="tcNote" prefWidth="64.0" text="Note" />
                         <TableColumn fx:id="tcKey" minWidth="0.0" prefWidth="37.0" text="Key" />
                       <TableColumn fx:id="tcEditor" prefWidth="58.0" text="Editor" />
+                        <TableColumn fx:id="tcBibKey" prefWidth="75.0" text="BibKey" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

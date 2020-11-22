@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import entities.Book;
 import entities.EntryTypes;
 import entities.Inbook;
 import javafx.collections.FXCollections;
@@ -78,10 +79,19 @@ public class InbookController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
+	
+	@FXML
+	private TextField tfBibKey;
+	
+	@FXML
+	private TextField tfkeywords;
 
 	@FXML
 	private TableView<Inbook> tvInbook;
-
+	
+	@FXML
+	private TableColumn<Inbook, String> tcBibKey;
+	
 	@FXML
 	private TableColumn<Inbook, String> tcAuthor;
 
@@ -134,29 +144,29 @@ public class InbookController implements Initializable {
 
 		System.out.println("przed try");
 		try {
-			Inbook bookToAdd = new Inbook();
+			Inbook inbookToAdd = new Inbook();
 
 			System.out.println("po try");
 
-			bookToAdd.setAuthor(tfAuthor.getText());
-			bookToAdd.setAddress(tfAddress.getText());
-			bookToAdd.setEditor(tfEditor.getText());
-			bookToAdd.setTitle(tfTitle.getText());
-			bookToAdd.setYear(tfYear.getText());
-			bookToAdd.setPublisher(tfPublisher.getText());
+			inbookToAdd.setAuthor(tfAuthor.getText());
+			inbookToAdd.setAddress(tfAddress.getText());
+			inbookToAdd.setEditor(tfEditor.getText());
+			inbookToAdd.setTitle(tfTitle.getText());
+			inbookToAdd.setYear(tfYear.getText());
+			inbookToAdd.setPublisher(tfPublisher.getText());
 
-			bookToAdd.setVolume(tfVolume.getText());
-			bookToAdd.setNumber(tfNumber.getText());
-			bookToAdd.setSeries(tfSeries.getText());
-			bookToAdd.setEdition(tfEdition.getText());
-			bookToAdd.setMonth(tfMonth.getText());
-			bookToAdd.setNote(tfNote.getText());
-			bookToAdd.setKey(tfKey.getText());
-			bookToAdd.setUrl(tfUrl.getText());
-
+			inbookToAdd.setVolume(tfVolume.getText());
+			inbookToAdd.setNumber(tfNumber.getText());
+			inbookToAdd.setSeries(tfSeries.getText());
+			inbookToAdd.setEdition(tfEdition.getText());
+			inbookToAdd.setMonth(tfMonth.getText());
+			inbookToAdd.setNote(tfNote.getText());
+			inbookToAdd.setKey(tfKey.getText());
+			inbookToAdd.setUrl(tfUrl.getText());
+			inbookToAdd.setBibkey(tfBibKey.getText());
 			System.out.println("przed add");
 
-			ClassOfLists.listOfInbook.add(bookToAdd);
+			ClassOfLists.listOfInbook.add(inbookToAdd);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -185,6 +195,8 @@ public class InbookController implements Initializable {
 		tfNote.setText("");
 		tfKey.setText("");
 		tfUrl.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
@@ -196,27 +208,27 @@ public class InbookController implements Initializable {
 
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Inbook bookToDelete = new Inbook();
-		bookToDelete.setAuthor(tfAuthor.getText());
-		bookToDelete.setAddress(tfAddress.getText());
-		bookToDelete.setEditor(tfEditor.getText());
-		bookToDelete.setTitle(tfTitle.getText());
-		bookToDelete.setYear(tfYear.getText());
-		bookToDelete.setPublisher(tfPublisher.getText());
+		Inbook inbookToDelete = new Inbook();
+		inbookToDelete.setAuthor(tfAuthor.getText());
+		inbookToDelete.setAddress(tfAddress.getText());
+		inbookToDelete.setEditor(tfEditor.getText());
+		inbookToDelete.setTitle(tfTitle.getText());
+		inbookToDelete.setYear(tfYear.getText());
+		inbookToDelete.setPublisher(tfPublisher.getText());
 
-		bookToDelete.setVolume(tfVolume.getText());
-		bookToDelete.setNumber(tfNumber.getText());
-		bookToDelete.setSeries(tfSeries.getText());
-		bookToDelete.setEdition(tfEdition.getText());
-		bookToDelete.setMonth(tfMonth.getText());
-		bookToDelete.setNote(tfNote.getText());
-		bookToDelete.setKey(tfKey.getText());
-		bookToDelete.setUrl(tfUrl.getText());
-
+		inbookToDelete.setVolume(tfVolume.getText());
+		inbookToDelete.setNumber(tfNumber.getText());
+		inbookToDelete.setSeries(tfSeries.getText());
+		inbookToDelete.setEdition(tfEdition.getText());
+		inbookToDelete.setMonth(tfMonth.getText());
+		inbookToDelete.setNote(tfNote.getText());
+		inbookToDelete.setKey(tfKey.getText());
+		inbookToDelete.setUrl(tfUrl.getText());
+		inbookToDelete.setBibkey(tfBibKey.getText());
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Inbook book : ClassOfLists.listOfInbook) {
-			if (bookToDelete.equals(book)) {
+			if (inbookToDelete.equals(book)) {
 				ClassOfLists.listOfInbook.remove(toDelInLoop);
 				break;
 			}
@@ -244,7 +256,7 @@ public class InbookController implements Initializable {
 		tcNote.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Key"));
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Url"));
-
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Bibkey"));
 	}
 
 	void refresh() {

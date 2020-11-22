@@ -61,12 +61,22 @@ public class TechreportController implements Initializable {
 
     @FXML
     private Button addalltodbid;
+    
+    @FXML
+    private TextField tfBibKey;
+
+    @FXML
+    private TextField tfkeywords;
+
 
     @FXML
     private TableView<Techreport> tvTechreport;
 
     @FXML
     private TableColumn<Techreport, String> tcAuthor;
+
+    @FXML
+    private TableColumn<Techreport, String> tcBibKey;
 
     @FXML
     private TableColumn<Techreport, String> tcTitle;
@@ -114,6 +124,7 @@ public class TechreportController implements Initializable {
 			techreportToAdd.setKey(tfKey.getText());
 			techreportToAdd.setInstitution(tfInstitution.getText());
 			techreportToAdd.setType(tfType.getText());
+			techreportToAdd.setBibkey(tfBibKey.getText());
 
 			System.out.println("przed add");
 
@@ -147,6 +158,9 @@ public class TechreportController implements Initializable {
 		tfKey.setText("");
 		tfType.setText("");
 		tfInstitution.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
+		
     }
 
     @FXML
@@ -172,7 +186,8 @@ public class TechreportController implements Initializable {
 		techreportToDel.setKey(tfKey.getText());
 		techreportToDel.setInstitution(tfInstitution.getText());
 		techreportToDel.setType(tfType.getText());
-		
+		techreportToDel.setBibkey(tfBibKey.getText());
+
 		int toDelInLoop = 0;
 		for (Techreport todel : ClassOfLists.listOfTechreport) {
 			if (techreportToDel.myequals(todel)) {
@@ -198,6 +213,7 @@ public class TechreportController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Key"));
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Address"));
 		tcInstitution.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Institution"));
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Bibkey"));
 
 		
 	}

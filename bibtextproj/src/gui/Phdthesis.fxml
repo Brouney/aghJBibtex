@@ -42,6 +42,11 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
+                                    <Label prefHeight="17.0" prefWidth="54.0" text="BibKey*">
+                                       <VBox.margin>
+                                          <Insets left="30.0" top="8.0" />
+                                       </VBox.margin>
+                                    </Label>
                                  </children>
                               </VBox>
                               <VBox layoutX="100.0" prefHeight="421.0" prefWidth="424.0">
@@ -54,6 +59,7 @@
                                     <TextField fx:id="tfTitle" />
                                     <TextField fx:id="tfYear" />
                                     <TextField fx:id="tfSchool" />
+                                    <TextField fx:id="tfBibKey" />
                                  </children>
                               </VBox>
                            </children>
@@ -87,6 +93,11 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
+                                    <Label text="KeyWords">
+                                       <padding>
+                                          <Insets left="15.0" top="8.0" />
+                                       </padding>
+                                    </Label>
                                  </children>
                               </VBox>
                               <VBox layoutX="92.0" prefHeight="421.0" prefWidth="424.0">
@@ -100,6 +111,7 @@
                                     <TextField fx:id="tfMonth" />
                                     <TextField fx:id="tfNote" />
                                     <TextField fx:id="tfKey" />
+                                    <TextField fx:id="tfkeywords" />
                                     <Button fx:id="cleantextid" mnemonicParsing="false" onAction="#cleanText" prefHeight="25.0" prefWidth="144.0" text="Wyczyść pola tekstowe">
                                        <VBox.margin>
                                           <Insets left="250.0" top="10.0" />
@@ -146,6 +158,7 @@
                         <TableColumn fx:id="tcMonth" prefWidth="75.0" text="Month" />
                         <TableColumn fx:id="tcNote" prefWidth="75.0" text="Note" />
                         <TableColumn fx:id="tcKey" prefWidth="75.0" text="Key" />
+                        <TableColumn fx:id="tcBibKey" prefWidth="75.0" text="BibKey" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

@@ -29,7 +29,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class BookController implements Initializable {
 
 	public static List<EntryTypes> mainListOfTypes = new ArrayList<EntryTypes>();
-	
 
 	@FXML
 	private TextField tfAuthor;
@@ -89,8 +88,19 @@ public class BookController implements Initializable {
 	private Button addalltodbid;
 
 	@FXML
-	private TableView<Book> tvBooks;
+	private TextField tfBibKey;
 
+	@FXML
+	private TextField tfkeywords;
+
+
+	
+	@FXML
+	private TableView<Book> tvBooks;
+	
+	@FXML
+	private TableColumn<Book, String> tcBibKey;
+	
 	@FXML
 	private TableColumn<Book, String> tcAuthor;
 
@@ -135,15 +145,7 @@ public class BookController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) throws TokenMgrException, ParseException {
-		
-		
-		
-		
-		
-	
-		
-		
-		
+
 	}
 
 	@FXML
@@ -170,7 +172,7 @@ public class BookController implements Initializable {
 			bookToAdd.setNote(tfNote.getText());
 			bookToAdd.setKey(tfKey.getText());
 			bookToAdd.setUrl(tfUrl.getText());
-
+			bookToAdd.setBibkey(tfBibKey.getText());
 			System.out.println("przed add");
 
 			ClassOfLists.listOfBooks.add(bookToAdd);
@@ -202,6 +204,8 @@ public class BookController implements Initializable {
 		tfNote.setText("");
 		tfKey.setText("");
 		tfUrl.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
@@ -229,7 +233,7 @@ public class BookController implements Initializable {
 		bookToDelete.setNote(tfNote.getText());
 		bookToDelete.setKey(tfKey.getText());
 		bookToDelete.setUrl(tfUrl.getText());
-		
+		bookToDelete.setBibkey(tfBibKey.getText());
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Book book : ClassOfLists.listOfBooks) {
@@ -237,7 +241,7 @@ public class BookController implements Initializable {
 				ClassOfLists.listOfBooks.remove(toDelInLoop);
 				break;
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
 		System.out.println("przed refresh");
 		refresh();
@@ -261,7 +265,7 @@ public class BookController implements Initializable {
 		tcNote.setCellValueFactory(new PropertyValueFactory<Book, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Key"));
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Book, String>("Url"));
-
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Bibkey"));
 	}
 
 	void refresh() {

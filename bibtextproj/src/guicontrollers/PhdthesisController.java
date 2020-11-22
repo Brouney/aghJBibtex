@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import entities.Book;
 import entities.Phdthesis;
 import entities.Phdthesis;
 import javafx.collections.FXCollections;
@@ -60,6 +61,12 @@ public class PhdthesisController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
+    
+    @FXML
+    private TextField tfBibKey;
+
+    @FXML
+    private TextField tfkeywords;
 
 	@FXML
 	private TableView<Phdthesis> tvPhdthesis;
@@ -67,6 +74,9 @@ public class PhdthesisController implements Initializable {
 	@FXML
 	private TableColumn<Phdthesis, String> tcAuthor;
 
+    @FXML
+    private TableColumn<Phdthesis, String> tcBibKey;
+    
 	@FXML
 	private TableColumn<Phdthesis, String> tcTitle;
 
@@ -113,6 +123,7 @@ public class PhdthesisController implements Initializable {
 			phdthesisToAdd.setKey(tfKey.getText());
 			phdthesisToAdd.setSchool(tfSchool.getText());
 			phdthesisToAdd.setType(tfType.getText());
+			phdthesisToAdd.setBibkey(tfBibKey.getText());
 
 			System.out.println("przed add");
 
@@ -146,6 +157,8 @@ public class PhdthesisController implements Initializable {
 		tfKey.setText("");
 		tfType.setText("");
 		tfSchool.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
@@ -168,6 +181,7 @@ public class PhdthesisController implements Initializable {
 		phdthesisToDel.setNote(tfNote.getText());
 		phdthesisToDel.setKey(tfKey.getText());
 		phdthesisToDel.setType(tfType.getText());
+		phdthesisToDel.setBibkey(tfBibKey.getText());
 
 		System.out.println("przed forem");
 		int toDelInLoop = 0;
@@ -198,6 +212,7 @@ public class PhdthesisController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("Key"));
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("Address"));
 		tcSchool.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("School"));
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("Bibkey"));
 
 	}
 

@@ -5,6 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import org.jbibtex.BibTeXEntry;
+import org.jbibtex.Key;
 import org.jbibtex.Value;
 import org.jbibtex.ReferenceValue;
 
@@ -53,7 +54,17 @@ public class Booklet extends EntryTypes {
 		Value val = null;
 		Value strval = null;
 		ReferenceValue refval = null;
+		try {
+			Key str2 = createFrom.getKey();
 
+			if (str2 != null) {
+				this.setBibkey(str2.getValue());
+			}
+
+		} catch (Exception e) {
+
+			System.out.println(e.getMessage());
+		}
 		try {
 			val = createFrom.getField(createFrom.KEY_AUTHOR);
 			strval = (Value) val;

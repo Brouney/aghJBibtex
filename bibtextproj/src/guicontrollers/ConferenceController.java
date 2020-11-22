@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import entities.Article;
+import entities.Book;
 import entities.Conference;
 import entities.Conference;
 import javafx.collections.FXCollections;
@@ -78,6 +79,15 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
+
+	@FXML
+	private TextField tfBibKey;
+	
+	@FXML
+	private TextField tfkeywords;
+	
+	@FXML
+	private TableColumn<Conference, String> tcBibKey;
 
 	@FXML
 	private TableView<Conference> tvConference;
@@ -154,7 +164,7 @@ public class ConferenceController implements Initializable {
 		conferenceToAdd.setPages(tfPages.getText());
 		conferenceToAdd.setSeries(tfSeries.getText());
 		conferenceToAdd.setEditor(tfEditor.getText());
-
+		conferenceToAdd.setBibkey(tfBibKey.getText());
 		ClassOfLists.listOfConference.add(conferenceToAdd);
 		refresh();
 		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
@@ -185,6 +195,8 @@ public class ConferenceController implements Initializable {
 		tfPages.setText("");
 		tfSeries.setText("");
 		tfEditor.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
@@ -214,7 +226,7 @@ public class ConferenceController implements Initializable {
 		conferenceToDel.setPages(tfPages.getText());
 		conferenceToDel.setSeries(tfSeries.getText());
 		conferenceToDel.setEditor(tfEditor.getText());
-
+		conferenceToDel.setBibkey(tfBibKey.getText());
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Conference art : ClassOfLists.listOfConference) {
@@ -244,9 +256,9 @@ public class ConferenceController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Conference, String>("Key"));
 		tcOrganization.setCellValueFactory(new PropertyValueFactory<Conference, String>("Organization"));
 		tcPublisher.setCellValueFactory(new PropertyValueFactory<Conference, String>("Publisher"));
-		tcAddress.setCellValueFactory(new PropertyValueFactory<Conference, String>("Adress"));
+		tcAddress.setCellValueFactory(new PropertyValueFactory<Conference, String>("Address"));
 		tcSeries.setCellValueFactory(new PropertyValueFactory<Conference, String>("Series"));
 		tcEditor.setCellValueFactory(new PropertyValueFactory<Conference, String>("Editor"));
-
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Conference, String>("Bibkey"));
 	}
 }

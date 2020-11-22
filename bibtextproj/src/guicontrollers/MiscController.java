@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import entities.Book;
 import entities.Misc;
 import entities.Misc;
 import javafx.collections.FXCollections;
@@ -17,76 +18,85 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class MiscController  implements Initializable{
+public class MiscController implements Initializable {
 
-    @FXML
-    private TextField tfAuthor;
+	@FXML
+	private TextField tfAuthor;
 
-    @FXML
-    private TextField tfTitle;
+	@FXML
+	private TextField tfTitle;
 
-    @FXML
-    private TextField tfHowpublished;
+	@FXML
+	private TextField tfHowpublished;
 
-    @FXML
-    private TextField tfMonth;
+	@FXML
+	private TextField tfMonth;
 
-    @FXML
-    private TextField tfNote;
+	@FXML
+	private TextField tfNote;
 
-    @FXML
-    private TextField tfKey;
+	@FXML
+	private TextField tfKey;
 
-    @FXML
-    private TextField tfYear;
+	@FXML
+	private TextField tfYear;
 
-    @FXML
-    private Button cleantextid;
+	@FXML
+	private Button cleantextid;
 
-    @FXML
-    private Button addelementtolistid;
+	@FXML
+	private Button addelementtolistid;
 
-    @FXML
-    private Button deleteelementfromlistid;
+	@FXML
+	private Button deleteelementfromlistid;
 
-    @FXML
-    private Button deleteallfromlistid;
+	@FXML
+	private Button deleteallfromlistid;
 
-    @FXML
-    private Button addalltodbid;
+	@FXML
+	private Button addalltodbid;
 
-    @FXML
-    private TableView<Misc> tvMisc;
+	@FXML
+	private TextField tfBibKey;
 
-    @FXML
-    private TableColumn<Misc, String> tcAuthor;
+	@FXML
+	private TextField tfkeywords;
 
-    @FXML
-    private TableColumn<Misc, String> tcTitle;
+	@FXML
+	private TableView<Misc> tvMisc;
 
-    @FXML
-    private TableColumn<Misc, String> tcHowpublished;
+	@FXML
+	private TableColumn<Misc, String> tcAuthor;
 
-    @FXML
-    private TableColumn<Misc, String> tcMonth;
+	@FXML
+	private TableColumn<Misc, String> tcBibKey;
 
-    @FXML
-    private TableColumn<Misc, String> tcYear;
+	@FXML
+	private TableColumn<Misc, String> tcTitle;
 
-    @FXML
-    private TableColumn<Misc, String> tcNote;
+	@FXML
+	private TableColumn<Misc, String> tcHowpublished;
 
-    @FXML
-    private TableColumn<Misc, String> tcKey;
+	@FXML
+	private TableColumn<Misc, String> tcMonth;
 
-    @FXML
-    void addAllToDB(ActionEvent event) {
+	@FXML
+	private TableColumn<Misc, String> tcYear;
 
-    }
+	@FXML
+	private TableColumn<Misc, String> tcNote;
 
-    @FXML
-    void addElementToList(ActionEvent event) {
-    	System.out.println("przed try");
+	@FXML
+	private TableColumn<Misc, String> tcKey;
+
+	@FXML
+	void addAllToDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void addElementToList(ActionEvent event) {
+		System.out.println("przed try");
 		try {
 			Misc miscToAdd = new Misc();
 
@@ -99,6 +109,7 @@ public class MiscController  implements Initializable{
 			miscToAdd.setNote(tfNote.getText());
 			miscToAdd.setKey(tfKey.getText());
 			miscToAdd.setHowpublished(tfHowpublished.getText());
+			miscToAdd.setBibkey(tfBibKey.getText());
 
 			System.out.println("przed add");
 
@@ -112,38 +123,40 @@ public class MiscController  implements Initializable{
 		System.out.println("przed zmiana label");
 		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
-    }
-    void refresh() {
+	}
+
+	void refresh() {
 
 		ObservableList<Misc> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfMisc);
 
 		tvMisc.setItems(tableViewList);
 	}
-    @FXML
-    void cleanText(ActionEvent event) {
-    	tfAuthor.setText("");
+
+	@FXML
+	void cleanText(ActionEvent event) {
+		tfAuthor.setText("");
 		tfTitle.setText("");
 		tfYear.setText("");
 		tfMonth.setText("");
 		tfNote.setText("");
 		tfKey.setText("");
 		tfHowpublished.setText("");
-    }
+		tfBibKey.setText("");
+		tfkeywords.setText("");
+	}
 
-    @FXML
-    void deleteAllFromList(ActionEvent event) {
-    	ClassOfLists.listOfMisc.clear();
+	@FXML
+	void deleteAllFromList(ActionEvent event) {
+		ClassOfLists.listOfMisc.clear();
 		refresh();
 		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
-	
-    }
+	}
 
-    @FXML
-    void deleteElementFromList(ActionEvent event) {
-    	Misc miscToDel = new Misc();
+	@FXML
+	void deleteElementFromList(ActionEvent event) {
+		Misc miscToDel = new Misc();
 
- 
 		System.out.println("po try");
 
 		miscToDel.setAuthor(tfAuthor.getText());
@@ -153,7 +166,8 @@ public class MiscController  implements Initializable{
 		miscToDel.setNote(tfNote.getText());
 		miscToDel.setKey(tfKey.getText());
 		miscToDel.setHowpublished(tfHowpublished.getText());
-		
+		miscToDel.setBibkey(tfBibKey.getText());
+
 		int toDelInLoop = 0;
 		for (Misc todel : ClassOfLists.listOfMisc) {
 			if (miscToDel.myequals(todel)) {
@@ -164,12 +178,11 @@ public class MiscController  implements Initializable{
 			}
 			toDelInLoop += 1;
 		}
-		
+
 		refresh();
 		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
-		
-    }
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -181,6 +194,7 @@ public class MiscController  implements Initializable{
 		tcNote.setCellValueFactory(new PropertyValueFactory<Misc, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Misc, String>("Key"));
 		tcHowpublished.setCellValueFactory(new PropertyValueFactory<Misc, String>("Howpublished"));
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Misc, String>("Bibkey"));
 
 	}
 

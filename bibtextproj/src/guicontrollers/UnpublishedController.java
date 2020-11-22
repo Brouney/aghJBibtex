@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import entities.Book;
 import entities.Unpublished;
 import entities.Unpublished;
 import javafx.collections.FXCollections;
@@ -51,9 +52,19 @@ public class UnpublishedController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
+    
+    @FXML
+    private TextField tfBibKey;
+
+    @FXML
+    private TextField tfkeywords;
 
 	@FXML
 	private TableView<Unpublished> tvUnpublished;
+
+    @FXML
+    private TableColumn<Unpublished, String> tcBibKey;
+
 
 	@FXML
 	private TableColumn<Unpublished, String> tcAuthor;
@@ -88,7 +99,8 @@ public class UnpublishedController implements Initializable {
 		unpublishedToAdd.setMonth(tfMonth.getText());
 		unpublishedToAdd.setNote(tfNote.getText());
 		unpublishedToAdd.setKey(tfKey.getText());
-	
+		unpublishedToAdd.setBibkey(tfBibKey.getText());
+
 		
 		System.out.println("przed add");
 
@@ -113,6 +125,8 @@ public class UnpublishedController implements Initializable {
 		tfMonth.setText("");
 		tfNote.setText("");
 		tfKey.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
@@ -134,7 +148,8 @@ public class UnpublishedController implements Initializable {
 		unpublishedToDel.setMonth(tfMonth.getText());
 		unpublishedToDel.setNote(tfNote.getText());
 		unpublishedToDel.setKey(tfKey.getText());
-		
+		unpublishedToDel.setBibkey(tfBibKey.getText());
+
 		int toDelInLoop = 0;
 		for (Unpublished todel : ClassOfLists.listOfUnpublished) {
 			if (unpublishedToDel.myequals(todel)) {
@@ -158,7 +173,8 @@ public class UnpublishedController implements Initializable {
 		tcMonth.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Month"));
 		tcNote.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Key"));
-		
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Bibkey"));
+
 		
 	}
 

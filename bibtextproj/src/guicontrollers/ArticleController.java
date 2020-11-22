@@ -21,8 +21,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ArticleController implements Initializable {
 
-	
-
 	@FXML
 	private TextField tfAuthor;
 
@@ -70,10 +68,17 @@ public class ArticleController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
+	
+	@FXML
+	private TextField tfBibKey;
+	
+	@FXML
+	private TextField tfkeywords;
 
 	@FXML
 	private TableView<Article> tvArticles;
-
+	@FXML
+	private TableColumn<Article, String> tcBibKey;
 	@FXML
 	private TableColumn<Article, String> tcAuthor;
 
@@ -114,24 +119,26 @@ public class ArticleController implements Initializable {
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		Article bookToAdd = new Article();
+		Article articleToAdd = new Article();
 
 		System.out.println("po try");
 
-		bookToAdd.setAuthor(tfAuthor.getText());
-		bookToAdd.setJournal(tfJournal.getText());
-		bookToAdd.setTitle(tfTitle.getText());
-		bookToAdd.setYear(tfYear.getText());
-		bookToAdd.setVolume(tfVolume.getText());
+		articleToAdd.setAuthor(tfAuthor.getText());
+		articleToAdd.setJournal(tfJournal.getText());
+		articleToAdd.setTitle(tfTitle.getText());
+		articleToAdd.setYear(tfYear.getText());
+		articleToAdd.setVolume(tfVolume.getText());
+
+		articleToAdd.setPages(tfPages.getText());
+		articleToAdd.setNumber(tfNumber.getText());
+		articleToAdd.setMonth(tfMonth.getText());
+		articleToAdd.setNote(tfNote.getText());
+		articleToAdd.setKey(tfKey.getText());
+		articleToAdd.setDoi(tfDoi.getText());
+		articleToAdd.setBibkey(tfBibKey.getText());
 		
-		bookToAdd.setPages(tfPages.getText());
-		bookToAdd.setNumber(tfNumber.getText());
-		bookToAdd.setMonth(tfMonth.getText());
-		bookToAdd.setNote(tfNote.getText());
-		bookToAdd.setKey(tfKey.getText());
-		bookToAdd.setDoi(tfDoi.getText());
 		
-		ClassOfLists.listOfArticles.add(bookToAdd);
+		ClassOfLists.listOfArticles.add(articleToAdd);
 		refresh();
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
 	}
@@ -141,8 +148,7 @@ public class ArticleController implements Initializable {
 
 		tvArticles.setItems(tableViewList);
 	}
-	
-	
+
 	@FXML
 	void cleanText(ActionEvent event) {
 		tfAuthor.setText("");
@@ -150,13 +156,15 @@ public class ArticleController implements Initializable {
 		tfTitle.setText("");
 		tfYear.setText("");
 		tfVolume.setText("");
-		
+
 		tfPages.setText("");
 		tfNumber.setText("");
 		tfMonth.setText("");
 		tfNote.setText("");
 		tfKey.setText("");
 		tfDoi.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
@@ -170,33 +178,31 @@ public class ArticleController implements Initializable {
 	void deleteElementFromList(ActionEvent event) {
 		Article articleToDel = new Article();
 
-		
-
 		articleToDel.setAuthor(tfAuthor.getText());
 		articleToDel.setJournal(tfJournal.getText());
 		articleToDel.setTitle(tfTitle.getText());
 		articleToDel.setYear(tfYear.getText());
 		articleToDel.setVolume(tfVolume.getText());
-		
+
 		articleToDel.setPages(tfPages.getText());
 		articleToDel.setNumber(tfNumber.getText());
 		articleToDel.setMonth(tfMonth.getText());
 		articleToDel.setNote(tfNote.getText());
 		articleToDel.setKey(tfKey.getText());
 		articleToDel.setDoi(tfDoi.getText());
-		
+		articleToDel.setBibkey(tfBibKey.getText());
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Article art : ClassOfLists.listOfArticles) {
 			if (articleToDel.equals(art)) {
 				ClassOfLists.listOfArticles.remove(toDelInLoop);
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
 		System.out.println("przed refresh");
 		refresh();
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
-		
+
 	}
 
 	@Override
@@ -213,5 +219,7 @@ public class ArticleController implements Initializable {
 		tcNote.setCellValueFactory(new PropertyValueFactory<Article, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Article, String>("Key"));
 		tcDoi.setCellValueFactory(new PropertyValueFactory<Article, String>("Doi"));
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Article, String>("Bibkey"));
+	
 	}
 }

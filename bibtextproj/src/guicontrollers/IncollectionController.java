@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import entities.Book;
 import entities.Incollection;
 import entities.Incollection;
 import javafx.collections.FXCollections;
@@ -87,8 +88,19 @@ public class IncollectionController implements Initializable{
     private Button addalltodbid;
 
     @FXML
+    private TextField tfBibKey;
+    
+    @FXML
+    private TextField tfkeywords;
+ 
+    
+    
+    @FXML
     private TableView<Incollection> tvIncollection;
 
+    @FXML
+    private TableColumn<Incollection, String> tcBibKey;
+    
     @FXML
     private TableColumn<Incollection,String> tcAuthor;
 
@@ -168,7 +180,7 @@ public class IncollectionController implements Initializable{
 		incollectionToAdd.setEditor(tfEditor.getText());
 		incollectionToAdd.setType(tfType.getText());
 		incollectionToAdd.setEdition(tfEdition.getText());
-		
+		incollectionToAdd.setBibkey(tfBibKey.getText());
 		
 		
 		ClassOfLists.listOfIncollection.add(incollectionToAdd);
@@ -196,7 +208,8 @@ public class IncollectionController implements Initializable{
 		tfEditor.setText("");
 		tfEdition.setText("");
 		tfType.setText("");
-		
+		tfBibKey.setText("");
+		tfkeywords.setText("");
     }
 
     @FXML
@@ -235,7 +248,7 @@ public class IncollectionController implements Initializable{
 		incollectionToDel.setEdition(tfEdition.getText());
 		incollectionToDel.setAddress(tfEditor.getText());
 		incollectionToDel.setChapter(tfChapter.getText());
-		
+		incollectionToDel.setBibkey(tfBibKey.getText());
 		int toDelInLoop = 0;
 		System.out.println("przed forem delete");
 		for (Incollection art : ClassOfLists.listOfIncollection) {
@@ -273,6 +286,7 @@ public class IncollectionController implements Initializable{
 		tcEdition.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Edition"));
 		tcPages.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Pages"));
 		tcBooktitle.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Booktitle"));
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Bibkey"));
 	}
 
 }

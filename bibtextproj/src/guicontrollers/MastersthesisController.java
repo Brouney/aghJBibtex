@@ -63,10 +63,19 @@ public class MastersthesisController implements Initializable {
 	private Button addalltodbid;
 
 	@FXML
+	private TextField tfBibKey;
+
+	@FXML
+	private TextField tfkeywords;
+
+	@FXML
 	private TableView<Mastersthesis> tvMasterthesis;
 
 	@FXML
 	private TableColumn<Mastersthesis, String> tcAuthor;
+
+	@FXML
+	private TableColumn<Mastersthesis, String> tcBibKey;
 
 	@FXML
 	private TableColumn<Mastersthesis, String> tcTitle;
@@ -115,6 +124,7 @@ public class MastersthesisController implements Initializable {
 			mastersthesisToAdd.setKey(tfKey.getText());
 			mastersthesisToAdd.setSchool(tfSchool.getText());
 			mastersthesisToAdd.setType(tfType.getText());
+			mastersthesisToAdd.setBibkey(tfBibKey.getText());
 
 			System.out.println("przed add");
 
@@ -149,6 +159,8 @@ public class MastersthesisController implements Initializable {
 		tfKey.setText("");
 		tfType.setText("");
 		tfSchool.setText("");
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
@@ -171,15 +183,16 @@ public class MastersthesisController implements Initializable {
 		masterthesisToDel.setNote(tfNote.getText());
 		masterthesisToDel.setKey(tfKey.getText());
 		masterthesisToDel.setType(tfType.getText());
+		masterthesisToDel.setBibkey(tfBibKey.getText());
 
 		System.out.println("przed forem");
 		int toDelInLoop = 0;
 		for (Mastersthesis todel : ClassOfLists.listOfMastersthesis) {
 			if (masterthesisToDel.myequals(todel)) {
-				ClassOfLists.listOfMastersthesis.remove( toDelInLoop);
+				ClassOfLists.listOfMastersthesis.remove(toDelInLoop);
 				break;
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
 		System.out.println("przed refresh");
 		refresh();
@@ -199,6 +212,7 @@ public class MastersthesisController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("Key"));
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("Address"));
 		tcSchool.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("School"));
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("Bibkey"));
 
 	}
 

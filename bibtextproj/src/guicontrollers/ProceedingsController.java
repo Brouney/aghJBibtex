@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import entities.Book;
 import entities.Proceedings;
 import entities.Proceedings;
 import javafx.collections.FXCollections;
@@ -44,9 +45,6 @@ public class ProceedingsController implements Initializable {
 	private TextField tfAddress;
 
 	@FXML
-	private TextField tfEdition;
-
-	@FXML
 	private TextField tfMonth;
 
 	@FXML
@@ -74,10 +72,16 @@ public class ProceedingsController implements Initializable {
 	private Button addalltodbid;
 
 	@FXML
+	private TextField tfBibKey;
+
+	@FXML
+	private TextField tfkeywords;
+
+	@FXML
 	private TableView<Proceedings> tvProceedings;
 
 	@FXML
-	private TableColumn<Proceedings, String> tcAuthor;
+	private TableColumn<Proceedings, String> tcBibKey;
 
 	@FXML
 	private TableColumn<Proceedings, String> tcEditor;
@@ -102,9 +106,6 @@ public class ProceedingsController implements Initializable {
 
 	@FXML
 	private TableColumn<Proceedings, String> tcAddress;
-
-	@FXML
-	private TableColumn<Proceedings, String> tcEdition;
 
 	@FXML
 	private TableColumn<Proceedings, String> tcMonth;
@@ -142,6 +143,7 @@ public class ProceedingsController implements Initializable {
 		proceedingsToAdd.setMonth(tfMonth.getText());
 		proceedingsToAdd.setNote(tfNote.getText());
 		proceedingsToAdd.setKey(tfKey.getText());
+		proceedingsToAdd.setBibkey(tfBibKey.getText());
 
 		System.out.println("przed add");
 
@@ -176,13 +178,14 @@ public class ProceedingsController implements Initializable {
 		tfMonth.setText("");
 		tfNote.setText("");
 		tfKey.setText("");
-
+		tfBibKey.setText("");
+		tfkeywords.setText("");
 	}
 
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfProceedings.clear();
-    	refresh();
+		refresh();
 		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
 
 	}
@@ -206,7 +209,8 @@ public class ProceedingsController implements Initializable {
 		proceedingsToDel.setMonth(tfMonth.getText());
 		proceedingsToDel.setNote(tfNote.getText());
 		proceedingsToDel.setKey(tfKey.getText());
-		
+		proceedingsToDel.setBibkey(tfBibKey.getText());
+
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Proceedings todel : ClassOfLists.listOfProceedings) {
@@ -215,20 +219,18 @@ public class ProceedingsController implements Initializable {
 				System.out.println("udalo sie usunac");
 				break;
 			}
-			toDelInLoop +=1;
+			toDelInLoop += 1;
 		}
-		
+
 		refresh();
 		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
 
-		
-		
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		tcAuthor.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Author"));
+
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Address"));
 		tcEditor.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Editor"));
 		tcTitle.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Title"));
@@ -240,7 +242,8 @@ public class ProceedingsController implements Initializable {
 		tcMonth.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Month"));
 		tcNote.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Key"));
-		
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Bibkey"));
+
 	}
 
 }

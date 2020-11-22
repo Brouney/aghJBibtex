@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.Main;
+import entities.Book;
 import entities.Inproceedings;
 import entities.Inproceedings;
 import entities.Inproceedings;
@@ -18,124 +19,135 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class InproceedingsController implements Initializable{
+public class InproceedingsController implements Initializable {
 
-    @FXML
-    private TextField tfAuthor;
+	@FXML
+	private TextField tfAuthor;
 
-    @FXML
-    private TextField tfBooktitle;
+	@FXML
+	private TextField tfBooktitle;
 
-    @FXML
-    private TextField tfTitle;
+	@FXML
+	private TextField tfTitle;
 
-    @FXML
-    private TextField tfYear;
+	@FXML
+	private TextField tfYear;
 
-    @FXML
-    private TextField tfPublisher;
+	@FXML
+	private TextField tfPublisher;
 
-    @FXML
-    private TextField tfVolume;
+	@FXML
+	private TextField tfVolume;
 
-    @FXML
-    private TextField tfNumber;
+	@FXML
+	private TextField tfNumber;
 
-    @FXML
-    private TextField tfSeries;
+	@FXML
+	private TextField tfSeries;
 
-    @FXML
-    private TextField tfAddress;
+	@FXML
+	private TextField tfAddress;
 
-    @FXML
-    private TextField tfPages;
-    
-    @FXML
-    private TextField tfOrganization;
+	@FXML
+	private TextField tfPages;
 
-    @FXML
-    private TextField tfMonth;
+	@FXML
+	private TextField tfOrganization;
 
-    @FXML
-    private TextField tfNote;
+	@FXML
+	private TextField tfMonth;
 
-    @FXML
-    private TextField tfKey;
+	@FXML
+	private TextField tfNote;
 
-    @FXML
-    private TextField tfEditor;
+	@FXML
+	private TextField tfKey;
 
-    @FXML
-    private Button cleantextid;
+	@FXML
+	private TextField tfEditor;
 
-    @FXML
-    private Button addelementtolistid;
+	@FXML
+	private Button cleantextid;
 
-    @FXML
-    private Button deleteelementfromlistid;
+	@FXML
+	private Button addelementtolistid;
 
-    @FXML
-    private Button deleteallfromlistid;
+	@FXML
+	private Button deleteelementfromlistid;
 
-    @FXML
-    private Button addalltodbid;
+	@FXML
+	private Button deleteallfromlistid;
 
-    @FXML
-    private TableView<Inproceedings> tvInproceedings;
+	@FXML
+	private Button addalltodbid;
+	
+	@FXML
+	private TextField tfBibKey;
+	
+	@FXML
+	private TextField tfkeywords;
+	 
+	
+	@FXML
+	private TableView<Inproceedings> tvInproceedings;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcAuthor;
+	@FXML
+	private TableColumn<Inproceedings, String> tcBibKey;
+	
+	
+	@FXML
+	private TableColumn<Inproceedings, String> tcAuthor;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcBooktitle;
+	@FXML
+	private TableColumn<Inproceedings, String> tcBooktitle;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcTitle;
+	@FXML
+	private TableColumn<Inproceedings, String> tcTitle;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcYear;
+	@FXML
+	private TableColumn<Inproceedings, String> tcYear;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcPublisher;
+	@FXML
+	private TableColumn<Inproceedings, String> tcPublisher;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcPages;
+	@FXML
+	private TableColumn<Inproceedings, String> tcPages;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcVolume;
+	@FXML
+	private TableColumn<Inproceedings, String> tcVolume;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcNumber;
+	@FXML
+	private TableColumn<Inproceedings, String> tcNumber;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcSeries;
+	@FXML
+	private TableColumn<Inproceedings, String> tcSeries;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcAddress;
+	@FXML
+	private TableColumn<Inproceedings, String> tcAddress;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcOrganization;
+	@FXML
+	private TableColumn<Inproceedings, String> tcOrganization;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcMonth;
+	@FXML
+	private TableColumn<Inproceedings, String> tcMonth;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcNote;
+	@FXML
+	private TableColumn<Inproceedings, String> tcNote;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcKey;
+	@FXML
+	private TableColumn<Inproceedings, String> tcKey;
 
-    @FXML
-    private TableColumn<Inproceedings, String> tcEditor;
+	@FXML
+	private TableColumn<Inproceedings, String> tcEditor;
 
-    @FXML
-    void addAllToDB(ActionEvent event) {
+	@FXML
+	void addAllToDB(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void addElementToList(ActionEvent event) {
-    	System.out.println("przed try");
+	@FXML
+	void addElementToList(ActionEvent event) {
+		System.out.println("przed try");
 		try {
 			Inproceedings inproceedingsToAdd = new Inproceedings();
 
@@ -157,7 +169,7 @@ public class InproceedingsController implements Initializable{
 			inproceedingsToAdd.setKey(tfKey.getText());
 			inproceedingsToAdd.setBooktitle(tfBooktitle.getText());
 			inproceedingsToAdd.setPages(tfPages.getText());
-
+			inproceedingsToAdd.setBibkey(tfBibKey.getText());
 			System.out.println("przed add");
 
 			ClassOfLists.listOfInproceedings.add(inproceedingsToAdd);
@@ -169,17 +181,19 @@ public class InproceedingsController implements Initializable{
 		refresh();
 		System.out.println("przed zmiana label");
 		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
-    }
-    void refresh() {
+	}
 
-		ObservableList<Inproceedings> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfInproceedings);
+	void refresh() {
+
+		ObservableList<Inproceedings> tableViewList = FXCollections
+				.observableArrayList(ClassOfLists.listOfInproceedings);
 
 		tvInproceedings.setItems(tableViewList);
 	}
 
-    @FXML
-    void cleanText(ActionEvent event) {
-    	tfAuthor.setText("");
+	@FXML
+	void cleanText(ActionEvent event) {
+		tfAuthor.setText("");
 		tfAddress.setText("");
 		tfEditor.setText("");
 		tfTitle.setText("");
@@ -195,19 +209,21 @@ public class InproceedingsController implements Initializable{
 		tfKey.setText("");
 		tfPages.setText("");
 		tfBooktitle.setText("");
-    }
+		tfBibKey.setText("");
+		tfkeywords.setText("");
+	}
 
-    @FXML
-    void deleteAllFromList(ActionEvent event) {
-    	ClassOfLists.listOfInproceedings.clear();
-    	refresh();
+	@FXML
+	void deleteAllFromList(ActionEvent event) {
+		ClassOfLists.listOfInproceedings.clear();
+		refresh();
 		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
-  
-    }
 
-    @FXML
-    void deleteElementFromList(ActionEvent event) {
-    	Inproceedings inproceedingsToDel = new Inproceedings();
+	}
+
+	@FXML
+	void deleteElementFromList(ActionEvent event) {
+		Inproceedings inproceedingsToDel = new Inproceedings();
 		inproceedingsToDel.setAuthor(tfAuthor.getText());
 		inproceedingsToDel.setAddress(tfAddress.getText());
 		inproceedingsToDel.setEditor(tfEditor.getText());
@@ -215,7 +231,6 @@ public class InproceedingsController implements Initializable{
 		inproceedingsToDel.setYear(tfYear.getText());
 		inproceedingsToDel.setPublisher(tfPublisher.getText());
 
-		
 		inproceedingsToDel.setVolume(tfVolume.getText());
 		inproceedingsToDel.setNumber(tfNumber.getText());
 		inproceedingsToDel.setSeries(tfSeries.getText());
@@ -225,8 +240,8 @@ public class InproceedingsController implements Initializable{
 		inproceedingsToDel.setKey(tfKey.getText());
 		inproceedingsToDel.setOrganization(tfOrganization.getText());
 		inproceedingsToDel.setBooktitle(tfBooktitle.getText());
-		
-		
+		inproceedingsToDel.setBibkey(tfBibKey.getText());
+
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Inproceedings todel : ClassOfLists.listOfInproceedings) {
@@ -235,13 +250,13 @@ public class InproceedingsController implements Initializable{
 				System.out.println("udalo sie usunac");
 				break;
 			}
-			toDelInLoop +=1;
+			toDelInLoop += 1;
 		}
-		
+
 		refresh();
 		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
-  
-    }
+
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -261,6 +276,7 @@ public class InproceedingsController implements Initializable{
 		tcKey.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Key"));
 		tcOrganization.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Organization"));
 		tcBooktitle.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Booktitle"));
+		tcBibKey.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Bibkey"));
 
 	}
 
