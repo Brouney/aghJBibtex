@@ -3,8 +3,13 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Book;
+import entities.Proceedings;
 import entities.Techreport;
 import entities.Techreport;
 import javafx.collections.FXCollections;
@@ -104,7 +109,24 @@ public class TechreportController implements Initializable {
 
     @FXML
     void addAllToDB(ActionEvent event) {
-
+    	EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Techreport toAdd: ClassOfLists.listOfTechreport) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close();
+	    
+	    
+	    ClassOfLists.listOfTechreport.clear();
+		refresh();
+    	Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
     }
 
     @FXML

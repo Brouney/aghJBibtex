@@ -10,9 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.jbibtex.ParseException;
 import org.jbibtex.TokenMgrException;
 
+import entities.Article;
 import entities.Book;
 import entities.EntryTypes;
 import javafx.collections.FXCollections;
@@ -145,7 +150,25 @@ public class BookController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) throws TokenMgrException, ParseException {
-
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Book toAdd: ClassOfLists.listOfBooks) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close(); 
+	    
+	    
+	    ClassOfLists.listOfBooks.clear();
+		refresh();
+		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
+	    
 	}
 
 	@FXML

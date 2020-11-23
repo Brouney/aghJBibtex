@@ -10,7 +10,7 @@ import javax.persistence.Persistence;
 
 public class JpaUtil {
 	
-	private static Logger LOG = Logger.getLogger(JpaUtil.class.getName());
+	//private static Logger LOG = Logger.getLogger(JpaUtil.class.getName());
 	
 	private static EntityManagerFactory emf = null;
 	

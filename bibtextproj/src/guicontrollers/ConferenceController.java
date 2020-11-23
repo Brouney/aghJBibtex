@@ -3,6 +3,10 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Article;
 import entities.Book;
@@ -139,7 +143,22 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) {
-
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Conference toAdd: ClassOfLists.listOfConference) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close(); 
+		ClassOfLists.listOfConference.clear();
+		refresh();
+		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
 	}
 
 	@FXML

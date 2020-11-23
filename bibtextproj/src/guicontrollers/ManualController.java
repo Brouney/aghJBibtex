@@ -3,9 +3,14 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Book;
 import entities.Booklet;
+import entities.Inbook;
 import entities.Incollection;
 import entities.Manual;
 import entities.Manual;
@@ -106,7 +111,23 @@ public class ManualController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) {
-
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Manual toAdd: ClassOfLists.listOfManual) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close(); 
+	    
+	    ClassOfLists.listOfManual.clear();
+		refresh();
+		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
 	}
 
 	@FXML

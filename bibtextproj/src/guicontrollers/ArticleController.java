@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Article;
 import entities.Book;
@@ -115,6 +119,20 @@ public class ArticleController implements Initializable {
 	@FXML
 	void addAllToDB(ActionEvent event) {
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Article toAdd: ClassOfLists.listOfArticles) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close();  
+		
 	}
 
 	@FXML

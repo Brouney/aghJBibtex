@@ -3,6 +3,10 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Book;
 import entities.Booklet;
@@ -98,7 +102,22 @@ public class BookletController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) {
-
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Booklet toAdd: ClassOfLists.listOfBooklet) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close(); 
+		ClassOfLists.listOfBooklet.clear();
+		refresh();
+		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
 	}
 
 	@FXML

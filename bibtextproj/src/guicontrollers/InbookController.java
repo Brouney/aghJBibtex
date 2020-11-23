@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import entities.Book;
 import entities.EntryTypes;
 import entities.Inbook;
@@ -136,7 +140,24 @@ public class InbookController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) {
-
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Inbook toAdd: ClassOfLists.listOfInbook) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close(); 
+	    
+	    
+	    ClassOfLists.listOfInbook.clear();
+		refresh();
+		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
 	}
 
 	@FXML

@@ -3,8 +3,13 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Book;
+import entities.Misc;
 import entities.Phdthesis;
 import entities.Phdthesis;
 import javafx.collections.FXCollections;
@@ -103,7 +108,24 @@ public class PhdthesisController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) {
-
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Phdthesis toAdd: ClassOfLists.listOfPhdthesis) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close(); 
+	    
+	    
+	    ClassOfLists.listOfPhdthesis.clear();
+		refresh();
+		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
 	}
 
 	@FXML

@@ -3,8 +3,13 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Book;
+import entities.Mastersthesis;
 import entities.Misc;
 import entities.Misc;
 import javafx.collections.FXCollections;
@@ -91,7 +96,23 @@ public class MiscController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) {
-
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Misc toAdd: ClassOfLists.listOfMisc) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close(); 
+	    
+		ClassOfLists.listOfMisc.clear();
+		refresh();
+		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 	}
 
 	@FXML

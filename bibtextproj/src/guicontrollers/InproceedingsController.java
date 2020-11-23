@@ -3,8 +3,13 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Book;
+import entities.Inbook;
 import entities.Inproceedings;
 import entities.Inproceedings;
 import entities.Inproceedings;
@@ -142,7 +147,23 @@ public class InproceedingsController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) {
-
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		for(Inproceedings toAdd: ClassOfLists.listOfInproceedings) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();  
+	      
+	    em.close();  
+	    emf.close(); 
+	    
+		ClassOfLists.listOfInproceedings.clear();
+		refresh();
+		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
 	}
 
 	@FXML

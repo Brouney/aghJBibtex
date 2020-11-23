@@ -3,8 +3,13 @@ package guicontrollers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import application.Main;
 import entities.Book;
+import entities.Techreport;
 import entities.Unpublished;
 import entities.Unpublished;
 import javafx.collections.FXCollections;
@@ -52,19 +57,18 @@ public class UnpublishedController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
-    
-    @FXML
-    private TextField tfBibKey;
 
-    @FXML
-    private TextField tfkeywords;
+	@FXML
+	private TextField tfBibKey;
+
+	@FXML
+	private TextField tfkeywords;
 
 	@FXML
 	private TableView<Unpublished> tvUnpublished;
 
-    @FXML
-    private TableColumn<Unpublished, String> tcBibKey;
-
+	@FXML
+	private TableColumn<Unpublished, String> tcBibKey;
 
 	@FXML
 	private TableColumn<Unpublished, String> tcAuthor;
@@ -86,7 +90,23 @@ public class UnpublishedController implements Initializable {
 
 	@FXML
 	void addAllToDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		em.getTransaction().begin();
 
+		for (Unpublished toAdd : ClassOfLists.listOfUnpublished) {
+			em.persist(toAdd);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfTechreport.clear();
+		refresh();
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 	}
 
 	@FXML
@@ -101,22 +121,22 @@ public class UnpublishedController implements Initializable {
 		unpublishedToAdd.setKey(tfKey.getText());
 		unpublishedToAdd.setBibkey(tfBibKey.getText());
 
-		
 		System.out.println("przed add");
 
 		ClassOfLists.listOfUnpublished.add(unpublishedToAdd);
-		
+
 		refresh();
 		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
 
 	}
+
 	void refresh() {
 
-		ObservableList<Unpublished> tableViewList = FXCollections
-				.observableArrayList(ClassOfLists.listOfUnpublished);
+		ObservableList<Unpublished> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfUnpublished);
 
 		tvUnpublished.setItems(tableViewList);
 	}
+
 	@FXML
 	void cleanText(ActionEvent event) {
 		tfAuthor.setText("");
@@ -141,7 +161,6 @@ public class UnpublishedController implements Initializable {
 	void deleteElementFromList(ActionEvent event) {
 		Unpublished unpublishedToDel = new Unpublished();
 
-		
 		unpublishedToDel.setAuthor(tfAuthor.getText());
 		unpublishedToDel.setTitle(tfTitle.getText());
 		unpublishedToDel.setYear(tfYear.getText());
@@ -153,15 +172,14 @@ public class UnpublishedController implements Initializable {
 		int toDelInLoop = 0;
 		for (Unpublished todel : ClassOfLists.listOfUnpublished) {
 			if (unpublishedToDel.myequals(todel)) {
-				ClassOfLists.listOfUnpublished.remove( toDelInLoop);
+				ClassOfLists.listOfUnpublished.remove(toDelInLoop);
 				break;
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
 		refresh();
 		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
 
-		
 	}
 
 	@Override
@@ -175,7 +193,6 @@ public class UnpublishedController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Key"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Bibkey"));
 
-		
 	}
 
 }
