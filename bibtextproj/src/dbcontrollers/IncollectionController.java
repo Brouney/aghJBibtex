@@ -1,4 +1,4 @@
-package guicontrollers;
+package dbcontrollers;
 
 import java.net.URL;
 import java.util.ResourceBundle;

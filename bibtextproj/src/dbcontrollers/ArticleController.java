@@ -1,4 +1,4 @@
-package guicontrollers;
+package dbcontrollers;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
 
 import application.Main;
 import entities.Article;
-import entities.Book;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

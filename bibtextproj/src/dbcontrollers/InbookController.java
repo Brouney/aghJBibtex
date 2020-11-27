@@ -1,4 +1,4 @@
-package guicontrollers;
+package dbcontrollers;
 
 import application.Main;
 

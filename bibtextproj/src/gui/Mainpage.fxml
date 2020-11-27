@@ -222,7 +222,8 @@
                   <ToolBar prefHeight="40.0" prefWidth="200.0">
                     <items>
                       <Button fx:id="Loadfilebt" mnemonicParsing="false" onAction="#loadFileMethod" prefHeight="25.0" prefWidth="102.0" text="Load file" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="DownloadDB" />
+                        <Button fx:id="downloadDBbt" mnemonicParsing="false" onAction="#downloadDB" prefHeight="25.0" prefWidth="105.0" text="DownloadDB" />
+                        <Button fx:id="Changebt" mnemonicParsing="false" onAction="#changeAppFunctions" prefHeight="25.0" prefWidth="225.0" text="Change: Local&lt;-&gt;Database" />
                     </items>
                   </ToolBar>
                </items>
