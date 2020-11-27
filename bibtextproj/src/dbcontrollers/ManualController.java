@@ -58,30 +58,32 @@ public class ManualController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
-
-	@FXML
-	private Button deleteallfromlistid;
+	private Button deleteelementfromDBbt;
 
 	@FXML
 	private Button addalltodbid;
 
 	@FXML
+	private Button searchbt;
+
+	@FXML
+	private Button deleteallfromlistid;
+
+	@FXML
 	private TextField tfBibKey;
-	
+
 	@FXML
 	private TextField tfkeywords;
-
 
 	@FXML
 	private TableView<Manual> tvManual;
 
 	@FXML
 	private TableColumn<Manual, String> tcBibKey;
-	
+
 	@FXML
 	private TableColumn<Manual, String> tcTitle;
 
@@ -116,18 +118,43 @@ public class ManualController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Manual toAdd: ClassOfLists.listOfManual) {
+
+		for (Manual toAdd : ClassOfLists.listOfManual) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    ClassOfLists.listOfManual.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfManual.clear();
 		refresh();
 		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML

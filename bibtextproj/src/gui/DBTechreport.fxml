@@ -118,27 +118,32 @@
                                     <TextField fx:id="tfKey" />
                                     <Button fx:id="cleantextid" mnemonicParsing="false" onAction="#cleanText" prefHeight="25.0" prefWidth="144.0" text="Wyczyść pola tekstowe">
                                        <VBox.margin>
-                                          <Insets left="250.0" top="10.0" />
+                                          <Insets left="250.0" top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="addelementtolistid" mnemonicParsing="false" onAction="#addElementToList" prefHeight="25.0" prefWidth="144.0" text="Dodaj element do listy">
+                                    <Button fx:id="editElementInDBbt" mnemonicParsing="false" onAction="#editElementInDB" prefHeight="25.0" prefWidth="144.0" text="Edytuj element w bazie">
                                        <VBox.margin>
-                                          <Insets left="250.0" top="10.0" />
+                                          <Insets left="250.0" top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="deleteelementfromlistid" mnemonicParsing="false" onAction="#deleteElementFromList" prefHeight="25.0" prefWidth="144.0" text="Usuń element z listy">
+                                    <Button fx:id="deleteelementfromDBbt" mnemonicParsing="false" onAction="#deleteElementFromDB" prefHeight="25.0" prefWidth="144.0" text="Usuń element z bazy">
                                        <VBox.margin>
-                                          <Insets left="250.0" top="10.0" />
+                                          <Insets left="250.0" top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="deleteallfromlistid" mnemonicParsing="false" onAction="#deleteAllFromList" prefHeight="25.0" prefWidth="144.0" text="Usuń wszystko z listy">
+                                    <Button fx:id="addalltodbid" mnemonicParsing="false" onAction="#addElementToFile" prefHeight="25.0" prefWidth="145.0" text="Dodaj element to pliku">
                                        <VBox.margin>
-                                          <Insets left="250.0" top="10.0" />
+                                          <Insets left="250.0" top="5.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="addalltodbid" mnemonicParsing="false" onAction="#addAllToDB" text="Dodaj wszystko do bazy">
+                                    <Button fx:id="searchbt" mnemonicParsing="false" onAction="#searchdbfunc" prefHeight="25.0" prefWidth="146.0" text="Wyszukaj ">
                                        <VBox.margin>
-                                          <Insets left="250.0" top="10.0" />
+                                          <Insets left="250.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="deleteallfromlistid" mnemonicParsing="false" onAction="#deleteAllFromDB" prefHeight="25.0" prefWidth="144.0" text="Usuń wszystko z bazy">
+                                       <VBox.margin>
+                                          <Insets left="250.0" top="5.0" />
                                        </VBox.margin>
                                     </Button>
                                  </children>

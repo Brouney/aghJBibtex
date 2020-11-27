@@ -41,6 +41,9 @@ public class ArticleController implements Initializable {
 	private TextField tfJournal;
 
 	@FXML
+	private TextField tfBibKey;
+
+	@FXML
 	private TextField tfNumber;
 
 	@FXML
@@ -59,25 +62,25 @@ public class ArticleController implements Initializable {
 	private TextField tfDoi;
 
 	@FXML
-	private Button cleantextid;
-
-	@FXML
-	private Button addelementtolistid;
-
-	@FXML
-	private Button deleteelementfromlistid;
-
-	@FXML
-	private Button deleteallfromlistid;
-
-	@FXML
-	private Button addalltodbid;
-	
-	@FXML
-	private TextField tfBibKey;
-	
-	@FXML
 	private TextField tfkeywords;
+
+    @FXML
+    private Button cleantextid;
+
+    @FXML
+    private Button editElementInDBbt;
+
+    @FXML
+    private Button deleteelementfromDBbt;
+
+    @FXML
+    private Button addalltodbid;
+
+    @FXML
+    private Button searchbt;
+
+    @FXML
+    private Button deleteallfromdbid;
 
 	@FXML
 	private TableView<Article> tvArticles;
@@ -124,15 +127,15 @@ public class ArticleController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Article toAdd: ClassOfLists.listOfArticles) {
+
+		for (Article toAdd : ClassOfLists.listOfArticles) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close();  
-		
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
 	}
 
 	@FXML
@@ -154,8 +157,7 @@ public class ArticleController implements Initializable {
 		articleToAdd.setKey(tfKey.getText());
 		articleToAdd.setDoi(tfDoi.getText());
 		articleToAdd.setBibkey(tfBibKey.getText());
-		
-		
+
 		ClassOfLists.listOfArticles.add(articleToAdd);
 		refresh();
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
@@ -222,6 +224,33 @@ public class ArticleController implements Initializable {
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
 
 	}
+
+	@FXML
+    void addElementToFile(ActionEvent event) {
+
+    }
+
+
+
+    @FXML
+    void deleteAllFromDB(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteElementFromDB(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editElementInDB(ActionEvent event) {
+
+    }
+
+    @FXML
+    void searchdbfunc(ActionEvent event) {
+
+    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

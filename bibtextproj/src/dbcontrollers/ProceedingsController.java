@@ -65,16 +65,19 @@ public class ProceedingsController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
-
-	@FXML
-	private Button deleteallfromlistid;
+	private Button deleteelementfromDBbt;
 
 	@FXML
 	private Button addalltodbid;
+
+	@FXML
+	private Button searchbt;
+
+	@FXML
+	private Button deleteallfromlistid;
 
 	@FXML
 	private TextField tfBibKey;
@@ -131,18 +134,43 @@ public class ProceedingsController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Proceedings toAdd: ClassOfLists.listOfProceedings) {
+
+		for (Proceedings toAdd : ClassOfLists.listOfProceedings) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    ClassOfLists.listOfProceedings.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfProceedings.clear();
 		refresh();
 		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML

@@ -56,16 +56,19 @@ public class MastersthesisController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
-
-	@FXML
-	private Button deleteallfromlistid;
+	private Button deleteelementfromDBbt;
 
 	@FXML
 	private Button addalltodbid;
+
+	@FXML
+	private Button searchbt;
+
+	@FXML
+	private Button deleteallfromlistid;
 
 	@FXML
 	private TextField tfBibKey;
@@ -113,18 +116,43 @@ public class MastersthesisController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Mastersthesis toAdd: ClassOfLists.listOfMastersthesis) {
+
+		for (Mastersthesis toAdd : ClassOfLists.listOfMastersthesis) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    ClassOfLists.listOfMastersthesis.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfMastersthesis.clear();
 		refresh();
 		Main.mainController.changeLabelCountMastersthesis(Integer.toString((ClassOfLists.listOfMastersthesis.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML

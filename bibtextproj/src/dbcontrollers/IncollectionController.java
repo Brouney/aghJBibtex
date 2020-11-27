@@ -24,162 +24,188 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class IncollectionController implements Initializable{
+public class IncollectionController implements Initializable {
 
-    @FXML
-    private TextField tfType;
+	@FXML
+	private TextField tfType;
 
-    @FXML
-    private TextField tfEditor;
+	@FXML
+	private TextField tfEditor;
 
-    @FXML
-    private TextField tfAuthor;
+	@FXML
+	private TextField tfAuthor;
 
-    @FXML
-    private TextField tfBooktitle;
+	@FXML
+	private TextField tfBooktitle;
 
-    @FXML
-    private TextField tfTitle;
+	@FXML
+	private TextField tfTitle;
 
-    @FXML
-    private TextField tfYear;
+	@FXML
+	private TextField tfYear;
 
-    @FXML
-    private TextField tfPublisher;
+	@FXML
+	private TextField tfPublisher;
 
-    @FXML
-    private TextField tfChapter;
+	@FXML
+	private TextField tfChapter;
 
-    @FXML
-    private TextField tfVolume;
+	@FXML
+	private TextField tfVolume;
 
-    @FXML
-    private TextField tfNumber;
+	@FXML
+	private TextField tfNumber;
 
-    @FXML
-    private TextField tfSeries;
+	@FXML
+	private TextField tfSeries;
 
-    @FXML
-    private TextField tfAddress;
+	@FXML
+	private TextField tfAddress;
 
-    @FXML
-    private TextField tfEdition;
+	@FXML
+	private TextField tfEdition;
 
-    @FXML
-    private TextField tfMonth;
+	@FXML
+	private TextField tfMonth;
 
-    @FXML
-    private TextField tfNote;
+	@FXML
+	private TextField tfNote;
 
-    @FXML
-    private TextField tfKey;
+	@FXML
+	private TextField tfKey;
 
-    @FXML
-    private TextField tfPages;
+	@FXML
+	private TextField tfPages;
 
     @FXML
     private Button cleantextid;
 
     @FXML
-    private Button addelementtolistid;
+    private Button editElementInDBbt;
 
     @FXML
-    private Button deleteelementfromlistid;
-
-    @FXML
-    private Button deleteallfromlistid;
+    private Button deleteelementfromDBbt;
 
     @FXML
     private Button addalltodbid;
 
     @FXML
-    private TextField tfBibKey;
-    
-    @FXML
-    private TextField tfkeywords;
- 
-    
-    
-    @FXML
-    private TableView<Incollection> tvIncollection;
+    private Button searchbt;
 
     @FXML
-    private TableColumn<Incollection, String> tcBibKey;
-    
-    @FXML
-    private TableColumn<Incollection,String> tcAuthor;
+    private Button deleteallfromlistid;
 
-    @FXML
-    private TableColumn<Incollection,String> tcTitle;
+	@FXML
+	private TextField tfBibKey;
 
-    @FXML
-    private TableColumn<Incollection,String> tcYear;
+	@FXML
+	private TextField tfkeywords;
 
-    @FXML
-    private TableColumn<Incollection,String> tcPublisher;
+	@FXML
+	private TableView<Incollection> tvIncollection;
 
-    @FXML
-    private TableColumn<Incollection,String> tcEditor;
+	@FXML
+	private TableColumn<Incollection, String> tcBibKey;
 
-    @FXML
-    private TableColumn<Incollection,String> tcVolume;
+	@FXML
+	private TableColumn<Incollection, String> tcAuthor;
 
-    @FXML
-    private TableColumn<Incollection,String> tcNumber;
+	@FXML
+	private TableColumn<Incollection, String> tcTitle;
 
-    @FXML
-    private TableColumn<Incollection,String> tcSeries;
+	@FXML
+	private TableColumn<Incollection, String> tcYear;
 
-    @FXML
-    private TableColumn<Incollection,String> tcAddress;
+	@FXML
+	private TableColumn<Incollection, String> tcPublisher;
 
-    @FXML
-    private TableColumn<Incollection,String> tcEdition;
+	@FXML
+	private TableColumn<Incollection, String> tcEditor;
 
-    @FXML
-    private TableColumn<Incollection,String> tcMonth;
+	@FXML
+	private TableColumn<Incollection, String> tcVolume;
 
-    @FXML
-    private TableColumn<Incollection,String> tcNote;
+	@FXML
+	private TableColumn<Incollection, String> tcNumber;
 
-    @FXML
-    private TableColumn<Incollection,String> tcKey;
+	@FXML
+	private TableColumn<Incollection, String> tcSeries;
 
-    @FXML
-    private TableColumn<Incollection,String> tcPages;
+	@FXML
+	private TableColumn<Incollection, String> tcAddress;
 
-    @FXML
-    private TableColumn<Incollection,String> tcType;
+	@FXML
+	private TableColumn<Incollection, String> tcEdition;
 
-    @FXML
-    private TableColumn<Incollection,String> tcChapter;
-    @FXML
-    private TableColumn<Incollection,String> tcBooktitle;
+	@FXML
+	private TableColumn<Incollection, String> tcMonth;
 
-    @FXML
-    void addAllToDB(ActionEvent event) {
-    	EntityManagerFactory emf = null;
+	@FXML
+	private TableColumn<Incollection, String> tcNote;
+
+	@FXML
+	private TableColumn<Incollection, String> tcKey;
+
+	@FXML
+	private TableColumn<Incollection, String> tcPages;
+
+	@FXML
+	private TableColumn<Incollection, String> tcType;
+
+	@FXML
+	private TableColumn<Incollection, String> tcChapter;
+	@FXML
+	private TableColumn<Incollection, String> tcBooktitle;
+
+	@FXML
+	void addAllToDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Incollection toAdd: ClassOfLists.listOfIncollection) {
+
+		for (Incollection toAdd : ClassOfLists.listOfIncollection) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close();
-	    
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
 		ClassOfLists.listOfIncollection.clear();
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
-    }
+	}
 
-    @FXML
-    void addElementToList(ActionEvent event) {
-    	Incollection incollectionToAdd = new Incollection();
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
+	}
+
+	@FXML
+	void addElementToList(ActionEvent event) {
+		Incollection incollectionToAdd = new Incollection();
 
 		System.out.println("po try");
 
@@ -188,7 +214,7 @@ public class IncollectionController implements Initializable{
 		incollectionToAdd.setTitle(tfTitle.getText());
 		incollectionToAdd.setYear(tfYear.getText());
 		incollectionToAdd.setPublisher(tfPublisher.getText());
-		
+
 		incollectionToAdd.setVolume(tfVolume.getText());
 		incollectionToAdd.setNumber(tfNumber.getText());
 		incollectionToAdd.setMonth(tfMonth.getText());
@@ -202,21 +228,20 @@ public class IncollectionController implements Initializable{
 		incollectionToAdd.setType(tfType.getText());
 		incollectionToAdd.setEdition(tfEdition.getText());
 		incollectionToAdd.setBibkey(tfBibKey.getText());
-		
-		
+
 		ClassOfLists.listOfIncollection.add(incollectionToAdd);
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
-    }
+	}
 
-    @FXML
-    void cleanText(ActionEvent event) {
-    	tfAuthor.setText("");
+	@FXML
+	void cleanText(ActionEvent event) {
+		tfAuthor.setText("");
 		tfBooktitle.setText("");
 		tfTitle.setText("");
 		tfYear.setText("");
 		tfPublisher.setText("");
-		
+
 		tfVolume.setText("");
 		tfNumber.setText("");
 		tfMonth.setText("");
@@ -231,32 +256,31 @@ public class IncollectionController implements Initializable{
 		tfType.setText("");
 		tfBibKey.setText("");
 		tfkeywords.setText("");
-    }
+	}
 
-    @FXML
-    void deleteAllFromList(ActionEvent event) {
-    	ClassOfLists.listOfIncollection.clear();
+	@FXML
+	void deleteAllFromList(ActionEvent event) {
+		ClassOfLists.listOfIncollection.clear();
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
-    }
+	}
 
 	void refresh() {
 		ObservableList<Incollection> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfIncollection);
 
 		tvIncollection.setItems(tableViewList);
 	}
-    
-    
-    @FXML
-    void deleteElementFromList(ActionEvent event) {
-    	Incollection incollectionToDel = new Incollection();
+
+	@FXML
+	void deleteElementFromList(ActionEvent event) {
+		Incollection incollectionToDel = new Incollection();
 
 		incollectionToDel.setAuthor(tfAuthor.getText());
 		incollectionToDel.setBooktitle(tfBooktitle.getText());
 		incollectionToDel.setTitle(tfTitle.getText());
 		incollectionToDel.setYear(tfYear.getText());
 		incollectionToDel.setPublisher(tfPublisher.getText());
-		
+
 		incollectionToDel.setVolume(tfVolume.getText());
 		incollectionToDel.setNumber(tfNumber.getText());
 		incollectionToDel.setMonth(tfMonth.getText());
@@ -277,13 +301,13 @@ public class IncollectionController implements Initializable{
 				ClassOfLists.listOfIncollection.remove(toDelInLoop);
 				break;
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
-		//w incollection editor jest zakomentowany - wtedy działa xd
-		
+		// w incollection editor jest zakomentowany - wtedy działa xd
+
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
-    }
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -294,7 +318,6 @@ public class IncollectionController implements Initializable{
 		tcYear.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Year"));
 		tcPublisher.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Publisher"));
 
-		
 		tcVolume.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Volume"));
 		tcNumber.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Number"));
 		tcMonth.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Month"));

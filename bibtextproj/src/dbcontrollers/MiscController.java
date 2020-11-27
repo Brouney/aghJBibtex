@@ -50,16 +50,19 @@ public class MiscController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
-
-	@FXML
-	private Button deleteallfromlistid;
+	private Button deleteelementfromDBbt;
 
 	@FXML
 	private Button addalltodbid;
+
+	@FXML
+	private Button searchbt;
+
+	@FXML
+	private Button deleteallfromlistid;
 
 	@FXML
 	private TextField tfBibKey;
@@ -101,18 +104,43 @@ public class MiscController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Misc toAdd: ClassOfLists.listOfMisc) {
+
+		for (Misc toAdd : ClassOfLists.listOfMisc) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
 		ClassOfLists.listOfMisc.clear();
 		refresh();
 		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML

@@ -75,31 +75,32 @@ public class InproceedingsController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
+	private Button deleteelementfromDBbt;
+
+	@FXML
+	private Button addalltodbid;
+
+	@FXML
+	private Button searchbt;
 
 	@FXML
 	private Button deleteallfromlistid;
 
 	@FXML
-	private Button addalltodbid;
-	
-	@FXML
 	private TextField tfBibKey;
-	
+
 	@FXML
 	private TextField tfkeywords;
-	 
-	
+
 	@FXML
 	private TableView<Inproceedings> tvInproceedings;
 
 	@FXML
 	private TableColumn<Inproceedings, String> tcBibKey;
-	
-	
+
 	@FXML
 	private TableColumn<Inproceedings, String> tcAuthor;
 
@@ -152,18 +153,43 @@ public class InproceedingsController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Inproceedings toAdd: ClassOfLists.listOfInproceedings) {
+
+		for (Inproceedings toAdd : ClassOfLists.listOfInproceedings) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
 		ClassOfLists.listOfInproceedings.clear();
 		refresh();
 		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML

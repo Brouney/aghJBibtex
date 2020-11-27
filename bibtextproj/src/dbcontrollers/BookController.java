@@ -77,20 +77,23 @@ public class BookController implements Initializable {
 	@FXML
 	private TextField tfUrl;
 
-	@FXML
-	private Button cleantextid;
+    @FXML
+    private Button cleantextid;
 
-	@FXML
-	private Button addelementtolistid;
+    @FXML
+    private Button editElementInDBbt;
 
-	@FXML
-	private Button deleteelementfromlistid;
+    @FXML
+    private Button deleteelementfromDBbt;
 
-	@FXML
-	private Button deleteallfromlistid;
+    @FXML
+    private Button addalltodbid;
 
-	@FXML
-	private Button addalltodbid;
+    @FXML
+    private Button searchbt;
+
+    @FXML
+    private Button deleteallfromlistid;
 
 	@FXML
 	private TextField tfBibKey;
@@ -292,6 +295,35 @@ public class BookController implements Initializable {
 		refresh();
 	}
 
+    @FXML
+    void addElementToFile(ActionEvent event) {
+
+    }
+
+   
+
+    @FXML
+    void deleteAllFromDB(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteElementFromDB(ActionEvent event) {
+
+    }
+
+    @FXML
+    void editElementInDB(ActionEvent event) {
+
+    }
+
+    @FXML
+    void searchdbfunc(ActionEvent event) {
+
+    }
+	
+	
+	
 	void refresh() {
 
 		ObservableList<Book> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfBooks);

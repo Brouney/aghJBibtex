@@ -25,113 +25,139 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TechreportController implements Initializable {
 
-    @FXML
-    private TextField tfAuthor;
+	@FXML
+	private TextField tfAuthor;
 
-    @FXML
-    private TextField tfTitle;
+	@FXML
+	private TextField tfTitle;
 
-    @FXML
-    private TextField tfYear;
+	@FXML
+	private TextField tfYear;
 
-    @FXML
-    private TextField tfInstitution;
+	@FXML
+	private TextField tfInstitution;
 
-    @FXML
-    private TextField tfType;
+	@FXML
+	private TextField tfType;
 
-    @FXML
-    private TextField tfAddress;
+	@FXML
+	private TextField tfAddress;
 
-    @FXML
-    private TextField tfMonth;
+	@FXML
+	private TextField tfMonth;
 
-    @FXML
-    private TextField tfNote;
+	@FXML
+	private TextField tfNote;
 
-    @FXML
-    private TextField tfKey;
+	@FXML
+	private TextField tfKey;
 
-    @FXML
-    private Button cleantextid;
+	@FXML
+	private Button cleantextid;
 
-    @FXML
-    private Button addelementtolistid;
+	@FXML
+	private Button editElementInDBbt;
 
-    @FXML
-    private Button deleteelementfromlistid;
+	@FXML
+	private Button deleteelementfromDBbt;
 
-    @FXML
-    private Button deleteallfromlistid;
+	@FXML
+	private Button addalltodbid;
 
-    @FXML
-    private Button addalltodbid;
-    
-    @FXML
-    private TextField tfBibKey;
+	@FXML
+	private Button searchbt;
 
-    @FXML
-    private TextField tfkeywords;
+	@FXML
+	private Button deleteallfromlistid;
 
+	@FXML
+	private TextField tfBibKey;
 
-    @FXML
-    private TableView<Techreport> tvTechreport;
+	@FXML
+	private TextField tfkeywords;
 
-    @FXML
-    private TableColumn<Techreport, String> tcAuthor;
+	@FXML
+	private TableView<Techreport> tvTechreport;
 
-    @FXML
-    private TableColumn<Techreport, String> tcBibKey;
+	@FXML
+	private TableColumn<Techreport, String> tcAuthor;
 
-    @FXML
-    private TableColumn<Techreport, String> tcTitle;
+	@FXML
+	private TableColumn<Techreport, String> tcBibKey;
 
-    @FXML
-    private TableColumn<Techreport, String> tcYear;
+	@FXML
+	private TableColumn<Techreport, String> tcTitle;
 
-    @FXML
-    private TableColumn<Techreport, String> tcInstitution;
+	@FXML
+	private TableColumn<Techreport, String> tcYear;
 
-    @FXML
-    private TableColumn<Techreport, String> tcType;
+	@FXML
+	private TableColumn<Techreport, String> tcInstitution;
 
-    @FXML
-    private TableColumn<Techreport, String> tcAddress;
+	@FXML
+	private TableColumn<Techreport, String> tcType;
 
-    @FXML
-    private TableColumn<Techreport, String> tcMonth;
+	@FXML
+	private TableColumn<Techreport, String> tcAddress;
 
-    @FXML
-    private TableColumn<Techreport, String> tcNote;
+	@FXML
+	private TableColumn<Techreport, String> tcMonth;
 
-    @FXML
-    private TableColumn<Techreport, String> tcKey;
+	@FXML
+	private TableColumn<Techreport, String> tcNote;
 
-    @FXML
-    void addAllToDB(ActionEvent event) {
-    	EntityManagerFactory emf = null;
+	@FXML
+	private TableColumn<Techreport, String> tcKey;
+
+	@FXML
+	void addAllToDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Techreport toAdd: ClassOfLists.listOfTechreport) {
+
+		for (Techreport toAdd : ClassOfLists.listOfTechreport) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close();
-	    
-	    
-	    ClassOfLists.listOfTechreport.clear();
-		refresh();
-    	Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
-    }
+		em.getTransaction().commit();
 
-    @FXML
-    void addElementToList(ActionEvent event) {
-    	System.out.println("przed try");
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfTechreport.clear();
+		refresh();
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
+	}
+
+	@FXML
+	void addElementToList(ActionEvent event) {
+		System.out.println("przed try");
 		try {
 			Techreport techreportToAdd = new Techreport();
 
@@ -160,18 +186,18 @@ public class TechreportController implements Initializable {
 		System.out.println("przed zmiana label");
 		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 
+	}
 
-    }
-    void refresh() {
+	void refresh() {
 
-		ObservableList<Techreport> tableViewList = FXCollections
-				.observableArrayList(ClassOfLists.listOfTechreport);
+		ObservableList<Techreport> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfTechreport);
 
 		tvTechreport.setItems(tableViewList);
 	}
-    @FXML
-    void cleanText(ActionEvent event) {
-    	tfAuthor.setText("");
+
+	@FXML
+	void cleanText(ActionEvent event) {
+		tfAuthor.setText("");
 		tfAddress.setText("");
 		tfTitle.setText("");
 		tfYear.setText("");
@@ -182,20 +208,20 @@ public class TechreportController implements Initializable {
 		tfInstitution.setText("");
 		tfBibKey.setText("");
 		tfkeywords.setText("");
-		
-    }
 
-    @FXML
-    void deleteAllFromList(ActionEvent event) {
-    	ClassOfLists.listOfTechreport.clear();
+	}
+
+	@FXML
+	void deleteAllFromList(ActionEvent event) {
+		ClassOfLists.listOfTechreport.clear();
 		refresh();
-    	Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 
-    }
+	}
 
-    @FXML
-    void deleteElementFromList(ActionEvent event) {
-    	Techreport techreportToDel = new Techreport();
+	@FXML
+	void deleteElementFromList(ActionEvent event) {
+		Techreport techreportToDel = new Techreport();
 
 		System.out.println("po try");
 
@@ -213,15 +239,15 @@ public class TechreportController implements Initializable {
 		int toDelInLoop = 0;
 		for (Techreport todel : ClassOfLists.listOfTechreport) {
 			if (techreportToDel.myequals(todel)) {
-				ClassOfLists.listOfTechreport.remove( toDelInLoop);
+				ClassOfLists.listOfTechreport.remove(toDelInLoop);
 				break;
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
 		refresh();
-    	Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 
-    }
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -237,7 +263,7 @@ public class TechreportController implements Initializable {
 		tcInstitution.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Institution"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Bibkey"));
 		refresh();
-		
+
 	}
 
 }

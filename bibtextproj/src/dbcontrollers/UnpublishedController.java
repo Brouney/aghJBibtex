@@ -47,16 +47,19 @@ public class UnpublishedController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
-
-	@FXML
-	private Button deleteallfromlistid;
+	private Button deleteelementfromDBbt;
 
 	@FXML
 	private Button addalltodbid;
+
+	@FXML
+	private Button searchbt;
+
+	@FXML
+	private Button deleteallfromlistid;
 
 	@FXML
 	private TextField tfBibKey;
@@ -107,6 +110,31 @@ public class UnpublishedController implements Initializable {
 		ClassOfLists.listOfTechreport.clear();
 		refresh();
 		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML

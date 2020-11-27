@@ -51,31 +51,32 @@ public class BookletController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
+	private Button deleteelementfromDBbt;
+
+	@FXML
+	private Button addalltodbid;
+
+	@FXML
+	private Button searchbt;
 
 	@FXML
 	private Button deleteallfromlistid;
 
 	@FXML
-	private Button addalltodbid;
-	
-    @FXML
-    private TextField tfBibKey;
-    
-    @FXML
-    private TextField tfkeywords;
-    
+	private TextField tfBibKey;
 
-    
+	@FXML
+	private TextField tfkeywords;
+
 	@FXML
 	private TableView<Booklet> tvBooklet;
 
-    @FXML
-    private TableColumn<Booklet, String> tcBibKey;
-	
+	@FXML
+	private TableColumn<Booklet, String> tcBibKey;
+
 	@FXML
 	private TableColumn<Booklet, String> tcTitle;
 
@@ -107,14 +108,14 @@ public class BookletController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Booklet toAdd: ClassOfLists.listOfBooklet) {
+
+		for (Booklet toAdd : ClassOfLists.listOfBooklet) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 		ClassOfLists.listOfBooklet.clear();
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
@@ -144,6 +145,26 @@ public class BookletController implements Initializable {
 		ObservableList<Booklet> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfBooklet);
 
 		tvBooklet.setItems(tableViewList);
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML
@@ -192,7 +213,7 @@ public class BookletController implements Initializable {
 				ClassOfLists.listOfBooklet.remove(toDelInLoop);
 				break;
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
 
 		refresh();

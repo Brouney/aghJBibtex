@@ -73,23 +73,26 @@ public class ConferenceController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
-
-	@FXML
-	private Button deleteallfromlistid;
+	private Button deleteelementfromDBbt;
 
 	@FXML
 	private Button addalltodbid;
 
 	@FXML
+	private Button searchbt;
+
+	@FXML
+	private Button deleteallfromlistid;
+
+	@FXML
 	private TextField tfBibKey;
-	
+
 	@FXML
 	private TextField tfkeywords;
-	
+
 	@FXML
 	private TableColumn<Conference, String> tcBibKey;
 
@@ -148,14 +151,14 @@ public class ConferenceController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Conference toAdd: ClassOfLists.listOfConference) {
+
+		for (Conference toAdd : ClassOfLists.listOfConference) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 		ClassOfLists.listOfConference.clear();
 		refresh();
 		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
@@ -193,6 +196,31 @@ public class ConferenceController implements Initializable {
 		ObservableList<Conference> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfConference);
 
 		tvConference.setItems(tableViewList);
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML

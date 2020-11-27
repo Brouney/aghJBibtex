@@ -56,22 +56,25 @@ public class PhdthesisController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
+	private Button deleteelementfromDBbt;
+
+	@FXML
+	private Button addalltodbid;
+
+	@FXML
+	private Button searchbt;
 
 	@FXML
 	private Button deleteallfromlistid;
 
 	@FXML
-	private Button addalltodbid;
-    
-    @FXML
-    private TextField tfBibKey;
+	private TextField tfBibKey;
 
-    @FXML
-    private TextField tfkeywords;
+	@FXML
+	private TextField tfkeywords;
 
 	@FXML
 	private TableView<Phdthesis> tvPhdthesis;
@@ -79,9 +82,9 @@ public class PhdthesisController implements Initializable {
 	@FXML
 	private TableColumn<Phdthesis, String> tcAuthor;
 
-    @FXML
-    private TableColumn<Phdthesis, String> tcBibKey;
-    
+	@FXML
+	private TableColumn<Phdthesis, String> tcBibKey;
+
 	@FXML
 	private TableColumn<Phdthesis, String> tcTitle;
 
@@ -113,19 +116,43 @@ public class PhdthesisController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Phdthesis toAdd: ClassOfLists.listOfPhdthesis) {
+
+		for (Phdthesis toAdd : ClassOfLists.listOfPhdthesis) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    
-	    ClassOfLists.listOfPhdthesis.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfPhdthesis.clear();
 		refresh();
 		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML

@@ -73,29 +73,32 @@ public class InbookController implements Initializable {
 	private Button cleantextid;
 
 	@FXML
-	private Button addelementtolistid;
+	private Button editElementInDBbt;
 
 	@FXML
-	private Button deleteelementfromlistid;
+	private Button deleteelementfromDBbt;
+
+	@FXML
+	private Button addalltodbid;
+
+	@FXML
+	private Button searchbt;
 
 	@FXML
 	private Button deleteallfromlistid;
 
 	@FXML
-	private Button addalltodbid;
-	
-	@FXML
 	private TextField tfBibKey;
-	
+
 	@FXML
 	private TextField tfkeywords;
 
 	@FXML
 	private TableView<Inbook> tvInbook;
-	
+
 	@FXML
 	private TableColumn<Inbook, String> tcBibKey;
-	
+
 	@FXML
 	private TableColumn<Inbook, String> tcAuthor;
 
@@ -145,19 +148,43 @@ public class InbookController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Inbook toAdd: ClassOfLists.listOfInbook) {
+
+		for (Inbook toAdd : ClassOfLists.listOfInbook) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    
-	    ClassOfLists.listOfInbook.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfInbook.clear();
 		refresh();
 		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
 	}
 
 	@FXML
