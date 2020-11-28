@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import application.Main;
 import entities.Article;
@@ -64,23 +65,23 @@ public class ArticleController implements Initializable {
 	@FXML
 	private TextField tfkeywords;
 
-    @FXML
-    private Button cleantextid;
+	@FXML
+	private Button cleantextid;
 
-    @FXML
-    private Button editElementInDBbt;
+	@FXML
+	private Button editElementInDBbt;
 
-    @FXML
-    private Button deleteelementfromDBbt;
+	@FXML
+	private Button deleteelementfromDBbt;
 
-    @FXML
-    private Button addalltodbid;
+	@FXML
+	private Button addalltodbid;
 
-    @FXML
-    private Button searchbt;
+	@FXML
+	private Button searchbt;
 
-    @FXML
-    private Button deleteallfromdbid;
+	@FXML
+	private Button deleteallfromdbid;
 
 	@FXML
 	private TableView<Article> tvArticles;
@@ -120,47 +121,28 @@ public class ArticleController implements Initializable {
 	private TableColumn<Article, String> tcDoi;
 
 	@FXML
-	void addAllToDB(ActionEvent event) {
-
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		for (Article toAdd : ClassOfLists.listOfArticles) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
-
-	}
+	private Button addfromtablebt;
 
 	@FXML
-	void addElementToList(ActionEvent event) {
-		Article articleToAdd = new Article();
+	void addFromTable(ActionEvent event) {
 
-		System.out.println("po try");
+		Article fromtable = tvArticles.getSelectionModel().getSelectedItem();
 
-		articleToAdd.setAuthor(tfAuthor.getText());
-		articleToAdd.setJournal(tfJournal.getText());
-		articleToAdd.setTitle(tfTitle.getText());
-		articleToAdd.setYear(tfYear.getText());
-		articleToAdd.setVolume(tfVolume.getText());
+		tfAuthor.setText(fromtable.getAuthor());
+		tfJournal.setText(fromtable.getJournal());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfVolume.setText(fromtable.getVolume());
 
-		articleToAdd.setPages(tfPages.getText());
-		articleToAdd.setNumber(tfNumber.getText());
-		articleToAdd.setMonth(tfMonth.getText());
-		articleToAdd.setNote(tfNote.getText());
-		articleToAdd.setKey(tfKey.getText());
-		articleToAdd.setDoi(tfDoi.getText());
-		articleToAdd.setBibkey(tfBibKey.getText());
+		tfPages.setText(fromtable.getPages());
+		tfNumber.setText(fromtable.getNumber());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfDoi.setText(fromtable.getDoi());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
 
-		ClassOfLists.listOfArticles.add(articleToAdd);
-		refresh();
-		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
 	}
 
 	void refresh() {
@@ -188,69 +170,112 @@ public class ArticleController implements Initializable {
 	}
 
 	@FXML
-	void deleteAllFromList(ActionEvent event) {
+	void searchdbfunc(ActionEvent event) {
+
+		
+		
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+		
+		
+		
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		for (Article fromdbobj : ClassOfLists.listOfArticles) {
+			
+			Article infunc = em.find(Article.class, fromdbobj.getID());
+			
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
 		ClassOfLists.listOfArticles.clear();
 		refresh();
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
+
+	}
+
+
+
+	private void editelement(Article article) {
+		article.setAuthor(tfAuthor.getText());
+		article.setJournal(tfJournal.getText());
+		article.setTitle(tfTitle.getText());
+		article.setYear(tfYear.getText());
+		article.setVolume(tfVolume.getText());
+
+		article.setPages(tfPages.getText());
+		article.setNumber(tfNumber.getText());
+		article.setMonth(tfMonth.getText());
+		article.setNote(tfNote.getText());
+		article.setKey(tfKey.getText());
+		article.setDoi(tfDoi.getText());
+		article.setBibkey(tfBibKey.getText());
+
 	}
 
 	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Article articleToDel = new Article();
+	void deleteElementFromDB(ActionEvent event) {
+		Article fromtable = tvArticles.getSelectionModel().getSelectedItem();
 
-		articleToDel.setAuthor(tfAuthor.getText());
-		articleToDel.setJournal(tfJournal.getText());
-		articleToDel.setTitle(tfTitle.getText());
-		articleToDel.setYear(tfYear.getText());
-		articleToDel.setVolume(tfVolume.getText());
+		Long id = fromtable.getID();
 
-		articleToDel.setPages(tfPages.getText());
-		articleToDel.setNumber(tfNumber.getText());
-		articleToDel.setMonth(tfMonth.getText());
-		articleToDel.setNote(tfNote.getText());
-		articleToDel.setKey(tfKey.getText());
-		articleToDel.setDoi(tfDoi.getText());
-		articleToDel.setBibkey(tfBibKey.getText());
-		int toDelInLoop = 0;
-		System.out.println("przed forem");
-		for (Article art : ClassOfLists.listOfArticles) {
-			if (articleToDel.equals(art)) {
-				ClassOfLists.listOfArticles.remove(toDelInLoop);
-			}
-			toDelInLoop += 1;
-		}
-		System.out.println("przed refresh");
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Article fromdbobj = em.find(Article.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfArticles.remove(tvArticles.getSelectionModel().getSelectedItem());
 		refresh();
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
-
 	}
 
 	@FXML
-    void addElementToFile(ActionEvent event) {
+	void editElementInDB(ActionEvent event) {
+		Article fromtable = tvArticles.getSelectionModel().getSelectedItem();
 
-    }
+		Long id = fromtable.getID();
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
+		Article fromdbobj = em.find(Article.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
 
-    @FXML
-    void deleteAllFromDB(ActionEvent event) {
+		em.getTransaction().commit();
 
-    }
-
-    @FXML
-    void deleteElementFromDB(ActionEvent event) {
-
-    }
-
-    @FXML
-    void editElementInDB(ActionEvent event) {
-
-    }
-
-    @FXML
-    void searchdbfunc(ActionEvent event) {
-
-    }
+		em.close();
+		emf.close();
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

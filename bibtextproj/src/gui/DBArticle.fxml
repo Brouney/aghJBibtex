@@ -66,6 +66,11 @@
                                     <TextField fx:id="tfYear" />
                                     <TextField fx:id="tfJournal" />
                                     <TextField fx:id="tfBibKey" />
+                                    <Button fx:id="addfromtablebt" mnemonicParsing="false" onAction="#addFromTable" prefHeight="25.0" prefWidth="147.0" text="Dodaj z tabeli">
+                                       <VBox.margin>
+                                          <Insets left="250.0" top="25.0" />
+                                       </VBox.margin>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>

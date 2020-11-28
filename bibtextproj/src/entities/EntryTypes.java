@@ -29,6 +29,17 @@ public abstract class EntryTypes implements Serializable{
 	@Column(name = "bibkey")
 	private String bibkey;
 
+	@Column(name = "keywords")
+	private String keywords;
+	
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
 	public Long getID() {
 		return ID;
 	}

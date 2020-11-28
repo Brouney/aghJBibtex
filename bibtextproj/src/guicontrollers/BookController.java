@@ -289,6 +289,7 @@ public class BookController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Key"));
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Book, String>("Url"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Bibkey"));
+		refresh();
 	}
 
 	void refresh() {
