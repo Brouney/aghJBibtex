@@ -85,6 +85,9 @@ public class ConferenceController implements Initializable {
 	private Button searchbt;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private Button deleteallfromlistid;
 
 	@FXML
@@ -145,6 +148,29 @@ public class ConferenceController implements Initializable {
 	private TableColumn<Conference, String> tcEditor;
 
 	@FXML
+	void addFromTable(ActionEvent event) {
+		Conference fromtable = tvConference.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfBooktitle.setText(fromtable.getBooktitle());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+
+		tfVolume.setText(fromtable.getVolume());
+		tfPublisher.setText(fromtable.getPublisher());
+		tfNumber.setText(fromtable.getNumber());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfOrganization.setText(fromtable.getOrganization());
+		tfAddress.setText(fromtable.getAddress());
+		tfPages.setText(fromtable.getPages());
+		tfSeries.setText(fromtable.getSeries());
+		tfEditor.setText(fromtable.getEditor());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
@@ -164,33 +190,29 @@ public class ConferenceController implements Initializable {
 		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
 	}
 
-	@FXML
-	void addElementToList(ActionEvent event) {
-		Conference conferenceToAdd = new Conference();
+	private void editelement(Conference conference) {
 
-		System.out.println("po try");
+		conference.setAuthor(tfAuthor.getText());
+		conference.setBooktitle(tfBooktitle.getText());
+		conference.setTitle(tfTitle.getText());
+		conference.setYear(tfYear.getText());
 
-		conferenceToAdd.setAuthor(tfAuthor.getText());
-		conferenceToAdd.setBooktitle(tfBooktitle.getText());
-		conferenceToAdd.setTitle(tfTitle.getText());
-		conferenceToAdd.setYear(tfYear.getText());
+		conference.setVolume(tfVolume.getText());
+		conference.setPublisher(tfPublisher.getText());
+		conference.setNumber(tfNumber.getText());
+		conference.setMonth(tfMonth.getText());
+		conference.setNote(tfNote.getText());
+		conference.setKey(tfKey.getText());
+		conference.setOrganization(tfOrganization.getText());
+		conference.setAddress(tfAddress.getText());
+		conference.setPages(tfPages.getText());
+		conference.setSeries(tfSeries.getText());
+		conference.setEditor(tfEditor.getText());
+		conference.setBibkey(tfBibKey.getText());
 
-		conferenceToAdd.setVolume(tfVolume.getText());
-		conferenceToAdd.setPublisher(tfPublisher.getText());
-		conferenceToAdd.setNumber(tfNumber.getText());
-		conferenceToAdd.setMonth(tfMonth.getText());
-		conferenceToAdd.setNote(tfNote.getText());
-		conferenceToAdd.setKey(tfKey.getText());
-		conferenceToAdd.setOrganization(tfOrganization.getText());
-		conferenceToAdd.setAddress(tfAddress.getText());
-		conferenceToAdd.setPages(tfPages.getText());
-		conferenceToAdd.setSeries(tfSeries.getText());
-		conferenceToAdd.setEditor(tfEditor.getText());
-		conferenceToAdd.setBibkey(tfBibKey.getText());
-		ClassOfLists.listOfConference.add(conferenceToAdd);
-		refresh();
-		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
 	}
+
+	
 
 	void refresh() {
 		ObservableList<Conference> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfConference);
@@ -204,23 +226,82 @@ public class ConferenceController implements Initializable {
 	}
 
 	@FXML
+	void searchdbfunc(ActionEvent event) {
+
+	}
+
+	@FXML
 	void deleteAllFromDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		for (Conference fromdbobj : ClassOfLists.listOfConference) {
+
+			Conference infunc = em.find(Conference.class, fromdbobj.getID());
+
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfConference.clear();
+		refresh();
+		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
 
 	}
 
 	@FXML
 	void deleteElementFromDB(ActionEvent event) {
+		Conference fromtable = tvConference.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Conference fromdbobj = em.find(Conference.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfConference.remove(tvConference.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
 
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+		Conference fromtable = tvConference.getSelectionModel().getSelectedItem();
 
-	}
+		Long id = fromtable.getID();
 
-	@FXML
-	void searchdbfunc(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
+		Conference fromdbobj = em.find(Conference.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+	
 	}
 
 	@FXML
@@ -246,47 +327,8 @@ public class ConferenceController implements Initializable {
 		tfkeywords.setText("");
 	}
 
-	@FXML
-	void deleteAllFromList(ActionEvent event) {
-		ClassOfLists.listOfConference.clear();
-		refresh();
-		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
-	}
-
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Conference conferenceToDel = new Conference();
-
-		conferenceToDel.setAuthor(tfAuthor.getText());
-		conferenceToDel.setBooktitle(tfBooktitle.getText());
-		conferenceToDel.setTitle(tfTitle.getText());
-		conferenceToDel.setYear(tfYear.getText());
-
-		conferenceToDel.setVolume(tfVolume.getText());
-		conferenceToDel.setPublisher(tfPublisher.getText());
-		conferenceToDel.setNumber(tfNumber.getText());
-		conferenceToDel.setMonth(tfMonth.getText());
-		conferenceToDel.setNote(tfNote.getText());
-		conferenceToDel.setKey(tfKey.getText());
-		conferenceToDel.setOrganization(tfOrganization.getText());
-		conferenceToDel.setAddress(tfAddress.getText());
-		conferenceToDel.setPages(tfPages.getText());
-		conferenceToDel.setSeries(tfSeries.getText());
-		conferenceToDel.setEditor(tfEditor.getText());
-		conferenceToDel.setBibkey(tfBibKey.getText());
-		int toDelInLoop = 0;
-		System.out.println("przed forem");
-		for (Conference art : ClassOfLists.listOfConference) {
-			if (conferenceToDel.equals(art)) {
-				ClassOfLists.listOfConference.remove(toDelInLoop);
-				break;
-			}
-			toDelInLoop += 1;
-		}
-		System.out.println("przed refresh");
-		refresh();
-		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
-	}
+	
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

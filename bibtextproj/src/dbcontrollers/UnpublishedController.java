@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import application.Main;
+import entities.Article;
 import entities.Book;
 import entities.Techreport;
 import entities.Unpublished;
@@ -62,6 +63,9 @@ public class UnpublishedController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -92,43 +96,32 @@ public class UnpublishedController implements Initializable {
 	private TableColumn<Unpublished, String> tcKey;
 
 	@FXML
-	void addAllToDB(ActionEvent event) {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
+	void addFromTable(ActionEvent event) {
+		Unpublished fromtable = tvUnpublished.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
 
-		for (Unpublished toAdd : ClassOfLists.listOfUnpublished) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
 
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfTechreport.clear();
-		refresh();
-		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+	private void editelement(Unpublished unpublished) {
+		unpublished.setAuthor(tfAuthor.getText());
+		unpublished.setTitle(tfTitle.getText());
+		unpublished.setYear(tfYear.getText());
+		unpublished.setMonth(tfMonth.getText());
+		unpublished.setNote(tfNote.getText());
+		unpublished.setKey(tfKey.getText());
+		unpublished.setBibkey(tfBibKey.getText());
+		unpublished.setKeywords(tfkeywords.getText());
 	}
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
-
-	}
-
-	@FXML
-	void deleteAllFromDB(ActionEvent event) {
-
-	}
-
-	@FXML
-	void deleteElementFromDB(ActionEvent event) {
-
-	}
-
-	@FXML
-	void editElementInDB(ActionEvent event) {
 
 	}
 
@@ -138,23 +131,79 @@ public class UnpublishedController implements Initializable {
 	}
 
 	@FXML
-	void addElementToList(ActionEvent event) {
-		Unpublished unpublishedToAdd = new Unpublished();
+	void deleteAllFromDB(ActionEvent event) {
 
-		unpublishedToAdd.setAuthor(tfAuthor.getText());
-		unpublishedToAdd.setTitle(tfTitle.getText());
-		unpublishedToAdd.setYear(tfYear.getText());
-		unpublishedToAdd.setMonth(tfMonth.getText());
-		unpublishedToAdd.setNote(tfNote.getText());
-		unpublishedToAdd.setKey(tfKey.getText());
-		unpublishedToAdd.setBibkey(tfBibKey.getText());
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
-		System.out.println("przed add");
+		em.getTransaction().begin();
 
-		ClassOfLists.listOfUnpublished.add(unpublishedToAdd);
+		for (Unpublished fromdbobj : ClassOfLists.listOfUnpublished) {
+
+			Unpublished infunc = em.find(Unpublished.class, fromdbobj.getID());
+
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfUnpublished.clear();
+		refresh();
+		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+		Unpublished fromtable = tvUnpublished.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Unpublished fromdbobj = em.find(Unpublished.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfUnpublished.remove(tvUnpublished.getSelectionModel().getSelectedItem());
 
 		refresh();
 		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+		Unpublished fromtable = tvUnpublished.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Unpublished fromdbobj = em.find(Unpublished.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 
 	}
 
@@ -180,31 +229,6 @@ public class UnpublishedController implements Initializable {
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfUnpublished.clear();
-		refresh();
-		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
-
-	}
-
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Unpublished unpublishedToDel = new Unpublished();
-
-		unpublishedToDel.setAuthor(tfAuthor.getText());
-		unpublishedToDel.setTitle(tfTitle.getText());
-		unpublishedToDel.setYear(tfYear.getText());
-		unpublishedToDel.setMonth(tfMonth.getText());
-		unpublishedToDel.setNote(tfNote.getText());
-		unpublishedToDel.setKey(tfKey.getText());
-		unpublishedToDel.setBibkey(tfBibKey.getText());
-
-		int toDelInLoop = 0;
-		for (Unpublished todel : ClassOfLists.listOfUnpublished) {
-			if (unpublishedToDel.myequals(todel)) {
-				ClassOfLists.listOfUnpublished.remove(toDelInLoop);
-				break;
-			}
-			toDelInLoop += 1;
-		}
 		refresh();
 		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
 

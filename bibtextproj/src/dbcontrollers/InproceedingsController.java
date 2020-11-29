@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import application.Main;
+import entities.Article;
 import entities.Book;
 import entities.Inbook;
 import entities.Inproceedings;
@@ -85,6 +86,9 @@ public class InproceedingsController implements Initializable {
 
 	@FXML
 	private Button searchbt;
+
+	@FXML
+	private Button addfromtablebt;
 
 	@FXML
 	private Button deleteallfromlistid;
@@ -168,67 +172,140 @@ public class InproceedingsController implements Initializable {
 	}
 
 	@FXML
+	void searchdbfunc(ActionEvent event) {
+
+	}
+	@FXML
 	void addElementToFile(ActionEvent event) {
 
 	}
 
 	@FXML
+	void addFromTable(ActionEvent event) {
+		Inproceedings fromtable = tvInproceedings.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfEditor.setText(fromtable.getEditor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfPublisher.setText(fromtable.getPublisher());
+
+		tfVolume.setText(fromtable.getVolume());
+		tfNumber.setText(fromtable.getNumber());
+		tfSeries.setText(fromtable.getSeries());
+		tfOrganization.setText(fromtable.getOrganization());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfPages.setText(fromtable.getPages());
+		tfBooktitle.setText(fromtable.getBooktitle());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	private void editelement(Inproceedings inproceedings) {
+		
+		
+		inproceedings.setAuthor(tfAuthor.getText());
+		inproceedings.setAddress(tfAddress.getText());
+		inproceedings.setEditor(tfEditor.getText());
+		inproceedings.setTitle(tfTitle.getText());
+		inproceedings.setYear(tfYear.getText());
+		inproceedings.setPublisher(tfPublisher.getText());
+
+		inproceedings.setVolume(tfVolume.getText());
+		inproceedings.setNumber(tfNumber.getText());
+		inproceedings.setSeries(tfSeries.getText());
+		inproceedings.setOrganization(tfOrganization.getText());
+		inproceedings.setMonth(tfMonth.getText());
+		inproceedings.setNote(tfNote.getText());
+		inproceedings.setKey(tfKey.getText());
+		inproceedings.setBooktitle(tfBooktitle.getText());
+		inproceedings.setPages(tfPages.getText());
+		inproceedings.setBibkey(tfBibKey.getText());
+		inproceedings.setKeywords(tfkeywords.getText());
+		
+		
+	}
+	
+
+	@FXML
 	void deleteAllFromDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		for (Inproceedings fromdbobj : ClassOfLists.listOfInproceedings) {
+			
+			Inproceedings infunc = em.find(Inproceedings.class, fromdbobj.getID());
+			
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		
+		ClassOfLists.listOfInproceedings.clear();
+		refresh();
+		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
+
 
 	}
 
 	@FXML
 	void deleteElementFromDB(ActionEvent event) {
+		Inproceedings fromtable = tvInproceedings.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Inproceedings fromdbobj = em.find(Inproceedings.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfInproceedings.remove(tvInproceedings.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
 
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+		Inproceedings fromtable = tvInproceedings.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Inproceedings fromdbobj = em.find(Inproceedings.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 
 	}
 
-	@FXML
-	void searchdbfunc(ActionEvent event) {
-
-	}
-
-	@FXML
-	void addElementToList(ActionEvent event) {
-		System.out.println("przed try");
-		try {
-			Inproceedings inproceedingsToAdd = new Inproceedings();
-
-			System.out.println("po try");
-
-			inproceedingsToAdd.setAuthor(tfAuthor.getText());
-			inproceedingsToAdd.setAddress(tfAddress.getText());
-			inproceedingsToAdd.setEditor(tfEditor.getText());
-			inproceedingsToAdd.setTitle(tfTitle.getText());
-			inproceedingsToAdd.setYear(tfYear.getText());
-			inproceedingsToAdd.setPublisher(tfPublisher.getText());
-
-			inproceedingsToAdd.setVolume(tfVolume.getText());
-			inproceedingsToAdd.setNumber(tfNumber.getText());
-			inproceedingsToAdd.setSeries(tfSeries.getText());
-			inproceedingsToAdd.setOrganization(tfOrganization.getText());
-			inproceedingsToAdd.setMonth(tfMonth.getText());
-			inproceedingsToAdd.setNote(tfNote.getText());
-			inproceedingsToAdd.setKey(tfKey.getText());
-			inproceedingsToAdd.setBooktitle(tfBooktitle.getText());
-			inproceedingsToAdd.setPages(tfPages.getText());
-			inproceedingsToAdd.setBibkey(tfBibKey.getText());
-			System.out.println("przed add");
-
-			ClassOfLists.listOfInproceedings.add(inproceedingsToAdd);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("przed refresh");
-		refresh();
-		System.out.println("przed zmiana label");
-		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
-	}
+	
 
 	void refresh() {
 
@@ -260,50 +337,9 @@ public class InproceedingsController implements Initializable {
 		tfkeywords.setText("");
 	}
 
-	@FXML
-	void deleteAllFromList(ActionEvent event) {
-		ClassOfLists.listOfInproceedings.clear();
-		refresh();
-		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
 
-	}
 
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Inproceedings inproceedingsToDel = new Inproceedings();
-		inproceedingsToDel.setAuthor(tfAuthor.getText());
-		inproceedingsToDel.setAddress(tfAddress.getText());
-		inproceedingsToDel.setEditor(tfEditor.getText());
-		inproceedingsToDel.setTitle(tfTitle.getText());
-		inproceedingsToDel.setYear(tfYear.getText());
-		inproceedingsToDel.setPublisher(tfPublisher.getText());
-
-		inproceedingsToDel.setVolume(tfVolume.getText());
-		inproceedingsToDel.setNumber(tfNumber.getText());
-		inproceedingsToDel.setSeries(tfSeries.getText());
-		inproceedingsToDel.setPages(tfPages.getText());
-		inproceedingsToDel.setMonth(tfMonth.getText());
-		inproceedingsToDel.setNote(tfNote.getText());
-		inproceedingsToDel.setKey(tfKey.getText());
-		inproceedingsToDel.setOrganization(tfOrganization.getText());
-		inproceedingsToDel.setBooktitle(tfBooktitle.getText());
-		inproceedingsToDel.setBibkey(tfBibKey.getText());
-
-		int toDelInLoop = 0;
-		System.out.println("przed forem");
-		for (Inproceedings todel : ClassOfLists.listOfInproceedings) {
-			if (todel.myequals(inproceedingsToDel)) {
-				ClassOfLists.listOfInproceedings.remove(toDelInLoop);
-				System.out.println("udalo sie usunac");
-				break;
-			}
-			toDelInLoop += 1;
-		}
-
-		refresh();
-		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
-
-	}
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

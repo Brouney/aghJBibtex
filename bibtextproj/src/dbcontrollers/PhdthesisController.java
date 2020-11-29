@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 
 import application.Main;
 import entities.Book;
+import entities.Mastersthesis;
 import entities.Misc;
 import entities.Phdthesis;
 import entities.Phdthesis;
@@ -71,6 +72,9 @@ public class PhdthesisController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -110,24 +114,19 @@ public class PhdthesisController implements Initializable {
 	private TableColumn<Phdthesis, String> tcKey;
 
 	@FXML
-	void addAllToDB(ActionEvent event) {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		for (Phdthesis toAdd : ClassOfLists.listOfPhdthesis) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfPhdthesis.clear();
-		refresh();
-		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
+	void addFromTable(ActionEvent event) {
+		Phdthesis fromtable = tvPhdthesis.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfType.setText(fromtable.getType());
+		tfSchool.setText(fromtable.getSchool());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
 	}
 
 	@FXML
@@ -137,54 +136,95 @@ public class PhdthesisController implements Initializable {
 
 	@FXML
 	void deleteAllFromDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
+		em.getTransaction().begin();
+
+		for (Phdthesis fromdbobj : ClassOfLists.listOfPhdthesis) {
+
+			Phdthesis infunc = em.find(Phdthesis.class, fromdbobj.getID());
+
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfPhdthesis.clear();
+		refresh();
+		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
+
+	}
+
+	private void editelement(Phdthesis phdthesis) {
+
+		phdthesis.setAuthor(tfAuthor.getText());
+		phdthesis.setAddress(tfAddress.getText());
+		phdthesis.setTitle(tfTitle.getText());
+		phdthesis.setYear(tfYear.getText());
+		phdthesis.setMonth(tfMonth.getText());
+		phdthesis.setNote(tfNote.getText());
+		phdthesis.setKey(tfKey.getText());
+		phdthesis.setSchool(tfSchool.getText());
+		phdthesis.setType(tfType.getText());
+		phdthesis.setBibkey(tfBibKey.getText());
+		phdthesis.setKeywords(tfkeywords.getText());
 	}
 
 	@FXML
 	void deleteElementFromDB(ActionEvent event) {
+		Phdthesis fromtable = tvPhdthesis.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Phdthesis fromdbobj = em.find(Phdthesis.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfPhdthesis.remove(tvPhdthesis.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
 
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+		Phdthesis fromtable = tvPhdthesis.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Phdthesis fromdbobj = em.find(Phdthesis.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 
 	}
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
-
-	}
-
-	@FXML
-	void addElementToList(ActionEvent event) {
-		System.out.println("przed try");
-		try {
-			Phdthesis phdthesisToAdd = new Phdthesis();
-
-			System.out.println("po try");
-
-			phdthesisToAdd.setAuthor(tfAuthor.getText());
-			phdthesisToAdd.setAddress(tfAddress.getText());
-			phdthesisToAdd.setTitle(tfTitle.getText());
-			phdthesisToAdd.setYear(tfYear.getText());
-			phdthesisToAdd.setMonth(tfMonth.getText());
-			phdthesisToAdd.setNote(tfNote.getText());
-			phdthesisToAdd.setKey(tfKey.getText());
-			phdthesisToAdd.setSchool(tfSchool.getText());
-			phdthesisToAdd.setType(tfType.getText());
-			phdthesisToAdd.setBibkey(tfBibKey.getText());
-
-			System.out.println("przed add");
-
-			ClassOfLists.listOfPhdthesis.add(phdthesisToAdd);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("przed refresh");
-		refresh();
-		System.out.println("przed zmiana label");
-		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
 
 	}
 
@@ -213,37 +253,6 @@ public class PhdthesisController implements Initializable {
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfPhdthesis.clear();
-		refresh();
-		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
-
-	}
-
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Phdthesis phdthesisToDel = new Phdthesis();
-		phdthesisToDel.setAuthor(tfAuthor.getText());
-		phdthesisToDel.setAddress(tfAddress.getText());
-		phdthesisToDel.setTitle(tfTitle.getText());
-		phdthesisToDel.setYear(tfYear.getText());
-		phdthesisToDel.setSchool(tfSchool.getText());
-		phdthesisToDel.setMonth(tfMonth.getText());
-		phdthesisToDel.setNote(tfNote.getText());
-		phdthesisToDel.setKey(tfKey.getText());
-		phdthesisToDel.setType(tfType.getText());
-		phdthesisToDel.setBibkey(tfBibKey.getText());
-
-		System.out.println("przed forem");
-		int toDelInLoop = 0;
-		for (Phdthesis todel : ClassOfLists.listOfPhdthesis) {
-			if (phdthesisToDel.myequals(todel)) {
-				ClassOfLists.listOfPhdthesis.remove(toDelInLoop);
-				System.out.println("usunieto");
-				break;
-
-			}
-			toDelInLoop += 1;
-		}
-		System.out.println("przed refresh");
 		refresh();
 		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
 

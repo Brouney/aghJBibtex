@@ -70,6 +70,11 @@
                                           <Insets top="65.0" />
                                        </VBox.margin>
                                     </TextField>
+                                    <Button fx:id="addfromtablebt" mnemonicParsing="false" onAction="#addFromTable" prefHeight="25.0" prefWidth="147.0" text="Dodaj z tabeli">
+                                       <VBox.margin>
+                                          <Insets left="250.0" top="25.0" />
+                                       </VBox.margin>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>

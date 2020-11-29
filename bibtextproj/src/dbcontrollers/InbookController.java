@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import entities.Article;
 import entities.Book;
 import entities.EntryTypes;
 import entities.Inbook;
@@ -88,6 +89,9 @@ public class InbookController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -142,6 +146,38 @@ public class InbookController implements Initializable {
 	private TableColumn<Inbook, String> tcUrl;
 
 	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void searchdbfunc(ActionEvent event) {
+
+	}
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Inbook fromtable = tvInbook.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfEditor.setText(fromtable.getEditor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfPublisher.setText(fromtable.getPublisher());
+
+		tfVolume.setText(fromtable.getVolume());
+		tfNumber.setText(fromtable.getNumber());
+		tfSeries.setText(fromtable.getSeries());
+		tfEdition.setText(fromtable.getEdition());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfUrl.setText(fromtable.getUrl());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
@@ -159,71 +195,104 @@ public class InbookController implements Initializable {
 
 		ClassOfLists.listOfInbook.clear();
 		refresh();
-		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
-	}
-
-	@FXML
-	void addElementToFile(ActionEvent event) {
-
+		Main.mainController.changeLabelCountInbook(Integer.toString((ClassOfLists.listOfInbook.size())));
 	}
 
 	@FXML
 	void deleteAllFromDB(ActionEvent event) {
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		for (Inbook fromdbobj : ClassOfLists.listOfInbook) {
+
+			Inbook infunc = em.find(Inbook.class, fromdbobj.getID());
+
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfInbook.clear();
+		refresh();
+		Main.mainController.changeLabelCountInbook(Integer.toString((ClassOfLists.listOfInbook.size())));
+
 	}
 
 	@FXML
 	void deleteElementFromDB(ActionEvent event) {
+		Inbook fromtable = tvInbook.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Inbook fromdbobj = em.find(Inbook.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfInbook.remove(tvInbook.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountInbook(Integer.toString((ClassOfLists.listOfInbook.size())));
+
+	}
+
+	private void editelement(Inbook inbook) {
+
+		inbook.setAuthor(tfAuthor.getText());
+		inbook.setAddress(tfAddress.getText());
+		inbook.setEditor(tfEditor.getText());
+		inbook.setTitle(tfTitle.getText());
+		inbook.setYear(tfYear.getText());
+		inbook.setPublisher(tfPublisher.getText());
+
+		inbook.setVolume(tfVolume.getText());
+		inbook.setNumber(tfNumber.getText());
+		inbook.setSeries(tfSeries.getText());
+		inbook.setEdition(tfEdition.getText());
+		inbook.setMonth(tfMonth.getText());
+		inbook.setNote(tfNote.getText());
+		inbook.setKey(tfKey.getText());
+		inbook.setUrl(tfUrl.getText());
+		inbook.setBibkey(tfBibKey.getText());
+		inbook.setKeywords(tfkeywords.getText());
 
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+		Inbook fromtable = tvInbook.getSelectionModel().getSelectedItem();
 
-	}
+		Long id = fromtable.getID();
 
-	@FXML
-	void searchdbfunc(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
-	}
+		Inbook fromdbobj = em.find(Inbook.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
 
-	@FXML
-	void addElementToList(ActionEvent event) {
+		em.getTransaction().commit();
 
-		System.out.println("przed try");
-		try {
-			Inbook inbookToAdd = new Inbook();
-
-			System.out.println("po try");
-
-			inbookToAdd.setAuthor(tfAuthor.getText());
-			inbookToAdd.setAddress(tfAddress.getText());
-			inbookToAdd.setEditor(tfEditor.getText());
-			inbookToAdd.setTitle(tfTitle.getText());
-			inbookToAdd.setYear(tfYear.getText());
-			inbookToAdd.setPublisher(tfPublisher.getText());
-
-			inbookToAdd.setVolume(tfVolume.getText());
-			inbookToAdd.setNumber(tfNumber.getText());
-			inbookToAdd.setSeries(tfSeries.getText());
-			inbookToAdd.setEdition(tfEdition.getText());
-			inbookToAdd.setMonth(tfMonth.getText());
-			inbookToAdd.setNote(tfNote.getText());
-			inbookToAdd.setKey(tfKey.getText());
-			inbookToAdd.setUrl(tfUrl.getText());
-			inbookToAdd.setBibkey(tfBibKey.getText());
-			System.out.println("przed add");
-
-			ClassOfLists.listOfInbook.add(inbookToAdd);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("przed refresh");
-		refresh();
-		System.out.println("przed zmiana label");
-		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
-
+		em.close();
+		emf.close();
 	}
 
 	@FXML
@@ -245,47 +314,6 @@ public class InbookController implements Initializable {
 		tfUrl.setText("");
 		tfBibKey.setText("");
 		tfkeywords.setText("");
-	}
-
-	@FXML
-	void deleteAllFromList(ActionEvent event) {
-		ClassOfLists.listOfInbook.clear();
-		refresh();
-		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
-	}
-
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Inbook inbookToDelete = new Inbook();
-		inbookToDelete.setAuthor(tfAuthor.getText());
-		inbookToDelete.setAddress(tfAddress.getText());
-		inbookToDelete.setEditor(tfEditor.getText());
-		inbookToDelete.setTitle(tfTitle.getText());
-		inbookToDelete.setYear(tfYear.getText());
-		inbookToDelete.setPublisher(tfPublisher.getText());
-
-		inbookToDelete.setVolume(tfVolume.getText());
-		inbookToDelete.setNumber(tfNumber.getText());
-		inbookToDelete.setSeries(tfSeries.getText());
-		inbookToDelete.setEdition(tfEdition.getText());
-		inbookToDelete.setMonth(tfMonth.getText());
-		inbookToDelete.setNote(tfNote.getText());
-		inbookToDelete.setKey(tfKey.getText());
-		inbookToDelete.setUrl(tfUrl.getText());
-		inbookToDelete.setBibkey(tfBibKey.getText());
-		int toDelInLoop = 0;
-		System.out.println("przed forem");
-		for (Inbook book : ClassOfLists.listOfInbook) {
-			if (inbookToDelete.equals(book)) {
-				ClassOfLists.listOfInbook.remove(toDelInLoop);
-				break;
-			}
-			toDelInLoop += 1;
-		}
-		System.out.println("przed refresh");
-		refresh();
-		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
-
 	}
 
 	@Override

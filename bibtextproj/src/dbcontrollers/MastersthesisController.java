@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import application.Main;
+import entities.Article;
 import entities.Book;
 import entities.Manual;
 import entities.Mastersthesis;
@@ -71,6 +72,9 @@ public class MastersthesisController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -110,43 +114,23 @@ public class MastersthesisController implements Initializable {
 	private TableColumn<Mastersthesis, String> tcKey;
 
 	@FXML
-	void addAllToDB(ActionEvent event) {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		for (Mastersthesis toAdd : ClassOfLists.listOfMastersthesis) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfMastersthesis.clear();
-		refresh();
-		Main.mainController.changeLabelCountMastersthesis(Integer.toString((ClassOfLists.listOfMastersthesis.size())));
+	void addFromTable(ActionEvent event) {
+		Mastersthesis fromtable = tvMasterthesis.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfType.setText(fromtable.getType());
+		tfSchool.setText(fromtable.getSchool());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
 	}
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
-
-	}
-
-	@FXML
-	void deleteAllFromDB(ActionEvent event) {
-
-	}
-
-	@FXML
-	void deleteElementFromDB(ActionEvent event) {
-
-	}
-
-	@FXML
-	void editElementInDB(ActionEvent event) {
 
 	}
 
@@ -156,36 +140,92 @@ public class MastersthesisController implements Initializable {
 	}
 
 	@FXML
-	void addElementToList(ActionEvent event) {
+	void deleteAllFromDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
-		System.out.println("przed try");
-		try {
-			Mastersthesis mastersthesisToAdd = new Mastersthesis();
+		em.getTransaction().begin();
 
-			System.out.println("po try");
+		for (Mastersthesis fromdbobj : ClassOfLists.listOfMastersthesis) {
 
-			mastersthesisToAdd.setAuthor(tfAuthor.getText());
-			mastersthesisToAdd.setAddress(tfAddress.getText());
-			mastersthesisToAdd.setTitle(tfTitle.getText());
-			mastersthesisToAdd.setYear(tfYear.getText());
-			mastersthesisToAdd.setMonth(tfMonth.getText());
-			mastersthesisToAdd.setNote(tfNote.getText());
-			mastersthesisToAdd.setKey(tfKey.getText());
-			mastersthesisToAdd.setSchool(tfSchool.getText());
-			mastersthesisToAdd.setType(tfType.getText());
-			mastersthesisToAdd.setBibkey(tfBibKey.getText());
+			Mastersthesis infunc = em.find(Mastersthesis.class, fromdbobj.getID());
 
-			System.out.println("przed add");
-
-			ClassOfLists.listOfMastersthesis.add(mastersthesisToAdd);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			em.remove(infunc);
 		}
+		em.getTransaction().commit();
 
-		System.out.println("przed refresh");
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfMastersthesis.clear();
 		refresh();
-		System.out.println("przed zmiana label");
 		Main.mainController.changeLabelCountMastersthesis(Integer.toString((ClassOfLists.listOfMastersthesis.size())));
+
+	}
+
+	private void editelement(Mastersthesis mastersthesis) {
+
+		mastersthesis.setAuthor(tfAuthor.getText());
+		mastersthesis.setAddress(tfAddress.getText());
+		mastersthesis.setTitle(tfTitle.getText());
+		mastersthesis.setYear(tfYear.getText());
+		mastersthesis.setMonth(tfMonth.getText());
+		mastersthesis.setNote(tfNote.getText());
+		mastersthesis.setKey(tfKey.getText());
+		mastersthesis.setSchool(tfSchool.getText());
+		mastersthesis.setType(tfType.getText());
+		mastersthesis.setBibkey(tfBibKey.getText());
+		mastersthesis.setKeywords(tfkeywords.getText());
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+		Mastersthesis fromtable = tvMasterthesis.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Mastersthesis fromdbobj = em.find(Mastersthesis.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfMastersthesis.remove(tvMasterthesis.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountMastersthesis(Integer.toString((ClassOfLists.listOfMastersthesis.size())));
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+		Mastersthesis fromtable = tvMasterthesis.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Mastersthesis fromdbobj = em.find(Mastersthesis.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 
 	}
 
@@ -215,35 +255,6 @@ public class MastersthesisController implements Initializable {
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfMastersthesis.clear();
-		refresh();
-		Main.mainController.changeLabelCountMastersthesis(Integer.toString((ClassOfLists.listOfMastersthesis.size())));
-
-	}
-
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Mastersthesis masterthesisToDel = new Mastersthesis();
-		masterthesisToDel.setAuthor(tfAuthor.getText());
-		masterthesisToDel.setAddress(tfAddress.getText());
-		masterthesisToDel.setTitle(tfTitle.getText());
-		masterthesisToDel.setYear(tfYear.getText());
-		masterthesisToDel.setSchool(tfSchool.getText());
-		masterthesisToDel.setMonth(tfMonth.getText());
-		masterthesisToDel.setNote(tfNote.getText());
-		masterthesisToDel.setKey(tfKey.getText());
-		masterthesisToDel.setType(tfType.getText());
-		masterthesisToDel.setBibkey(tfBibKey.getText());
-
-		System.out.println("przed forem");
-		int toDelInLoop = 0;
-		for (Mastersthesis todel : ClassOfLists.listOfMastersthesis) {
-			if (masterthesisToDel.myequals(todel)) {
-				ClassOfLists.listOfMastersthesis.remove(toDelInLoop);
-				break;
-			}
-			toDelInLoop += 1;
-		}
-		System.out.println("przed refresh");
 		refresh();
 		Main.mainController.changeLabelCountMastersthesis(Integer.toString((ClassOfLists.listOfMastersthesis.size())));
 

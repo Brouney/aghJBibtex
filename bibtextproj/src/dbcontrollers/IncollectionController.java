@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import application.Main;
+import entities.Article;
 import entities.Book;
 import entities.Inbook;
 import entities.Incollection;
@@ -77,23 +78,26 @@ public class IncollectionController implements Initializable {
 	@FXML
 	private TextField tfPages;
 
-    @FXML
-    private Button cleantextid;
+	@FXML
+	private Button cleantextid;
 
-    @FXML
-    private Button editElementInDBbt;
+	@FXML
+	private Button editElementInDBbt;
 
-    @FXML
-    private Button deleteelementfromDBbt;
+	@FXML
+	private Button deleteelementfromDBbt;
 
-    @FXML
-    private Button addalltodbid;
+	@FXML
+	private Button addalltodbid;
 
-    @FXML
-    private Button searchbt;
+	@FXML
+	private Button searchbt;
 
-    @FXML
-    private Button deleteallfromlistid;
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	private Button deleteallfromlistid;
 
 	@FXML
 	private TextField tfBibKey;
@@ -158,6 +162,34 @@ public class IncollectionController implements Initializable {
 	private TableColumn<Incollection, String> tcBooktitle;
 
 	@FXML
+	void addFromTable(ActionEvent event) {
+		Incollection fromtable = tvIncollection.getSelectionModel().getSelectedItem();
+		
+		
+		
+		tfAuthor.setText(fromtable.getAuthor());
+		tfBooktitle.setText(fromtable.getBibkey());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfPublisher.setText(fromtable.getPublisher());
+
+		tfVolume.setText(fromtable.getVolume());
+		tfNumber.setText(fromtable.getNumber());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfChapter.setText(fromtable.getChapter());
+		tfAddress.setText(fromtable.getAddress());
+		tfPages.setText(fromtable.getPages());
+		tfSeries.setText(fromtable.getSeries());
+		tfEditor.setText(fromtable.getEditor());
+		tfEdition.setText(fromtable.getEdition());
+		tfType.setText(fromtable.getType());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
@@ -184,55 +216,110 @@ public class IncollectionController implements Initializable {
 	}
 
 	@FXML
-	void deleteAllFromDB(ActionEvent event) {
-
-	}
-
-	@FXML
-	void deleteElementFromDB(ActionEvent event) {
-
-	}
-
-	@FXML
-	void editElementInDB(ActionEvent event) {
-
-	}
-
-	@FXML
 	void searchdbfunc(ActionEvent event) {
 
 	}
 
 	@FXML
-	void addElementToList(ActionEvent event) {
-		Incollection incollectionToAdd = new Incollection();
+	void deleteAllFromDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
-		System.out.println("po try");
+		em.getTransaction().begin();
 
-		incollectionToAdd.setAuthor(tfAuthor.getText());
-		incollectionToAdd.setBooktitle(tfBooktitle.getText());
-		incollectionToAdd.setTitle(tfTitle.getText());
-		incollectionToAdd.setYear(tfYear.getText());
-		incollectionToAdd.setPublisher(tfPublisher.getText());
+		for (Incollection fromdbobj : ClassOfLists.listOfIncollection) {
+			
+			Incollection infunc = em.find(Incollection.class, fromdbobj.getID());
+			
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
 
-		incollectionToAdd.setVolume(tfVolume.getText());
-		incollectionToAdd.setNumber(tfNumber.getText());
-		incollectionToAdd.setMonth(tfMonth.getText());
-		incollectionToAdd.setNote(tfNote.getText());
-		incollectionToAdd.setKey(tfKey.getText());
-		incollectionToAdd.setChapter(tfChapter.getText());
-		incollectionToAdd.setAddress(tfAddress.getText());
-		incollectionToAdd.setPages(tfPages.getText());
-		incollectionToAdd.setSeries(tfSeries.getText());
-		incollectionToAdd.setEditor(tfEditor.getText());
-		incollectionToAdd.setType(tfType.getText());
-		incollectionToAdd.setEdition(tfEdition.getText());
-		incollectionToAdd.setBibkey(tfBibKey.getText());
+		em.close();
+		emf.close();
 
-		ClassOfLists.listOfIncollection.add(incollectionToAdd);
+		ClassOfLists.listOfIncollection.clear();
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
+
 	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+		Incollection fromtable = tvIncollection.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Incollection fromdbobj = em.find(Incollection.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfIncollection.remove(tvIncollection.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
+
+	}
+
+	private void editelement(Incollection incollection) {
+		incollection.setAuthor(tfAuthor.getText());
+		incollection.setBooktitle(tfBooktitle.getText());
+		incollection.setTitle(tfTitle.getText());
+		incollection.setYear(tfYear.getText());
+		incollection.setPublisher(tfPublisher.getText());
+
+		incollection.setVolume(tfVolume.getText());
+		incollection.setNumber(tfNumber.getText());
+		incollection.setMonth(tfMonth.getText());
+		incollection.setNote(tfNote.getText());
+		incollection.setKey(tfKey.getText());
+		incollection.setChapter(tfChapter.getText());
+		incollection.setAddress(tfAddress.getText());
+		incollection.setPages(tfPages.getText());
+		incollection.setSeries(tfSeries.getText());
+		incollection.setEditor(tfEditor.getText());
+		incollection.setType(tfType.getText());
+		incollection.setEdition(tfEdition.getText());
+		incollection.setBibkey(tfBibKey.getText());
+		incollection.setKeywords(tfkeywords.getText());
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+		Incollection fromtable = tvIncollection.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Incollection fromdbobj = em.find(Incollection.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+	}
+
+	
 
 	@FXML
 	void cleanText(ActionEvent event) {
@@ -258,12 +345,7 @@ public class IncollectionController implements Initializable {
 		tfkeywords.setText("");
 	}
 
-	@FXML
-	void deleteAllFromList(ActionEvent event) {
-		ClassOfLists.listOfIncollection.clear();
-		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
-	}
+	
 
 	void refresh() {
 		ObservableList<Incollection> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfIncollection);
@@ -271,43 +353,7 @@ public class IncollectionController implements Initializable {
 		tvIncollection.setItems(tableViewList);
 	}
 
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Incollection incollectionToDel = new Incollection();
-
-		incollectionToDel.setAuthor(tfAuthor.getText());
-		incollectionToDel.setBooktitle(tfBooktitle.getText());
-		incollectionToDel.setTitle(tfTitle.getText());
-		incollectionToDel.setYear(tfYear.getText());
-		incollectionToDel.setPublisher(tfPublisher.getText());
-
-		incollectionToDel.setVolume(tfVolume.getText());
-		incollectionToDel.setNumber(tfNumber.getText());
-		incollectionToDel.setMonth(tfMonth.getText());
-		incollectionToDel.setNote(tfNote.getText());
-		incollectionToDel.setKey(tfKey.getText());
-		incollectionToDel.setType(tfType.getText());
-		incollectionToDel.setAddress(tfAddress.getText());
-		incollectionToDel.setPages(tfPages.getText());
-		incollectionToDel.setSeries(tfSeries.getText());
-		incollectionToDel.setEdition(tfEdition.getText());
-		incollectionToDel.setAddress(tfEditor.getText());
-		incollectionToDel.setChapter(tfChapter.getText());
-		incollectionToDel.setBibkey(tfBibKey.getText());
-		int toDelInLoop = 0;
-		System.out.println("przed forem delete");
-		for (Incollection art : ClassOfLists.listOfIncollection) {
-			if (incollectionToDel.myequals(art)) {
-				ClassOfLists.listOfIncollection.remove(toDelInLoop);
-				break;
-			}
-			toDelInLoop += 1;
-		}
-		// w incollection editor jest zakomentowany - wtedy działa xd
-
-		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
-	}
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

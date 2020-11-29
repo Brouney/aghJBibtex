@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import application.Main;
+import entities.Article;
 import entities.Book;
 import entities.Booklet;
 import entities.Booklet;
@@ -66,6 +67,9 @@ public class BookletController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -101,16 +105,37 @@ public class BookletController implements Initializable {
 	@FXML
 	private TableColumn<Booklet, String> tcKey;
 
+	void refresh() {
+		ObservableList<Booklet> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfBooklet);
+
+		tvBooklet.setItems(tableViewList);
+	}
+
 	@FXML
-	void addAllToDB(ActionEvent event) {
+	void searchdbfunc(ActionEvent event) {
+
+	}
+
+	@FXML
+	void addElementToFile(ActionEvent event) {
+
+	}
+
+	@FXML
+	void deleteAllFromDB(ActionEvent event) {
+
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
+
 		em.getTransaction().begin();
 
-		for (Booklet toAdd : ClassOfLists.listOfBooklet) {
-			em.persist(toAdd);
+		for (Booklet fromdbobj : ClassOfLists.listOfBooklet) {
+
+			Booklet infunc = em.find(Booklet.class, fromdbobj.getID());
+
+			em.remove(infunc);
 		}
 		em.getTransaction().commit();
 
@@ -119,52 +144,86 @@ public class BookletController implements Initializable {
 		ClassOfLists.listOfBooklet.clear();
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
-	}
-
-	@FXML
-	void addElementToList(ActionEvent event) {
-		Booklet bookletToAdd = new Booklet();
-
-		System.out.println("po try");
-
-		bookletToAdd.setAuthor(tfAuthor.getText());
-		bookletToAdd.setTitle(tfTitle.getText());
-		bookletToAdd.setYear(tfYear.getText());
-		bookletToAdd.setMonth(tfMonth.getText());
-		bookletToAdd.setNote(tfNote.getText());
-		bookletToAdd.setKey(tfKey.getText());
-		bookletToAdd.setAddress(tfAddress.getText());
-		bookletToAdd.setHowpublished(tfHowpublished.getText());
-		bookletToAdd.setBibkey(tfBibKey.getText());
-		ClassOfLists.listOfBooklet.add(bookletToAdd);
-		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
-	}
-
-	void refresh() {
-		ObservableList<Booklet> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfBooklet);
-
-		tvBooklet.setItems(tableViewList);
-	}
-
-	@FXML
-	void deleteAllFromDB(ActionEvent event) {
 
 	}
 
 	@FXML
 	void deleteElementFromDB(ActionEvent event) {
+		Booklet fromtable = tvBooklet.getSelectionModel().getSelectedItem();
 
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Booklet fromdbobj = em.find(Booklet.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfBooklet.remove(tvBooklet.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
+
+	}
+
+	private void editelement(Booklet booklet) {
+
+		booklet.setAuthor(tfAuthor.getText());
+		booklet.setTitle(tfTitle.getText());
+		booklet.setYear(tfYear.getText());
+		booklet.setMonth(tfMonth.getText());
+		booklet.setNote(tfNote.getText());
+		booklet.setKey(tfKey.getText());
+		booklet.setAddress(tfAddress.getText());
+		booklet.setHowpublished(tfHowpublished.getText());
+		booklet.setBibkey(tfBibKey.getText());
+
+	}
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Booklet fromtable = tvBooklet.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfAddress.setText(fromtable.getAddress());
+		tfHowpublished.setText(fromtable.getHowpublished());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+		Booklet fromtable = tvBooklet.getSelectionModel().getSelectedItem();
 
-	}
+		Long id = fromtable.getID();
 
-	@FXML
-	void searchdbfunc(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
+		Booklet fromdbobj = em.find(Booklet.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 	}
 
 	@FXML

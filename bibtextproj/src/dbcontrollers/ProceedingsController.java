@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 
 import application.Main;
 import entities.Book;
+import entities.Inproceedings;
 import entities.Phdthesis;
 import entities.Proceedings;
 import entities.Proceedings;
@@ -80,6 +81,9 @@ public class ProceedingsController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -128,43 +132,28 @@ public class ProceedingsController implements Initializable {
 	private TableColumn<Proceedings, String> tcUrl;
 
 	@FXML
-	void addAllToDB(ActionEvent event) {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
+	void addFromTable(ActionEvent event) {
+		Proceedings fromtable = tvProceedings.getSelectionModel().getSelectedItem();
+		tfAddress.setText(fromtable.getAddress());
+		tfEditor.setText(fromtable.getEditor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfPublisher.setText(fromtable.getPublisher());
 
-		for (Proceedings toAdd : ClassOfLists.listOfProceedings) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
+		tfVolume.setText(fromtable.getVolume());
+		tfNumber.setText(fromtable.getNumber());
+		tfSeries.setText(fromtable.getSeries());
+		tfOrganization.setText(fromtable.getOrganization());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
 
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfProceedings.clear();
-		refresh();
-		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
 	}
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
-
-	}
-
-	@FXML
-	void deleteAllFromDB(ActionEvent event) {
-
-	}
-
-	@FXML
-	void deleteElementFromDB(ActionEvent event) {
-
-	}
-
-	@FXML
-	void editElementInDB(ActionEvent event) {
 
 	}
 
@@ -174,34 +163,97 @@ public class ProceedingsController implements Initializable {
 	}
 
 	@FXML
-	void addElementToList(ActionEvent event) {
-		Proceedings proceedingsToAdd = new Proceedings();
+	void deleteAllFromDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
-		System.out.println("po try");
+		em.getTransaction().begin();
 
-		proceedingsToAdd.setAddress(tfAddress.getText());
-		proceedingsToAdd.setEditor(tfEditor.getText());
-		proceedingsToAdd.setTitle(tfTitle.getText());
-		proceedingsToAdd.setYear(tfYear.getText());
-		proceedingsToAdd.setPublisher(tfPublisher.getText());
+		for (Proceedings fromdbobj : ClassOfLists.listOfProceedings) {
 
-		proceedingsToAdd.setVolume(tfVolume.getText());
-		proceedingsToAdd.setNumber(tfNumber.getText());
-		proceedingsToAdd.setSeries(tfSeries.getText());
-		proceedingsToAdd.setOrganization(tfOrganization.getText());
-		proceedingsToAdd.setMonth(tfMonth.getText());
-		proceedingsToAdd.setNote(tfNote.getText());
-		proceedingsToAdd.setKey(tfKey.getText());
-		proceedingsToAdd.setBibkey(tfBibKey.getText());
+			Proceedings infunc = em.find(Proceedings.class, fromdbobj.getID());
 
-		System.out.println("przed add");
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
 
-		ClassOfLists.listOfProceedings.add(proceedingsToAdd);
-
-		System.out.println("przed refresh");
+		em.close();
+		emf.close();
+		ClassOfLists.listOfProceedings.clear();
 		refresh();
-		System.out.println("przed zmiana label");
 		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
+
+	}
+
+	@FXML
+	void deleteElementFromDB(ActionEvent event) {
+		Proceedings fromtable = tvProceedings.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Proceedings fromdbobj = em.find(Proceedings.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfProceedings.remove(tvProceedings.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
+
+	}
+
+	private void editelement(Proceedings proceedings) {
+
+		proceedings.setAddress(tfAddress.getText());
+		proceedings.setEditor(tfEditor.getText());
+		proceedings.setTitle(tfTitle.getText());
+		proceedings.setYear(tfYear.getText());
+		proceedings.setPublisher(tfPublisher.getText());
+
+		proceedings.setVolume(tfVolume.getText());
+		proceedings.setNumber(tfNumber.getText());
+		proceedings.setSeries(tfSeries.getText());
+		proceedings.setOrganization(tfOrganization.getText());
+		proceedings.setMonth(tfMonth.getText());
+		proceedings.setNote(tfNote.getText());
+		proceedings.setKey(tfKey.getText());
+
+		proceedings.setBibkey(tfBibKey.getText());
+		proceedings.setKeywords(tfkeywords.getText());
+
+	}
+
+	@FXML
+	void editElementInDB(ActionEvent event) {
+		Proceedings fromtable = tvProceedings.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Proceedings fromdbobj = em.find(Proceedings.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 
 	}
 
@@ -234,43 +286,6 @@ public class ProceedingsController implements Initializable {
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfProceedings.clear();
-		refresh();
-		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
-
-	}
-
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Proceedings proceedingsToDel = new Proceedings();
-
-		System.out.println("po try");
-
-		proceedingsToDel.setAddress(tfAddress.getText());
-		proceedingsToDel.setEditor(tfEditor.getText());
-		proceedingsToDel.setTitle(tfTitle.getText());
-		proceedingsToDel.setYear(tfYear.getText());
-		proceedingsToDel.setPublisher(tfPublisher.getText());
-
-		proceedingsToDel.setVolume(tfVolume.getText());
-		proceedingsToDel.setNumber(tfNumber.getText());
-		proceedingsToDel.setSeries(tfSeries.getText());
-		proceedingsToDel.setOrganization(tfOrganization.getText());
-		proceedingsToDel.setMonth(tfMonth.getText());
-		proceedingsToDel.setNote(tfNote.getText());
-		proceedingsToDel.setKey(tfKey.getText());
-		proceedingsToDel.setBibkey(tfBibKey.getText());
-
-		int toDelInLoop = 0;
-		System.out.println("przed forem");
-		for (Proceedings todel : ClassOfLists.listOfProceedings) {
-			if (todel.myequals(proceedingsToDel)) {
-				ClassOfLists.listOfProceedings.remove(toDelInLoop);
-				System.out.println("udalo sie usunac");
-				break;
-			}
-			toDelInLoop += 1;
-		}
-
 		refresh();
 		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
 

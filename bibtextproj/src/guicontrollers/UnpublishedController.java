@@ -106,7 +106,7 @@ public class UnpublishedController implements Initializable {
 
 		ClassOfLists.listOfTechreport.clear();
 		refresh();
-		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
 	}
 
 	@FXML

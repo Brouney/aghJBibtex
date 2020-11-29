@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import application.Main;
+import entities.Article;
 import entities.Book;
 import entities.Booklet;
 import entities.Inbook;
@@ -73,6 +74,9 @@ public class ManualController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -112,6 +116,24 @@ public class ManualController implements Initializable {
 	private TableColumn<Manual, String> tcEdition;
 
 	@FXML
+	void addFromTable(ActionEvent event) {
+		Manual fromtable = tvManual.getSelectionModel().getSelectedItem();
+
+		tfAuthor.setText(fromtable.getAuthor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfAddress.setText(fromtable.getAddress());
+		tfOrganization.setText(fromtable.getOrganization());
+		tfEdition.setText(fromtable.getEdition());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
@@ -138,23 +160,95 @@ public class ManualController implements Initializable {
 	}
 
 	@FXML
+	void searchdbfunc(ActionEvent event) {
+
+	}
+
+	@FXML
 	void deleteAllFromDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		for (Manual fromdbobj : ClassOfLists.listOfManual) {
+
+			Manual infunc = em.find(Manual.class, fromdbobj.getID());
+
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfManual.clear();
+		refresh();
+		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
 
 	}
 
 	@FXML
 	void deleteElementFromDB(ActionEvent event) {
+		Manual fromtable = tvManual.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Manual fromdbobj = em.find(Manual.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfManual.remove(tvManual.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
 
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+		Manual fromtable = tvManual.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Manual fromdbobj = em.find(Manual.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 
 	}
 
-	@FXML
-	void searchdbfunc(ActionEvent event) {
-
+	private void editelement(Manual manual) {
+		manual.setAuthor(tfAuthor.getText());
+		manual.setTitle(tfTitle.getText());
+		manual.setYear(tfYear.getText());
+		manual.setMonth(tfMonth.getText());
+		manual.setNote(tfNote.getText());
+		manual.setKey(tfKey.getText());
+		manual.setAddress(tfAddress.getText());
+		manual.setOrganization(tfOrganization.getText());
+		manual.setEdition(tfEdition.getText());
+		manual.setBibkey(tfBibKey.getText());
 	}
 
 	@FXML

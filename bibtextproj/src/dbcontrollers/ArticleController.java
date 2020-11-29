@@ -226,7 +226,7 @@ public class ArticleController implements Initializable {
 		article.setKey(tfKey.getText());
 		article.setDoi(tfDoi.getText());
 		article.setBibkey(tfBibKey.getText());
-
+		article.setKeywords(tfkeywords.getText());
 	}
 
 	@FXML

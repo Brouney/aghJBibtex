@@ -188,7 +188,7 @@ public class MainPageController implements Initializable {
 			List<Conference> Conferencetitems = em.createQuery("select f from fields f where bibitem = 'Conference' ")
 					.getResultList();
 			dbcontrollers.ClassOfLists.listOfConference = new ArrayList<Conference>(Conferencetitems);
-			changeLabelCountConference(Integer.toString(ClassOfLists.listOfConference.size()));
+			changeLabelCountConference(Integer.toString(dbcontrollers.ClassOfLists.listOfConference.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -197,7 +197,7 @@ public class MainPageController implements Initializable {
 			List<Inbook> Inbookitems = em.createQuery("select f from fields f where bibitem = 'Inbook' ")
 					.getResultList();
 			dbcontrollers.ClassOfLists.listOfInbook = new ArrayList<Inbook>(Inbookitems);
-			changeLabelCountInbook(Integer.toString(ClassOfLists.listOfInbook.size()));
+			changeLabelCountInbook(Integer.toString(dbcontrollers.ClassOfLists.listOfInbook.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -206,7 +206,7 @@ public class MainPageController implements Initializable {
 			List<Incollection> Incollectionitems = em
 					.createQuery("select f from fields f where bibitem = 'Incollection' ").getResultList();
 			dbcontrollers.ClassOfLists.listOfIncollection = new ArrayList<Incollection>(Incollectionitems);
-			changeLabelCountIncollection(Integer.toString(ClassOfLists.listOfIncollection.size()));
+			changeLabelCountIncollection(Integer.toString(dbcontrollers.ClassOfLists.listOfIncollection.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -215,7 +215,7 @@ public class MainPageController implements Initializable {
 			List<Inproceedings> Inproceedingsitems = em
 					.createQuery("select f from fields f where bibitem = 'Inproceedings' ").getResultList();
 			dbcontrollers.ClassOfLists.listOfInproceedings = new ArrayList<Inproceedings>(Inproceedingsitems);
-			changeLabelCountInproceedings(Integer.toString(ClassOfLists.listOfInproceedings.size()));
+			changeLabelCountInproceedings(Integer.toString(dbcontrollers.ClassOfLists.listOfInproceedings.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -224,7 +224,7 @@ public class MainPageController implements Initializable {
 			List<Manual> Manualitems = em.createQuery("select f from fields f where bibitem = 'Manual' ")
 					.getResultList();
 			dbcontrollers.ClassOfLists.listOfManual = new ArrayList<Manual>(Manualitems);
-			changeLabelCountManual(Integer.toString(ClassOfLists.listOfManual.size()));
+			changeLabelCountManual(Integer.toString(dbcontrollers.ClassOfLists.listOfManual.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -233,7 +233,7 @@ public class MainPageController implements Initializable {
 			List<Mastersthesis> Mastersthesisitems = em
 					.createQuery("select f from fields f where bibitem = 'Mastersthesis' ").getResultList();
 			dbcontrollers.ClassOfLists.listOfMastersthesis = new ArrayList<Mastersthesis>(Mastersthesisitems);
-			changeLabelCountMastersthesis(Integer.toString(ClassOfLists.listOfMastersthesis.size()));
+			changeLabelCountMastersthesis(Integer.toString(dbcontrollers.ClassOfLists.listOfMastersthesis.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -241,7 +241,7 @@ public class MainPageController implements Initializable {
 		try {
 			List<Misc> Miscitems = em.createQuery("select f from fields f where bibitem = 'Misc' ").getResultList();
 			dbcontrollers.ClassOfLists.listOfMisc = new ArrayList<Misc>(Miscitems);
-			changeLabelCountMisc(Integer.toString(ClassOfLists.listOfMisc.size()));
+			changeLabelCountMisc(Integer.toString(dbcontrollers.ClassOfLists.listOfMisc.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -250,7 +250,7 @@ public class MainPageController implements Initializable {
 			List<Phdthesis> Phdthesisitems = em.createQuery("select f from fields f where bibitem = 'Phdthesis' ")
 					.getResultList();
 			dbcontrollers.ClassOfLists.listOfPhdthesis = new ArrayList<Phdthesis>(Phdthesisitems);
-			changeLabelCountPhdthesis(Integer.toString(ClassOfLists.listOfPhdthesis.size()));
+			changeLabelCountPhdthesis(Integer.toString(dbcontrollers.ClassOfLists.listOfPhdthesis.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -259,7 +259,7 @@ public class MainPageController implements Initializable {
 			List<Proceedings> Proceedingsitems = em.createQuery("select f from fields f where bibitem = 'Proceedings' ")
 					.getResultList();
 			dbcontrollers.ClassOfLists.listOfProceedings = new ArrayList<Proceedings>(Proceedingsitems);
-			changeLabelCountProceedings(Integer.toString(ClassOfLists.listOfProceedings.size()));
+			changeLabelCountProceedings(Integer.toString(dbcontrollers.ClassOfLists.listOfProceedings.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -268,7 +268,7 @@ public class MainPageController implements Initializable {
 			List<Techreport> Techreportitems = em.createQuery("select f from fields f where bibitem = 'Techreport' ")
 					.getResultList();
 			dbcontrollers.ClassOfLists.listOfTechreport = new ArrayList<Techreport>(Techreportitems);
-			changeLabelCountTechreport(Integer.toString(ClassOfLists.listOfTechreport.size()));
+			changeLabelCountTechreport(Integer.toString(dbcontrollers.ClassOfLists.listOfTechreport.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -277,7 +277,7 @@ public class MainPageController implements Initializable {
 			List<Unpublished> Unpublisheditems = em.createQuery("select f from fields f where bibitem = 'Unpublished' ")
 					.getResultList();
 			dbcontrollers.ClassOfLists.listOfUnpublished = new ArrayList<Unpublished>(Unpublisheditems);
-			changeLabelCountUnpublished(Integer.toString(ClassOfLists.listOfUnpublished.size()));
+			changeLabelCountUnpublished(Integer.toString(dbcontrollers.ClassOfLists.listOfUnpublished.size()));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

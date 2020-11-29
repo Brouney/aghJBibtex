@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import application.Main;
+import entities.Article;
 import entities.Book;
 import entities.Proceedings;
 import entities.Techreport;
@@ -71,6 +72,9 @@ public class TechreportController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -109,25 +113,28 @@ public class TechreportController implements Initializable {
 	@FXML
 	private TableColumn<Techreport, String> tcKey;
 
+	
+	
+	
 	@FXML
-	void addAllToDB(ActionEvent event) {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
+	void addFromTable(ActionEvent event) {
+		Techreport fromtable = tvTechreport.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfType.setText(fromtable.getType());
+		tfInstitution.setText(fromtable.getInstitution());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
 
-		for (Techreport toAdd : ClassOfLists.listOfTechreport) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
+	@FXML
+	void searchdbfunc(ActionEvent event) {
 
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfTechreport.clear();
-		refresh();
-		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 	}
 
 	@FXML
@@ -138,53 +145,93 @@ public class TechreportController implements Initializable {
 	@FXML
 	void deleteAllFromDB(ActionEvent event) {
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		for (Techreport fromdbobj : ClassOfLists.listOfTechreport) {
+
+			Techreport infunc = em.find(Techreport.class, fromdbobj.getID());
+
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfTechreport.clear();
+		refresh();
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+
 	}
 
 	@FXML
 	void deleteElementFromDB(ActionEvent event) {
+		Techreport fromtable = tvTechreport.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Techreport fromdbobj = em.find(Techreport.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfTechreport.remove(tvTechreport.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+
+	}
+
+	private void editelement(Techreport tech) {
+
+		tech.setAuthor(tfAuthor.getText());
+		tech.setAddress(tfAddress.getText());
+		tech.setTitle(tfTitle.getText());
+		tech.setYear(tfYear.getText());
+		tech.setMonth(tfMonth.getText());
+		tech.setNote(tfNote.getText());
+		tech.setKey(tfKey.getText());
+		tech.setInstitution(tfInstitution.getText());
+		tech.setType(tfType.getText());
+		tech.setBibkey(tfBibKey.getText());
+		tech.setKeywords(tfkeywords.getText());
 
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+		Techreport fromtable = tvTechreport.getSelectionModel().getSelectedItem();
 
-	}
+		Long id = fromtable.getID();
 
-	@FXML
-	void searchdbfunc(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
-	}
+		Techreport fromdbobj = em.find(Techreport.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
 
-	@FXML
-	void addElementToList(ActionEvent event) {
-		System.out.println("przed try");
-		try {
-			Techreport techreportToAdd = new Techreport();
+		em.getTransaction().commit();
 
-			System.out.println("po try");
-
-			techreportToAdd.setAuthor(tfAuthor.getText());
-			techreportToAdd.setAddress(tfAddress.getText());
-			techreportToAdd.setTitle(tfTitle.getText());
-			techreportToAdd.setYear(tfYear.getText());
-			techreportToAdd.setMonth(tfMonth.getText());
-			techreportToAdd.setNote(tfNote.getText());
-			techreportToAdd.setKey(tfKey.getText());
-			techreportToAdd.setInstitution(tfInstitution.getText());
-			techreportToAdd.setType(tfType.getText());
-			techreportToAdd.setBibkey(tfBibKey.getText());
-
-			System.out.println("przed add");
-
-			ClassOfLists.listOfTechreport.add(techreportToAdd);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("przed refresh");
-		refresh();
-		System.out.println("przed zmiana label");
-		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+		em.close();
+		emf.close();
 
 	}
 
@@ -214,36 +261,6 @@ public class TechreportController implements Initializable {
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfTechreport.clear();
-		refresh();
-		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
-
-	}
-
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Techreport techreportToDel = new Techreport();
-
-		System.out.println("po try");
-
-		techreportToDel.setAuthor(tfAuthor.getText());
-		techreportToDel.setAddress(tfAddress.getText());
-		techreportToDel.setTitle(tfTitle.getText());
-		techreportToDel.setYear(tfYear.getText());
-		techreportToDel.setMonth(tfMonth.getText());
-		techreportToDel.setNote(tfNote.getText());
-		techreportToDel.setKey(tfKey.getText());
-		techreportToDel.setInstitution(tfInstitution.getText());
-		techreportToDel.setType(tfType.getText());
-		techreportToDel.setBibkey(tfBibKey.getText());
-
-		int toDelInLoop = 0;
-		for (Techreport todel : ClassOfLists.listOfTechreport) {
-			if (techreportToDel.myequals(todel)) {
-				ClassOfLists.listOfTechreport.remove(toDelInLoop);
-				break;
-			}
-			toDelInLoop += 1;
-		}
 		refresh();
 		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 

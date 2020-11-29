@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import application.Main;
+import entities.Article;
 import entities.Book;
 import entities.Mastersthesis;
 import entities.Misc;
@@ -65,6 +66,9 @@ public class MiscController implements Initializable {
 	private Button deleteallfromlistid;
 
 	@FXML
+	private Button addfromtablebt;
+
+	@FXML
 	private TextField tfBibKey;
 
 	@FXML
@@ -97,25 +101,21 @@ public class MiscController implements Initializable {
 	@FXML
 	private TableColumn<Misc, String> tcKey;
 
+	
+
 	@FXML
-	void addAllToDB(ActionEvent event) {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
+	void addFromTable(ActionEvent event) {
+		Misc fromtable = tvMisc.getSelectionModel().getSelectedItem();
 
-		for (Misc toAdd : ClassOfLists.listOfMisc) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfMisc.clear();
-		refresh();
-		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
+		tfAuthor.setText(fromtable.getAuthor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfHowpublished.setText(fromtable.getHowpublished());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
 	}
 
 	@FXML
@@ -125,17 +125,76 @@ public class MiscController implements Initializable {
 
 	@FXML
 	void deleteAllFromDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		for (Misc fromdbobj : ClassOfLists.listOfMisc) {
+			
+			Misc infunc = em.find(Misc.class, fromdbobj.getID());
+			
+			em.remove(infunc);
+		}
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfMisc.clear();
+		refresh();
+		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
 	}
 
 	@FXML
 	void deleteElementFromDB(ActionEvent event) {
+		Misc fromtable = tvMisc.getSelectionModel().getSelectedItem();
+
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Misc fromdbobj = em.find(Misc.class, id);
+
+		em.getTransaction().begin();
+		em.remove(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfMisc.remove(tvMisc.getSelectionModel().getSelectedItem());
+		refresh();
+		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+		Misc fromtable = tvMisc.getSelectionModel().getSelectedItem();
 
+		Long id = fromtable.getID();
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		Misc fromdbobj = em.find(Misc.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
+
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+	
 	}
 
 	@FXML
@@ -143,36 +202,18 @@ public class MiscController implements Initializable {
 
 	}
 
-	@FXML
-	void addElementToList(ActionEvent event) {
-		System.out.println("przed try");
-		try {
-			Misc miscToAdd = new Misc();
-
-			System.out.println("po try");
-
-			miscToAdd.setAuthor(tfAuthor.getText());
-			miscToAdd.setTitle(tfTitle.getText());
-			miscToAdd.setYear(tfYear.getText());
-			miscToAdd.setMonth(tfMonth.getText());
-			miscToAdd.setNote(tfNote.getText());
-			miscToAdd.setKey(tfKey.getText());
-			miscToAdd.setHowpublished(tfHowpublished.getText());
-			miscToAdd.setBibkey(tfBibKey.getText());
-
-			System.out.println("przed add");
-
-			ClassOfLists.listOfMisc.add(miscToAdd);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("przed refresh");
-		refresh();
-		System.out.println("przed zmiana label");
-		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
-
+	private void editelement(Misc misc) {
+		misc.setAuthor(tfAuthor.getText());
+		misc.setTitle(tfTitle.getText());
+		misc.setYear(tfYear.getText());
+		misc.setMonth(tfMonth.getText());
+		misc.setNote(tfNote.getText());
+		misc.setKey(tfKey.getText());
+		misc.setHowpublished(tfHowpublished.getText());
+		misc.setBibkey(tfBibKey.getText());
 	}
+
+	
 
 	void refresh() {
 
@@ -194,44 +235,9 @@ public class MiscController implements Initializable {
 		tfkeywords.setText("");
 	}
 
-	@FXML
-	void deleteAllFromList(ActionEvent event) {
-		ClassOfLists.listOfMisc.clear();
-		refresh();
-		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
-	}
 
-	@FXML
-	void deleteElementFromList(ActionEvent event) {
-		Misc miscToDel = new Misc();
-
-		System.out.println("po try");
-
-		miscToDel.setAuthor(tfAuthor.getText());
-		miscToDel.setTitle(tfTitle.getText());
-		miscToDel.setYear(tfYear.getText());
-		miscToDel.setMonth(tfMonth.getText());
-		miscToDel.setNote(tfNote.getText());
-		miscToDel.setKey(tfKey.getText());
-		miscToDel.setHowpublished(tfHowpublished.getText());
-		miscToDel.setBibkey(tfBibKey.getText());
-
-		int toDelInLoop = 0;
-		for (Misc todel : ClassOfLists.listOfMisc) {
-			if (miscToDel.myequals(todel)) {
-				ClassOfLists.listOfMisc.remove(toDelInLoop);
-				System.out.println("usunieto");
-				break;
-
-			}
-			toDelInLoop += 1;
-		}
-
-		refresh();
-		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
-
-	}
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
