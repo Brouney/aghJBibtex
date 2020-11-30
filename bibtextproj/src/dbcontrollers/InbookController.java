@@ -146,6 +146,9 @@ public class InbookController implements Initializable {
 	private TableColumn<Inbook, String> tcUrl;
 
 	@FXML
+	private TableColumn<Inbook, String> tcKeywords;
+
+	@FXML
 	void addElementToFile(ActionEvent event) {
 
 	}
@@ -333,6 +336,7 @@ public class InbookController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Key"));
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Url"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Keywords"));
 		refresh();
 	}
 

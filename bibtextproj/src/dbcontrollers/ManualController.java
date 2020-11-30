@@ -114,6 +114,14 @@ public class ManualController implements Initializable {
 
 	@FXML
 	private TableColumn<Manual, String> tcEdition;
+	
+	
+
+
+
+
+	@FXML
+		private TableColumn<Manual  , String> tcKeywords;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -345,6 +353,7 @@ public class ManualController implements Initializable {
 		tcOrganization.setCellValueFactory(new PropertyValueFactory<Manual, String>("Organization"));
 		tcEdition.setCellValueFactory(new PropertyValueFactory<Manual, String>("Edition"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Manual, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Manual  , String>("Keywords"));
 		refresh();
 	}
 

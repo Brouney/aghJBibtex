@@ -89,6 +89,26 @@ public class UnpublishedController implements Initializable {
 	private TableColumn<Unpublished, String> tcKey;
 
 	@FXML
+	private TableColumn<Unpublished, String> tcKeywords;
+
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Unpublished fromtable = tvUnpublished.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
@@ -104,24 +124,14 @@ public class UnpublishedController implements Initializable {
 		em.close();
 		emf.close();
 
-		ClassOfLists.listOfTechreport.clear();
+		ClassOfLists.listOfUnpublished.clear();
 		refresh();
 		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
 	}
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		Unpublished unpublishedToAdd = new Unpublished();
-
-		unpublishedToAdd.setAuthor(tfAuthor.getText());
-		unpublishedToAdd.setTitle(tfTitle.getText());
-		unpublishedToAdd.setYear(tfYear.getText());
-		unpublishedToAdd.setMonth(tfMonth.getText());
-		unpublishedToAdd.setNote(tfNote.getText());
-		unpublishedToAdd.setKey(tfKey.getText());
-		unpublishedToAdd.setBibkey(tfBibKey.getText());
-
-		System.out.println("przed add");
+		Unpublished unpublishedToAdd = createElement();
 
 		ClassOfLists.listOfUnpublished.add(unpublishedToAdd);
 
@@ -157,17 +167,25 @@ public class UnpublishedController implements Initializable {
 
 	}
 
+	private Unpublished createElement() {
+
+		Unpublished unpublished = new Unpublished();
+
+		unpublished.setAuthor(tfAuthor.getText());
+		unpublished.setTitle(tfTitle.getText());
+		unpublished.setYear(tfYear.getText());
+		unpublished.setMonth(tfMonth.getText());
+		unpublished.setNote(tfNote.getText());
+		unpublished.setKey(tfKey.getText());
+		unpublished.setBibkey(tfBibKey.getText());
+		unpublished.setKeywords(tfkeywords.getText());
+
+		return unpublished;
+	}
+
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Unpublished unpublishedToDel = new Unpublished();
-
-		unpublishedToDel.setAuthor(tfAuthor.getText());
-		unpublishedToDel.setTitle(tfTitle.getText());
-		unpublishedToDel.setYear(tfYear.getText());
-		unpublishedToDel.setMonth(tfMonth.getText());
-		unpublishedToDel.setNote(tfNote.getText());
-		unpublishedToDel.setKey(tfKey.getText());
-		unpublishedToDel.setBibkey(tfBibKey.getText());
+		Unpublished unpublishedToDel = createElement();
 
 		int toDelInLoop = 0;
 		for (Unpublished todel : ClassOfLists.listOfUnpublished) {
@@ -192,6 +210,7 @@ public class UnpublishedController implements Initializable {
 		tcNote.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Key"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Keywords"));
 		refresh();
 	}
 

@@ -95,21 +95,43 @@ public class MiscController implements Initializable {
 	private TableColumn<Misc, String> tcKey;
 
 	@FXML
+	private TableColumn<Misc, String> tcKeywords;
+
+
+	@FXML
+	private Button addfromtablebt;
+	
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Misc fromtable = tvMisc.getSelectionModel().getSelectedItem();
+
+		tfAuthor.setText(fromtable.getAuthor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfHowpublished.setText(fromtable.getHowpublished());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+	
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Misc toAdd: ClassOfLists.listOfMisc) {
+
+		for (Misc toAdd : ClassOfLists.listOfMisc) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
 		ClassOfLists.listOfMisc.clear();
 		refresh();
 		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
@@ -117,31 +139,18 @@ public class MiscController implements Initializable {
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		System.out.println("przed try");
+		
 		try {
-			Misc miscToAdd = new Misc();
-
-			System.out.println("po try");
-
-			miscToAdd.setAuthor(tfAuthor.getText());
-			miscToAdd.setTitle(tfTitle.getText());
-			miscToAdd.setYear(tfYear.getText());
-			miscToAdd.setMonth(tfMonth.getText());
-			miscToAdd.setNote(tfNote.getText());
-			miscToAdd.setKey(tfKey.getText());
-			miscToAdd.setHowpublished(tfHowpublished.getText());
-			miscToAdd.setBibkey(tfBibKey.getText());
-
-			System.out.println("przed add");
+			Misc miscToAdd = createElement();
 
 			ClassOfLists.listOfMisc.add(miscToAdd);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println("przed refresh");
+		
 		refresh();
-		System.out.println("przed zmiana label");
+	
 		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
 	}
@@ -174,20 +183,28 @@ public class MiscController implements Initializable {
 
 	}
 
+	private Misc createElement() {
+
+		Misc misc = new Misc();
+
+		misc.setAuthor(tfAuthor.getText());
+		misc.setTitle(tfTitle.getText());
+		misc.setYear(tfYear.getText());
+		misc.setMonth(tfMonth.getText());
+		misc.setNote(tfNote.getText());
+		misc.setKey(tfKey.getText());
+		misc.setHowpublished(tfHowpublished.getText());
+		misc.setBibkey(tfBibKey.getText());
+
+		misc.setKeywords(tfkeywords.getText());
+		
+		
+		return misc;
+	}
+
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Misc miscToDel = new Misc();
-
-		System.out.println("po try");
-
-		miscToDel.setAuthor(tfAuthor.getText());
-		miscToDel.setTitle(tfTitle.getText());
-		miscToDel.setYear(tfYear.getText());
-		miscToDel.setMonth(tfMonth.getText());
-		miscToDel.setNote(tfNote.getText());
-		miscToDel.setKey(tfKey.getText());
-		miscToDel.setHowpublished(tfHowpublished.getText());
-		miscToDel.setBibkey(tfBibKey.getText());
+		Misc miscToDel = createElement();
 
 		int toDelInLoop = 0;
 		for (Misc todel : ClassOfLists.listOfMisc) {
@@ -216,6 +233,7 @@ public class MiscController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Misc, String>("Key"));
 		tcHowpublished.setCellValueFactory(new PropertyValueFactory<Misc, String>("Howpublished"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Misc, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Misc, String>("Keywords"));
 		refresh();
 	}
 

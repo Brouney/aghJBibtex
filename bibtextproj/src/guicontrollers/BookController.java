@@ -98,14 +98,12 @@ public class BookController implements Initializable {
 	@FXML
 	private TextField tfkeywords;
 
-
-	
 	@FXML
 	private TableView<Book> tvBooks;
-	
+
 	@FXML
 	private TableColumn<Book, String> tcBibKey;
-	
+
 	@FXML
 	private TableColumn<Book, String> tcAuthor;
 
@@ -149,26 +147,53 @@ public class BookController implements Initializable {
 	private TableColumn<Book, String> tcUrl;
 
 	@FXML
+	private TableColumn<Book, String> tcKeywords;
+
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Book fromtable = tvBooks.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfEditor.setText(fromtable.getEditor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfPublisher.setText(fromtable.getPublisher());
+
+		tfVolume.setText(fromtable.getVolume());
+		tfNumber.setText(fromtable.getNumber());
+		tfSeries.setText(fromtable.getSeries());
+		tfEdition.setText(fromtable.getEdition());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfUrl.setText(fromtable.getUrl());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) throws TokenMgrException, ParseException {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Book toAdd: ClassOfLists.listOfBooks) {
+
+		for (Book toAdd : ClassOfLists.listOfBooks) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    
-	    ClassOfLists.listOfBooks.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfBooks.clear();
 		refresh();
 		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
-	    
+
 	}
 
 	@FXML
@@ -176,28 +201,7 @@ public class BookController implements Initializable {
 
 		System.out.println("przed try");
 		try {
-			Book bookToAdd = new Book();
-
-			System.out.println("po try");
-
-			bookToAdd.setAuthor(tfAuthor.getText());
-			bookToAdd.setAddress(tfAddress.getText());
-			bookToAdd.setEditor(tfEditor.getText());
-			bookToAdd.setTitle(tfTitle.getText());
-			bookToAdd.setYear(tfYear.getText());
-			bookToAdd.setPublisher(tfPublisher.getText());
-
-			bookToAdd.setVolume(tfVolume.getText());
-			bookToAdd.setNumber(tfNumber.getText());
-			bookToAdd.setSeries(tfSeries.getText());
-			bookToAdd.setEdition(tfEdition.getText());
-			bookToAdd.setMonth(tfMonth.getText());
-			bookToAdd.setNote(tfNote.getText());
-			bookToAdd.setKey(tfKey.getText());
-			bookToAdd.setUrl(tfUrl.getText());
-			bookToAdd.setBibkey(tfBibKey.getText());
-			System.out.println("przed add");
-
+			Book bookToAdd = createElement();
 			ClassOfLists.listOfBooks.add(bookToAdd);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -238,25 +242,34 @@ public class BookController implements Initializable {
 		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
 	}
 
+	private Book createElement() {
+
+		Book book = new Book();
+		book.setAuthor(tfAuthor.getText());
+		book.setAddress(tfAddress.getText());
+		book.setEditor(tfEditor.getText());
+		book.setTitle(tfTitle.getText());
+		book.setYear(tfYear.getText());
+		book.setPublisher(tfPublisher.getText());
+
+		book.setVolume(tfVolume.getText());
+		book.setNumber(tfNumber.getText());
+		book.setSeries(tfSeries.getText());
+		book.setEdition(tfEdition.getText());
+		book.setMonth(tfMonth.getText());
+		book.setNote(tfNote.getText());
+		book.setKey(tfKey.getText());
+		book.setUrl(tfUrl.getText());
+		book.setBibkey(tfBibKey.getText());
+		book.setKeywords(tfkeywords.getText());
+		return book;
+
+	}
+
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Book bookToDelete = new Book();
-		bookToDelete.setAuthor(tfAuthor.getText());
-		bookToDelete.setAddress(tfAddress.getText());
-		bookToDelete.setEditor(tfEditor.getText());
-		bookToDelete.setTitle(tfTitle.getText());
-		bookToDelete.setYear(tfYear.getText());
-		bookToDelete.setPublisher(tfPublisher.getText());
+		Book bookToDelete = createElement();
 
-		bookToDelete.setVolume(tfVolume.getText());
-		bookToDelete.setNumber(tfNumber.getText());
-		bookToDelete.setSeries(tfSeries.getText());
-		bookToDelete.setEdition(tfEdition.getText());
-		bookToDelete.setMonth(tfMonth.getText());
-		bookToDelete.setNote(tfNote.getText());
-		bookToDelete.setKey(tfKey.getText());
-		bookToDelete.setUrl(tfUrl.getText());
-		bookToDelete.setBibkey(tfBibKey.getText());
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Book book : ClassOfLists.listOfBooks) {
@@ -289,6 +302,7 @@ public class BookController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Key"));
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Book, String>("Url"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Book, String>("Keywords"));
 		refresh();
 	}
 

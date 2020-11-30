@@ -104,6 +104,9 @@ public class BookletController implements Initializable {
 
 	@FXML
 	private TableColumn<Booklet, String> tcKey;
+	
+	@FXML
+	private TableColumn< Booklet , String> tcKeywords;
 
 	void refresh() {
 		ObservableList<Booklet> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfBooklet);
@@ -292,6 +295,7 @@ public class BookletController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Address"));
 		tcHowpublished.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Howpublished"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Booklet  , String>("Keywords"));
 		refresh();
 	}
 }

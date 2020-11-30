@@ -72,10 +72,10 @@ public class ArticleController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
-	
+
 	@FXML
 	private TextField tfBibKey;
-	
+
 	@FXML
 	private TextField tfkeywords;
 
@@ -117,6 +117,34 @@ public class ArticleController implements Initializable {
 	private TableColumn<Article, String> tcDoi;
 
 	@FXML
+	private TableColumn<Article, String> tcKeywords;
+
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+
+		Article fromtable = tvArticles.getSelectionModel().getSelectedItem();
+
+		tfAuthor.setText(fromtable.getAuthor());
+		tfJournal.setText(fromtable.getJournal());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfVolume.setText(fromtable.getVolume());
+
+		tfPages.setText(fromtable.getPages());
+		tfNumber.setText(fromtable.getNumber());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfDoi.setText(fromtable.getDoi());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 
 		EntityManagerFactory emf = null;
@@ -124,38 +152,24 @@ public class ArticleController implements Initializable {
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Article toAdd: ClassOfLists.listOfArticles) {
+
+		for (Article toAdd : ClassOfLists.listOfArticles) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close();  
-		
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+		ClassOfLists.listOfArticles.clear();
+		refresh();
+		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
+
 	}
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		Article articleToAdd = new Article();
+		Article articleToAdd = createElement();
 
-		System.out.println("po try");
-
-		articleToAdd.setAuthor(tfAuthor.getText());
-		articleToAdd.setJournal(tfJournal.getText());
-		articleToAdd.setTitle(tfTitle.getText());
-		articleToAdd.setYear(tfYear.getText());
-		articleToAdd.setVolume(tfVolume.getText());
-
-		articleToAdd.setPages(tfPages.getText());
-		articleToAdd.setNumber(tfNumber.getText());
-		articleToAdd.setMonth(tfMonth.getText());
-		articleToAdd.setNote(tfNote.getText());
-		articleToAdd.setKey(tfKey.getText());
-		articleToAdd.setDoi(tfDoi.getText());
-		articleToAdd.setBibkey(tfBibKey.getText());
-		
-		
 		ClassOfLists.listOfArticles.add(articleToAdd);
 		refresh();
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
@@ -192,23 +206,31 @@ public class ArticleController implements Initializable {
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
 	}
 
+	private Article createElement() {
+
+		Article article = new Article();
+
+		article.setAuthor(tfAuthor.getText());
+		article.setJournal(tfJournal.getText());
+		article.setTitle(tfTitle.getText());
+		article.setYear(tfYear.getText());
+		article.setVolume(tfVolume.getText());
+
+		article.setPages(tfPages.getText());
+		article.setNumber(tfNumber.getText());
+		article.setMonth(tfMonth.getText());
+		article.setNote(tfNote.getText());
+		article.setKey(tfKey.getText());
+		article.setDoi(tfDoi.getText());
+		article.setBibkey(tfBibKey.getText());
+		article.setKeywords(tfkeywords.getText());
+		return article;
+
+	}
+
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Article articleToDel = new Article();
-
-		articleToDel.setAuthor(tfAuthor.getText());
-		articleToDel.setJournal(tfJournal.getText());
-		articleToDel.setTitle(tfTitle.getText());
-		articleToDel.setYear(tfYear.getText());
-		articleToDel.setVolume(tfVolume.getText());
-
-		articleToDel.setPages(tfPages.getText());
-		articleToDel.setNumber(tfNumber.getText());
-		articleToDel.setMonth(tfMonth.getText());
-		articleToDel.setNote(tfNote.getText());
-		articleToDel.setKey(tfKey.getText());
-		articleToDel.setDoi(tfDoi.getText());
-		articleToDel.setBibkey(tfBibKey.getText());
+		Article articleToDel = createElement();
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Article art : ClassOfLists.listOfArticles) {
@@ -238,6 +260,7 @@ public class ArticleController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Article, String>("Key"));
 		tcDoi.setCellValueFactory(new PropertyValueFactory<Article, String>("Doi"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Article, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Article, String>("Keywords"));
 		refresh();
 	}
 }

@@ -151,6 +151,9 @@ public class InproceedingsController implements Initializable {
 	private TableColumn<Inproceedings, String> tcEditor;
 
 	@FXML
+	private TableColumn<Inproceedings, String> tcKeywords;
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
@@ -175,6 +178,7 @@ public class InproceedingsController implements Initializable {
 	void searchdbfunc(ActionEvent event) {
 
 	}
+
 	@FXML
 	void addElementToFile(ActionEvent event) {
 
@@ -204,8 +208,7 @@ public class InproceedingsController implements Initializable {
 	}
 
 	private void editelement(Inproceedings inproceedings) {
-		
-		
+
 		inproceedings.setAuthor(tfAuthor.getText());
 		inproceedings.setAddress(tfAddress.getText());
 		inproceedings.setEditor(tfEditor.getText());
@@ -224,10 +227,8 @@ public class InproceedingsController implements Initializable {
 		inproceedings.setPages(tfPages.getText());
 		inproceedings.setBibkey(tfBibKey.getText());
 		inproceedings.setKeywords(tfkeywords.getText());
-		
-		
+
 	}
-	
 
 	@FXML
 	void deleteAllFromDB(ActionEvent event) {
@@ -239,20 +240,19 @@ public class InproceedingsController implements Initializable {
 		em.getTransaction().begin();
 
 		for (Inproceedings fromdbobj : ClassOfLists.listOfInproceedings) {
-			
+
 			Inproceedings infunc = em.find(Inproceedings.class, fromdbobj.getID());
-			
+
 			em.remove(infunc);
 		}
 		em.getTransaction().commit();
 
 		em.close();
 		emf.close();
-		
+
 		ClassOfLists.listOfInproceedings.clear();
 		refresh();
 		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
-
 
 	}
 
@@ -305,8 +305,6 @@ public class InproceedingsController implements Initializable {
 
 	}
 
-	
-
 	void refresh() {
 
 		ObservableList<Inproceedings> tableViewList = FXCollections
@@ -337,10 +335,6 @@ public class InproceedingsController implements Initializable {
 		tfkeywords.setText("");
 	}
 
-
-
-	
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -360,6 +354,7 @@ public class InproceedingsController implements Initializable {
 		tcOrganization.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Organization"));
 		tcBooktitle.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Booktitle"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Keywords"));
 		refresh();
 	}
 

@@ -179,6 +179,7 @@
                         <TableColumn fx:id="tcKey" prefWidth="75.0" text="Key" />
                         <TableColumn fx:id="tcDoi" prefWidth="75.0" text="Doi" />
                         <TableColumn fx:id="tcBibKey" prefWidth="75.0" text="BibKey" />
+                        <TableColumn fx:id="tcKeywords" prefWidth="75.0" text="Keywords" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

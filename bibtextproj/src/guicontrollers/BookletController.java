@@ -61,21 +61,19 @@ public class BookletController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
-	
-    @FXML
-    private TextField tfBibKey;
-    
-    @FXML
-    private TextField tfkeywords;
-    
 
-    
+	@FXML
+	private TextField tfBibKey;
+
+	@FXML
+	private TextField tfkeywords;
+
 	@FXML
 	private TableView<Booklet> tvBooklet;
 
-    @FXML
-    private TableColumn<Booklet, String> tcBibKey;
-	
+	@FXML
+	private TableColumn<Booklet, String> tcBibKey;
+
 	@FXML
 	private TableColumn<Booklet, String> tcTitle;
 
@@ -101,43 +99,53 @@ public class BookletController implements Initializable {
 	private TableColumn<Booklet, String> tcKey;
 
 	@FXML
+	private TableColumn<Booklet, String> tcKeywords;
+
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Booklet fromtable = tvBooklet.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfAddress.setText(fromtable.getAddress());
+		tfHowpublished.setText(fromtable.getHowpublished());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Booklet toAdd: ClassOfLists.listOfBooklet) {
+
+		for (Booklet toAdd : ClassOfLists.listOfBooklet) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 		ClassOfLists.listOfBooklet.clear();
 		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
+		Main.mainController.changeLabelCountBooklet(Integer.toString((ClassOfLists.listOfBooklet.size())));
 	}
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		Booklet bookletToAdd = new Booklet();
-
-		System.out.println("po try");
-
-		bookletToAdd.setAuthor(tfAuthor.getText());
-		bookletToAdd.setTitle(tfTitle.getText());
-		bookletToAdd.setYear(tfYear.getText());
-		bookletToAdd.setMonth(tfMonth.getText());
-		bookletToAdd.setNote(tfNote.getText());
-		bookletToAdd.setKey(tfKey.getText());
-		bookletToAdd.setAddress(tfAddress.getText());
-		bookletToAdd.setHowpublished(tfHowpublished.getText());
-		bookletToAdd.setBibkey(tfBibKey.getText());
+		Booklet bookletToAdd = createElement();
 		ClassOfLists.listOfBooklet.add(bookletToAdd);
 		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
+		Main.mainController.changeLabelCountBooklet(Integer.toString((ClassOfLists.listOfBooklet.size())));
 	}
 
 	void refresh() {
@@ -160,43 +168,49 @@ public class BookletController implements Initializable {
 		tfBibKey.setText("");
 		tfkeywords.setText("");
 		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
+		Main.mainController.changeLabelCountBooklet(Integer.toString((ClassOfLists.listOfBooklet.size())));
 	}
 
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfBooklet.clear();
 		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
+		Main.mainController.changeLabelCountBooklet(Integer.toString((ClassOfLists.listOfBooklet.size())));
+
+	}
+
+	private Booklet createElement() {
+
+		Booklet booklet = new Booklet();
+
+		booklet.setAuthor(tfAuthor.getText());
+		booklet.setTitle(tfTitle.getText());
+		booklet.setYear(tfYear.getText());
+		booklet.setMonth(tfMonth.getText());
+		booklet.setNote(tfNote.getText());
+		booklet.setKey(tfKey.getText());
+		booklet.setAddress(tfAddress.getText());
+		booklet.setHowpublished(tfHowpublished.getText());
+		booklet.setBibkey(tfBibKey.getText());
+		booklet.setKeywords(tfkeywords.getText());
+		return booklet;
 
 	}
 
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Booklet bookletToDel = new Booklet();
-
-		System.out.println("po try");
-
-		bookletToDel.setAuthor(tfAuthor.getText());
-		bookletToDel.setTitle(tfTitle.getText());
-		bookletToDel.setYear(tfYear.getText());
-		bookletToDel.setMonth(tfMonth.getText());
-		bookletToDel.setNote(tfNote.getText());
-		bookletToDel.setKey(tfKey.getText());
-		bookletToDel.setAddress(tfAddress.getText());
-		bookletToDel.setHowpublished(tfHowpublished.getText());
-		bookletToDel.setBibkey(tfBibKey.getText());
+		Booklet bookletToDel = createElement();
 		int toDelInLoop = 0;
 		for (Booklet art : ClassOfLists.listOfBooklet) {
 			if (bookletToDel.myequals(art)) {
 				ClassOfLists.listOfBooklet.remove(toDelInLoop);
 				break;
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
 
 		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfBooklet.size())));
+		Main.mainController.changeLabelCountBooklet(Integer.toString((ClassOfLists.listOfBooklet.size())));
 
 	}
 
@@ -212,6 +226,8 @@ public class BookletController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Address"));
 		tcHowpublished.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Howpublished"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Bibkey"));
+
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Keywords"));
 		refresh();
 	}
 }

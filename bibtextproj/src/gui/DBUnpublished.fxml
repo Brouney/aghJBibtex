@@ -148,6 +148,7 @@
                         <TableColumn fx:id="tcMonth" prefWidth="75.0" text="Month" />
                         <TableColumn fx:id="tcKey" prefWidth="75.0" text="Key" />
                         <TableColumn fx:id="tcBibKey" prefWidth="75.0" text="BibKey" />
+                         <TableColumn fx:id="tcKeywords" prefWidth="75.0" text="Keywords" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

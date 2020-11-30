@@ -132,6 +132,9 @@ public class ProceedingsController implements Initializable {
 	private TableColumn<Proceedings, String> tcUrl;
 
 	@FXML
+	private TableColumn<Proceedings, String> tcKeywords;
+
+	@FXML
 	void addFromTable(ActionEvent event) {
 		Proceedings fromtable = tvProceedings.getSelectionModel().getSelectedItem();
 		tfAddress.setText(fromtable.getAddress());
@@ -307,6 +310,7 @@ public class ProceedingsController implements Initializable {
 		tcNote.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Key"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Keywords"));
 		refresh();
 	}
 

@@ -162,11 +162,12 @@ public class IncollectionController implements Initializable {
 	private TableColumn<Incollection, String> tcBooktitle;
 
 	@FXML
+	private TableColumn<Incollection, String> tcKeywords;
+
+	@FXML
 	void addFromTable(ActionEvent event) {
 		Incollection fromtable = tvIncollection.getSelectionModel().getSelectedItem();
-		
-		
-		
+
 		tfAuthor.setText(fromtable.getAuthor());
 		tfBooktitle.setText(fromtable.getBibkey());
 		tfTitle.setText(fromtable.getTitle());
@@ -230,9 +231,9 @@ public class IncollectionController implements Initializable {
 		em.getTransaction().begin();
 
 		for (Incollection fromdbobj : ClassOfLists.listOfIncollection) {
-			
+
 			Incollection infunc = em.find(Incollection.class, fromdbobj.getID());
-			
+
 			em.remove(infunc);
 		}
 		em.getTransaction().commit();
@@ -319,8 +320,6 @@ public class IncollectionController implements Initializable {
 
 	}
 
-	
-
 	@FXML
 	void cleanText(ActionEvent event) {
 		tfAuthor.setText("");
@@ -345,15 +344,11 @@ public class IncollectionController implements Initializable {
 		tfkeywords.setText("");
 	}
 
-	
-
 	void refresh() {
 		ObservableList<Incollection> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfIncollection);
 
 		tvIncollection.setItems(tableViewList);
 	}
-
-	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -377,6 +372,7 @@ public class IncollectionController implements Initializable {
 		tcPages.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Pages"));
 		tcBooktitle.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Booktitle"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Keywords"));
 		refresh();
 	}
 

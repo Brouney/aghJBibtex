@@ -85,21 +85,19 @@ public class InproceedingsController implements Initializable {
 
 	@FXML
 	private Button addalltodbid;
-	
+
 	@FXML
 	private TextField tfBibKey;
-	
+
 	@FXML
 	private TextField tfkeywords;
-	 
-	
+
 	@FXML
 	private TableView<Inproceedings> tvInproceedings;
 
 	@FXML
 	private TableColumn<Inproceedings, String> tcBibKey;
-	
-	
+
 	@FXML
 	private TableColumn<Inproceedings, String> tcAuthor;
 
@@ -146,21 +144,50 @@ public class InproceedingsController implements Initializable {
 	private TableColumn<Inproceedings, String> tcEditor;
 
 	@FXML
+	private TableColumn<Inproceedings, String> tcKeywords;
+	
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Inproceedings fromtable = tvInproceedings.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfEditor.setText(fromtable.getEditor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfPublisher.setText(fromtable.getPublisher());
+
+		tfVolume.setText(fromtable.getVolume());
+		tfNumber.setText(fromtable.getNumber());
+		tfSeries.setText(fromtable.getSeries());
+		tfOrganization.setText(fromtable.getOrganization());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfPages.setText(fromtable.getPages());
+		tfBooktitle.setText(fromtable.getBooktitle());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Inproceedings toAdd: ClassOfLists.listOfInproceedings) {
+
+		for (Inproceedings toAdd : ClassOfLists.listOfInproceedings) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
 		ClassOfLists.listOfInproceedings.clear();
 		refresh();
 		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
@@ -170,28 +197,7 @@ public class InproceedingsController implements Initializable {
 	void addElementToList(ActionEvent event) {
 		System.out.println("przed try");
 		try {
-			Inproceedings inproceedingsToAdd = new Inproceedings();
-
-			System.out.println("po try");
-
-			inproceedingsToAdd.setAuthor(tfAuthor.getText());
-			inproceedingsToAdd.setAddress(tfAddress.getText());
-			inproceedingsToAdd.setEditor(tfEditor.getText());
-			inproceedingsToAdd.setTitle(tfTitle.getText());
-			inproceedingsToAdd.setYear(tfYear.getText());
-			inproceedingsToAdd.setPublisher(tfPublisher.getText());
-
-			inproceedingsToAdd.setVolume(tfVolume.getText());
-			inproceedingsToAdd.setNumber(tfNumber.getText());
-			inproceedingsToAdd.setSeries(tfSeries.getText());
-			inproceedingsToAdd.setOrganization(tfOrganization.getText());
-			inproceedingsToAdd.setMonth(tfMonth.getText());
-			inproceedingsToAdd.setNote(tfNote.getText());
-			inproceedingsToAdd.setKey(tfKey.getText());
-			inproceedingsToAdd.setBooktitle(tfBooktitle.getText());
-			inproceedingsToAdd.setPages(tfPages.getText());
-			inproceedingsToAdd.setBibkey(tfBibKey.getText());
-			System.out.println("przed add");
+			Inproceedings inproceedingsToAdd = createElement();
 
 			ClassOfLists.listOfInproceedings.add(inproceedingsToAdd);
 		} catch (Exception e) {
@@ -242,26 +248,33 @@ public class InproceedingsController implements Initializable {
 
 	}
 
+	private Inproceedings createElement() {
+		Inproceedings inproceedings = new Inproceedings();
+		inproceedings.setAuthor(tfAuthor.getText());
+		inproceedings.setAddress(tfAddress.getText());
+		inproceedings.setEditor(tfEditor.getText());
+		inproceedings.setTitle(tfTitle.getText());
+		inproceedings.setYear(tfYear.getText());
+		inproceedings.setPublisher(tfPublisher.getText());
+
+		inproceedings.setVolume(tfVolume.getText());
+		inproceedings.setNumber(tfNumber.getText());
+		inproceedings.setSeries(tfSeries.getText());
+		inproceedings.setPages(tfPages.getText());
+		inproceedings.setMonth(tfMonth.getText());
+		inproceedings.setNote(tfNote.getText());
+		inproceedings.setKey(tfKey.getText());
+		inproceedings.setOrganization(tfOrganization.getText());
+		inproceedings.setBooktitle(tfBooktitle.getText());
+		inproceedings.setBibkey(tfBibKey.getText());
+		inproceedings.setKeywords(tfkeywords.getText());
+		return inproceedings;
+
+	}
+
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Inproceedings inproceedingsToDel = new Inproceedings();
-		inproceedingsToDel.setAuthor(tfAuthor.getText());
-		inproceedingsToDel.setAddress(tfAddress.getText());
-		inproceedingsToDel.setEditor(tfEditor.getText());
-		inproceedingsToDel.setTitle(tfTitle.getText());
-		inproceedingsToDel.setYear(tfYear.getText());
-		inproceedingsToDel.setPublisher(tfPublisher.getText());
-
-		inproceedingsToDel.setVolume(tfVolume.getText());
-		inproceedingsToDel.setNumber(tfNumber.getText());
-		inproceedingsToDel.setSeries(tfSeries.getText());
-		inproceedingsToDel.setPages(tfPages.getText());
-		inproceedingsToDel.setMonth(tfMonth.getText());
-		inproceedingsToDel.setNote(tfNote.getText());
-		inproceedingsToDel.setKey(tfKey.getText());
-		inproceedingsToDel.setOrganization(tfOrganization.getText());
-		inproceedingsToDel.setBooktitle(tfBooktitle.getText());
-		inproceedingsToDel.setBibkey(tfBibKey.getText());
+		Inproceedings inproceedingsToDel = createElement();
 
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
@@ -298,6 +311,7 @@ public class InproceedingsController implements Initializable {
 		tcOrganization.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Organization"));
 		tcBooktitle.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Booktitle"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Keywords"));
 		refresh();
 	}
 

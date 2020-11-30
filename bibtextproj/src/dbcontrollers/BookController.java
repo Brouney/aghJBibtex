@@ -153,6 +153,9 @@ public class BookController implements Initializable {
 	private TableColumn<Book, String> tcUrl;
 
 	@FXML
+	private TableColumn<Book, String> tcKeywords;
+
+	@FXML
 	void addFromTable(ActionEvent event) {
 		Book fromtable = tvBooks.getSelectionModel().getSelectedItem();
 		tfAuthor.setText(fromtable.getAuthor());
@@ -172,7 +175,7 @@ public class BookController implements Initializable {
 		tfUrl.setText(fromtable.getUrl());
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
-		
+
 	}
 
 	@FXML
@@ -235,6 +238,7 @@ public class BookController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Key"));
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Book, String>("Url"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Book  , String>("Keywords"));
 		refresh();
 	}
 
@@ -258,9 +262,9 @@ public class BookController implements Initializable {
 		em.getTransaction().begin();
 
 		for (Book fromdbobj : ClassOfLists.listOfBooks) {
-			
+
 			Book infunc = em.find(Book.class, fromdbobj.getID());
-			
+
 			em.remove(infunc);
 		}
 		em.getTransaction().commit();

@@ -107,22 +107,44 @@ public class MastersthesisController implements Initializable {
 	private TableColumn<Mastersthesis, String> tcKey;
 
 	@FXML
+	private TableColumn<Mastersthesis, String> tcKeywords;
+
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Mastersthesis fromtable = tvMasterthesis.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfType.setText(fromtable.getType());
+		tfSchool.setText(fromtable.getSchool());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+	
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Mastersthesis toAdd: ClassOfLists.listOfMastersthesis) {
+
+		for (Mastersthesis toAdd : ClassOfLists.listOfMastersthesis) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    ClassOfLists.listOfMastersthesis.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfMastersthesis.clear();
 		refresh();
 		Main.mainController.changeLabelCountMastersthesis(Integer.toString((ClassOfLists.listOfMastersthesis.size())));
 	}
@@ -132,20 +154,7 @@ public class MastersthesisController implements Initializable {
 
 		System.out.println("przed try");
 		try {
-			Mastersthesis mastersthesisToAdd = new Mastersthesis();
-
-			System.out.println("po try");
-
-			mastersthesisToAdd.setAuthor(tfAuthor.getText());
-			mastersthesisToAdd.setAddress(tfAddress.getText());
-			mastersthesisToAdd.setTitle(tfTitle.getText());
-			mastersthesisToAdd.setYear(tfYear.getText());
-			mastersthesisToAdd.setMonth(tfMonth.getText());
-			mastersthesisToAdd.setNote(tfNote.getText());
-			mastersthesisToAdd.setKey(tfKey.getText());
-			mastersthesisToAdd.setSchool(tfSchool.getText());
-			mastersthesisToAdd.setType(tfType.getText());
-			mastersthesisToAdd.setBibkey(tfBibKey.getText());
+			Mastersthesis mastersthesisToAdd = createElement();
 
 			System.out.println("przed add");
 
@@ -192,21 +201,26 @@ public class MastersthesisController implements Initializable {
 
 	}
 
+	private Mastersthesis createElement() {
+		Mastersthesis mastersthesis = new Mastersthesis();
+		mastersthesis.setAuthor(tfAuthor.getText());
+		mastersthesis.setAddress(tfAddress.getText());
+		mastersthesis.setTitle(tfTitle.getText());
+		mastersthesis.setYear(tfYear.getText());
+		mastersthesis.setSchool(tfSchool.getText());
+		mastersthesis.setMonth(tfMonth.getText());
+		mastersthesis.setNote(tfNote.getText());
+		mastersthesis.setKey(tfKey.getText());
+		mastersthesis.setType(tfType.getText());
+		mastersthesis.setBibkey(tfBibKey.getText());
+
+		mastersthesis.setKeywords(tfkeywords.getText());
+		return mastersthesis;
+	}
+
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Mastersthesis masterthesisToDel = new Mastersthesis();
-		masterthesisToDel.setAuthor(tfAuthor.getText());
-		masterthesisToDel.setAddress(tfAddress.getText());
-		masterthesisToDel.setTitle(tfTitle.getText());
-		masterthesisToDel.setYear(tfYear.getText());
-		masterthesisToDel.setSchool(tfSchool.getText());
-		masterthesisToDel.setMonth(tfMonth.getText());
-		masterthesisToDel.setNote(tfNote.getText());
-		masterthesisToDel.setKey(tfKey.getText());
-		masterthesisToDel.setType(tfType.getText());
-		masterthesisToDel.setBibkey(tfBibKey.getText());
-
-		System.out.println("przed forem");
+		Mastersthesis masterthesisToDel = createElement();
 		int toDelInLoop = 0;
 		for (Mastersthesis todel : ClassOfLists.listOfMastersthesis) {
 			if (masterthesisToDel.myequals(todel)) {
@@ -234,6 +248,8 @@ public class MastersthesisController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("Address"));
 		tcSchool.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("School"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("Keywords"));
+
 		refresh();
 	}
 

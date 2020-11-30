@@ -105,6 +105,11 @@
                                        </VBox.margin>
                                     </TextField>
                                     <TextField fx:id="tfkeywords" />
+                                    <Button fx:id="addfromtablebt" mnemonicParsing="false" onAction="#addFromTable" prefHeight="25.0" prefWidth="147.0" text="Dodaj z tabeli">
+                                       <VBox.margin>
+                                          <Insets left="250.0" top="25.0" />
+                                       </VBox.margin>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>
@@ -230,6 +235,7 @@
                         <TableColumn fx:id="tcType" minWidth="0.0" prefWidth="62.0" text="Type" />
                         <TableColumn fx:id="tcChapter" prefWidth="124.0" text="Chapter" />
                         <TableColumn fx:id="tcBibKey" prefWidth="75.0" text="BibKey" />
+                        <TableColumn fx:id="tcKeywords" prefWidth="75.0" text="Keywords" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

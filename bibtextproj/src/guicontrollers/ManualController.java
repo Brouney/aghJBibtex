@@ -71,17 +71,16 @@ public class ManualController implements Initializable {
 
 	@FXML
 	private TextField tfBibKey;
-	
+
 	@FXML
 	private TextField tfkeywords;
-
 
 	@FXML
 	private TableView<Manual> tvManual;
 
 	@FXML
 	private TableColumn<Manual, String> tcBibKey;
-	
+
 	@FXML
 	private TableColumn<Manual, String> tcTitle;
 
@@ -110,42 +109,54 @@ public class ManualController implements Initializable {
 	private TableColumn<Manual, String> tcEdition;
 
 	@FXML
+	private TableColumn<Manual, String> tcKeywords;
+
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Manual fromtable = tvManual.getSelectionModel().getSelectedItem();
+
+		tfAuthor.setText(fromtable.getAuthor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfAddress.setText(fromtable.getAddress());
+		tfOrganization.setText(fromtable.getOrganization());
+		tfEdition.setText(fromtable.getEdition());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Manual toAdd: ClassOfLists.listOfManual) {
+
+		for (Manual toAdd : ClassOfLists.listOfManual) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    ClassOfLists.listOfManual.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfManual.clear();
 		refresh();
 		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
 	}
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		Manual ManualToAdd = new Manual();
+		Manual ManualToAdd = createElement();
 
-		System.out.println("po try");
-
-		ManualToAdd.setAuthor(tfAuthor.getText());
-		ManualToAdd.setTitle(tfTitle.getText());
-		ManualToAdd.setYear(tfYear.getText());
-		ManualToAdd.setMonth(tfMonth.getText());
-		ManualToAdd.setNote(tfNote.getText());
-		ManualToAdd.setKey(tfKey.getText());
-		ManualToAdd.setAddress(tfAddress.getText());
-		ManualToAdd.setOrganization(tfOrganization.getText());
-		ManualToAdd.setEdition(tfEdition.getText());
-		ManualToAdd.setBibkey(tfBibKey.getText());
 		ClassOfLists.listOfManual.add(ManualToAdd);
 		refresh();
 		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
@@ -181,20 +192,28 @@ public class ManualController implements Initializable {
 
 	}
 
+	private Manual createElement() {
+
+		Manual manual = new Manual();
+
+		manual.setAuthor(tfAuthor.getText());
+		manual.setTitle(tfTitle.getText());
+		manual.setYear(tfYear.getText());
+		manual.setMonth(tfMonth.getText());
+		manual.setNote(tfNote.getText());
+		manual.setKey(tfKey.getText());
+		manual.setAddress(tfAddress.getText());
+		manual.setEdition(tfEdition.getText());
+		manual.setOrganization(tfOrganization.getText());
+		manual.setBibkey(tfBibKey.getText());
+
+		manual.setKeywords(tfkeywords.getText());
+		return manual;
+	}
+
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Manual manualToDel = new Manual();
-
-		manualToDel.setAuthor(tfAuthor.getText());
-		manualToDel.setTitle(tfTitle.getText());
-		manualToDel.setYear(tfYear.getText());
-		manualToDel.setMonth(tfMonth.getText());
-		manualToDel.setNote(tfNote.getText());
-		manualToDel.setKey(tfKey.getText());
-		manualToDel.setAddress(tfAddress.getText());
-		manualToDel.setEdition(tfEdition.getText());
-		manualToDel.setOrganization(tfOrganization.getText());
-		manualToDel.setBibkey(tfBibKey.getText());
+		Manual manualToDel = createElement();
 
 		int toDelInLoop = 0;
 		System.out.println("przed forem delete");
@@ -224,6 +243,7 @@ public class ManualController implements Initializable {
 		tcOrganization.setCellValueFactory(new PropertyValueFactory<Manual, String>("Organization"));
 		tcEdition.setCellValueFactory(new PropertyValueFactory<Manual, String>("Edition"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Manual, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Manual, String>("Keywords"));
 		refresh();
 	}
 

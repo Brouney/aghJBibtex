@@ -114,6 +114,9 @@ public class PhdthesisController implements Initializable {
 	private TableColumn<Phdthesis, String> tcKey;
 
 	@FXML
+	private TableColumn<Phdthesis, String> tcKeywords;
+
+	@FXML
 	void addFromTable(ActionEvent event) {
 		Phdthesis fromtable = tvPhdthesis.getSelectionModel().getSelectedItem();
 		tfAuthor.setText(fromtable.getAuthor());
@@ -271,6 +274,7 @@ public class PhdthesisController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("Address"));
 		tcSchool.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("School"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("Keywords"));
 		refresh();
 	}
 

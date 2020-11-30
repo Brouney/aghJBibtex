@@ -86,10 +86,10 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	private TextField tfBibKey;
-	
+
 	@FXML
 	private TextField tfkeywords;
-	
+
 	@FXML
 	private TableColumn<Conference, String> tcBibKey;
 
@@ -142,20 +142,49 @@ public class ConferenceController implements Initializable {
 	private TableColumn<Conference, String> tcEditor;
 
 	@FXML
+	private TableColumn<Conference, String> tcKeywords;
+
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Conference fromtable = tvConference.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfBooktitle.setText(fromtable.getBooktitle());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+
+		tfVolume.setText(fromtable.getVolume());
+		tfPublisher.setText(fromtable.getPublisher());
+		tfNumber.setText(fromtable.getNumber());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfOrganization.setText(fromtable.getOrganization());
+		tfAddress.setText(fromtable.getAddress());
+		tfPages.setText(fromtable.getPages());
+		tfSeries.setText(fromtable.getSeries());
+		tfEditor.setText(fromtable.getEditor());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Conference toAdd: ClassOfLists.listOfConference) {
+
+		for (Conference toAdd : ClassOfLists.listOfConference) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
 		ClassOfLists.listOfConference.clear();
 		refresh();
 		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
@@ -163,27 +192,7 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		Conference conferenceToAdd = new Conference();
-
-		System.out.println("po try");
-
-		conferenceToAdd.setAuthor(tfAuthor.getText());
-		conferenceToAdd.setBooktitle(tfBooktitle.getText());
-		conferenceToAdd.setTitle(tfTitle.getText());
-		conferenceToAdd.setYear(tfYear.getText());
-
-		conferenceToAdd.setVolume(tfVolume.getText());
-		conferenceToAdd.setPublisher(tfPublisher.getText());
-		conferenceToAdd.setNumber(tfNumber.getText());
-		conferenceToAdd.setMonth(tfMonth.getText());
-		conferenceToAdd.setNote(tfNote.getText());
-		conferenceToAdd.setKey(tfKey.getText());
-		conferenceToAdd.setOrganization(tfOrganization.getText());
-		conferenceToAdd.setAddress(tfAddress.getText());
-		conferenceToAdd.setPages(tfPages.getText());
-		conferenceToAdd.setSeries(tfSeries.getText());
-		conferenceToAdd.setEditor(tfEditor.getText());
-		conferenceToAdd.setBibkey(tfBibKey.getText());
+		Conference conferenceToAdd = createElement();
 		ClassOfLists.listOfConference.add(conferenceToAdd);
 		refresh();
 		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
@@ -218,6 +227,32 @@ public class ConferenceController implements Initializable {
 		tfkeywords.setText("");
 	}
 
+	private Conference createElement() {
+
+		Conference conference = new Conference();
+
+		conference.setAuthor(tfAuthor.getText());
+		conference.setBooktitle(tfBooktitle.getText());
+		conference.setTitle(tfTitle.getText());
+		conference.setYear(tfYear.getText());
+
+		conference.setVolume(tfVolume.getText());
+		conference.setPublisher(tfPublisher.getText());
+		conference.setNumber(tfNumber.getText());
+		conference.setMonth(tfMonth.getText());
+		conference.setNote(tfNote.getText());
+		conference.setKey(tfKey.getText());
+		conference.setOrganization(tfOrganization.getText());
+		conference.setAddress(tfAddress.getText());
+		conference.setPages(tfPages.getText());
+		conference.setSeries(tfSeries.getText());
+		conference.setEditor(tfEditor.getText());
+		conference.setBibkey(tfBibKey.getText());
+		conference.setKeywords(tfkeywords.getText());
+		return conference;
+
+	}
+
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfConference.clear();
@@ -227,25 +262,7 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Conference conferenceToDel = new Conference();
-
-		conferenceToDel.setAuthor(tfAuthor.getText());
-		conferenceToDel.setBooktitle(tfBooktitle.getText());
-		conferenceToDel.setTitle(tfTitle.getText());
-		conferenceToDel.setYear(tfYear.getText());
-
-		conferenceToDel.setVolume(tfVolume.getText());
-		conferenceToDel.setPublisher(tfPublisher.getText());
-		conferenceToDel.setNumber(tfNumber.getText());
-		conferenceToDel.setMonth(tfMonth.getText());
-		conferenceToDel.setNote(tfNote.getText());
-		conferenceToDel.setKey(tfKey.getText());
-		conferenceToDel.setOrganization(tfOrganization.getText());
-		conferenceToDel.setAddress(tfAddress.getText());
-		conferenceToDel.setPages(tfPages.getText());
-		conferenceToDel.setSeries(tfSeries.getText());
-		conferenceToDel.setEditor(tfEditor.getText());
-		conferenceToDel.setBibkey(tfBibKey.getText());
+		Conference conferenceToDel = createElement();
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Conference art : ClassOfLists.listOfConference) {
@@ -279,6 +296,7 @@ public class ConferenceController implements Initializable {
 		tcSeries.setCellValueFactory(new PropertyValueFactory<Conference, String>("Series"));
 		tcEditor.setCellValueFactory(new PropertyValueFactory<Conference, String>("Editor"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Conference, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Conference, String>("Keywords"));
 		refresh();
 	}
 }

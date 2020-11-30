@@ -113,7 +113,13 @@ public class TechreportController implements Initializable {
 	@FXML
 	private TableColumn<Techreport, String> tcKey;
 
-	
+
+
+
+
+
+@FXML
+	private TableColumn< Techreport , String> tcKeywords;
 	
 	
 	@FXML
@@ -279,6 +285,7 @@ public class TechreportController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Address"));
 		tcInstitution.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Institution"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<  Techreport, String>("Keywords"));
 		refresh();
 
 	}

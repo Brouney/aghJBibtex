@@ -146,6 +146,9 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	private TableColumn<Conference, String> tcEditor;
+	
+	@FXML
+	private TableColumn<Conference  , String> tcKeywords;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -349,6 +352,7 @@ public class ConferenceController implements Initializable {
 		tcSeries.setCellValueFactory(new PropertyValueFactory<Conference, String>("Series"));
 		tcEditor.setCellValueFactory(new PropertyValueFactory<Conference, String>("Editor"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Conference, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Conference  , String>("Keywords"));
 		refresh();
 	}
 }

@@ -101,7 +101,8 @@ public class MiscController implements Initializable {
 	@FXML
 	private TableColumn<Misc, String> tcKey;
 
-	
+	@FXML
+	private TableColumn<Misc, String> tcKeywords;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -133,9 +134,9 @@ public class MiscController implements Initializable {
 		em.getTransaction().begin();
 
 		for (Misc fromdbobj : ClassOfLists.listOfMisc) {
-			
+
 			Misc infunc = em.find(Misc.class, fromdbobj.getID());
-			
+
 			em.remove(infunc);
 		}
 		em.getTransaction().commit();
@@ -194,7 +195,7 @@ public class MiscController implements Initializable {
 
 		em.close();
 		emf.close();
-	
+
 	}
 
 	@FXML
@@ -212,8 +213,6 @@ public class MiscController implements Initializable {
 		misc.setHowpublished(tfHowpublished.getText());
 		misc.setBibkey(tfBibKey.getText());
 	}
-
-	
 
 	void refresh() {
 
@@ -235,10 +234,6 @@ public class MiscController implements Initializable {
 		tfkeywords.setText("");
 	}
 
-
-
-	
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -250,6 +245,8 @@ public class MiscController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Misc, String>("Key"));
 		tcHowpublished.setCellValueFactory(new PropertyValueFactory<Misc, String>("Howpublished"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Misc, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Misc, String>("Keywords"));
+
 		refresh();
 	}
 

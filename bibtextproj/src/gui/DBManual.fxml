@@ -172,6 +172,7 @@
                         <TableColumn fx:id="tcKey" minWidth="0.0" prefWidth="73.0" text="Key" />
                       <TableColumn fx:id="tcEdition" prefWidth="97.0" text="Edition" />
                         <TableColumn fx:id="tcBibKey" prefWidth="75.0" text="BibKey" />
+                         <TableColumn fx:id="tcKeywords" prefWidth="75.0" text="Keywords" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

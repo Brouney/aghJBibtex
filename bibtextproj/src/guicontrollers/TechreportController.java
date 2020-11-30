@@ -25,153 +25,160 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TechreportController implements Initializable {
 
-    @FXML
-    private TextField tfAuthor;
+	@FXML
+	private TextField tfAuthor;
 
-    @FXML
-    private TextField tfTitle;
+	@FXML
+	private TextField tfTitle;
 
-    @FXML
-    private TextField tfYear;
+	@FXML
+	private TextField tfYear;
 
-    @FXML
-    private TextField tfInstitution;
+	@FXML
+	private TextField tfInstitution;
 
-    @FXML
-    private TextField tfType;
+	@FXML
+	private TextField tfType;
 
-    @FXML
-    private TextField tfAddress;
+	@FXML
+	private TextField tfAddress;
 
-    @FXML
-    private TextField tfMonth;
+	@FXML
+	private TextField tfMonth;
 
-    @FXML
-    private TextField tfNote;
+	@FXML
+	private TextField tfNote;
 
-    @FXML
-    private TextField tfKey;
+	@FXML
+	private TextField tfKey;
 
-    @FXML
-    private Button cleantextid;
+	@FXML
+	private Button cleantextid;
 
-    @FXML
-    private Button addelementtolistid;
+	@FXML
+	private Button addelementtolistid;
 
-    @FXML
-    private Button deleteelementfromlistid;
+	@FXML
+	private Button deleteelementfromlistid;
 
-    @FXML
-    private Button deleteallfromlistid;
+	@FXML
+	private Button deleteallfromlistid;
 
-    @FXML
-    private Button addalltodbid;
-    
-    @FXML
-    private TextField tfBibKey;
+	@FXML
+	private Button addalltodbid;
 
-    @FXML
-    private TextField tfkeywords;
+	@FXML
+	private TextField tfBibKey;
+
+	@FXML
+	private TextField tfkeywords;
+
+	@FXML
+	private TableView<Techreport> tvTechreport;
+
+	@FXML
+	private TableColumn<Techreport, String> tcAuthor;
+
+	@FXML
+	private TableColumn<Techreport, String> tcBibKey;
+
+	@FXML
+	private TableColumn<Techreport, String> tcTitle;
+
+	@FXML
+	private TableColumn<Techreport, String> tcYear;
+
+	@FXML
+	private TableColumn<Techreport, String> tcInstitution;
+
+	@FXML
+	private TableColumn<Techreport, String> tcType;
+
+	@FXML
+	private TableColumn<Techreport, String> tcAddress;
+
+	@FXML
+	private TableColumn<Techreport, String> tcMonth;
+
+	@FXML
+	private TableColumn<Techreport, String> tcNote;
+
+	@FXML
+	private TableColumn<Techreport, String> tcKey;
+
+	@FXML
+	private TableColumn<Techreport, String> tcKeywords;
 
 
-    @FXML
-    private TableView<Techreport> tvTechreport;
+	@FXML
+	private Button addfromtablebt;
+	
 
-    @FXML
-    private TableColumn<Techreport, String> tcAuthor;
-
-    @FXML
-    private TableColumn<Techreport, String> tcBibKey;
-
-    @FXML
-    private TableColumn<Techreport, String> tcTitle;
-
-    @FXML
-    private TableColumn<Techreport, String> tcYear;
-
-    @FXML
-    private TableColumn<Techreport, String> tcInstitution;
-
-    @FXML
-    private TableColumn<Techreport, String> tcType;
-
-    @FXML
-    private TableColumn<Techreport, String> tcAddress;
-
-    @FXML
-    private TableColumn<Techreport, String> tcMonth;
-
-    @FXML
-    private TableColumn<Techreport, String> tcNote;
-
-    @FXML
-    private TableColumn<Techreport, String> tcKey;
-
-    @FXML
-    void addAllToDB(ActionEvent event) {
-    	EntityManagerFactory emf = null;
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Techreport fromtable = tvTechreport.getSelectionModel().getSelectedItem();
+		tfAuthor.setText(fromtable.getAuthor());
+		tfAddress.setText(fromtable.getAddress());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+		tfType.setText(fromtable.getType());
+		tfInstitution.setText(fromtable.getInstitution());
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+	
+	@FXML
+	void addAllToDB(ActionEvent event) {
+		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Techreport toAdd: ClassOfLists.listOfTechreport) {
+
+		for (Techreport toAdd : ClassOfLists.listOfTechreport) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close();
-	    
-	    
-	    ClassOfLists.listOfTechreport.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfTechreport.clear();
 		refresh();
-    	Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
-    }
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+	}
 
-    @FXML
-    void addElementToList(ActionEvent event) {
-    	System.out.println("przed try");
+	@FXML
+	void addElementToList(ActionEvent event) {
+		System.out.println("przed try");
 		try {
-			Techreport techreportToAdd = new Techreport();
-
-			System.out.println("po try");
-
-			techreportToAdd.setAuthor(tfAuthor.getText());
-			techreportToAdd.setAddress(tfAddress.getText());
-			techreportToAdd.setTitle(tfTitle.getText());
-			techreportToAdd.setYear(tfYear.getText());
-			techreportToAdd.setMonth(tfMonth.getText());
-			techreportToAdd.setNote(tfNote.getText());
-			techreportToAdd.setKey(tfKey.getText());
-			techreportToAdd.setInstitution(tfInstitution.getText());
-			techreportToAdd.setType(tfType.getText());
-			techreportToAdd.setBibkey(tfBibKey.getText());
-
-			System.out.println("przed add");
+			Techreport techreportToAdd = createElement();
 
 			ClassOfLists.listOfTechreport.add(techreportToAdd);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println("przed refresh");
+		
 		refresh();
-		System.out.println("przed zmiana label");
+		
 		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 
+	}
 
-    }
-    void refresh() {
+	void refresh() {
 
-		ObservableList<Techreport> tableViewList = FXCollections
-				.observableArrayList(ClassOfLists.listOfTechreport);
+		ObservableList<Techreport> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfTechreport);
 
 		tvTechreport.setItems(tableViewList);
 	}
-    @FXML
-    void cleanText(ActionEvent event) {
-    	tfAuthor.setText("");
+
+	@FXML
+	void cleanText(ActionEvent event) {
+		tfAuthor.setText("");
 		tfAddress.setText("");
 		tfTitle.setText("");
 		tfYear.setText("");
@@ -182,46 +189,52 @@ public class TechreportController implements Initializable {
 		tfInstitution.setText("");
 		tfBibKey.setText("");
 		tfkeywords.setText("");
-		
-    }
 
-    @FXML
-    void deleteAllFromList(ActionEvent event) {
-    	ClassOfLists.listOfTechreport.clear();
+	}
+
+	@FXML
+	void deleteAllFromList(ActionEvent event) {
+		ClassOfLists.listOfTechreport.clear();
 		refresh();
-    	Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 
-    }
+	}
 
-    @FXML
-    void deleteElementFromList(ActionEvent event) {
-    	Techreport techreportToDel = new Techreport();
+	private Techreport createElement() {
 
-		System.out.println("po try");
+		Techreport techreport = new Techreport();
 
-		techreportToDel.setAuthor(tfAuthor.getText());
-		techreportToDel.setAddress(tfAddress.getText());
-		techreportToDel.setTitle(tfTitle.getText());
-		techreportToDel.setYear(tfYear.getText());
-		techreportToDel.setMonth(tfMonth.getText());
-		techreportToDel.setNote(tfNote.getText());
-		techreportToDel.setKey(tfKey.getText());
-		techreportToDel.setInstitution(tfInstitution.getText());
-		techreportToDel.setType(tfType.getText());
-		techreportToDel.setBibkey(tfBibKey.getText());
+		techreport.setAuthor(tfAuthor.getText());
+		techreport.setAddress(tfAddress.getText());
+		techreport.setTitle(tfTitle.getText());
+		techreport.setYear(tfYear.getText());
+		techreport.setMonth(tfMonth.getText());
+		techreport.setNote(tfNote.getText());
+		techreport.setKey(tfKey.getText());
+		techreport.setInstitution(tfInstitution.getText());
+		techreport.setType(tfType.getText());
+		techreport.setBibkey(tfBibKey.getText());
+
+		techreport.setKeywords(tfkeywords.getText());
+		return techreport;
+	}
+
+	@FXML
+	void deleteElementFromList(ActionEvent event) {
+		Techreport techreportToDel = createElement();
 
 		int toDelInLoop = 0;
 		for (Techreport todel : ClassOfLists.listOfTechreport) {
 			if (techreportToDel.myequals(todel)) {
-				ClassOfLists.listOfTechreport.remove( toDelInLoop);
+				ClassOfLists.listOfTechreport.remove(toDelInLoop);
 				break;
 			}
-			toDelInLoop+=1;
+			toDelInLoop += 1;
 		}
 		refresh();
-    	Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 
-    }
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -236,8 +249,9 @@ public class TechreportController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Address"));
 		tcInstitution.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Institution"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Keywords"));
 		refresh();
-		
+
 	}
 
 }

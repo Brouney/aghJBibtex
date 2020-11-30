@@ -54,6 +54,11 @@
                                     <TextField fx:id="tfTitle" />
                                     <TextField fx:id="tfNote" />
                                     <TextField fx:id="tfBibKey" />
+                                    <Button fx:id="addfromtablebt" mnemonicParsing="false" onAction="#addFromTable" prefHeight="25.0" prefWidth="147.0" text="Dodaj z tabeli">
+                                       <VBox.margin>
+                                          <Insets left="250.0" top="25.0" />
+                                       </VBox.margin>
+                                    </Button>
                                  </children>
                               </VBox>
                            </children>
@@ -138,6 +143,7 @@
                         <TableColumn fx:id="tcMonth" prefWidth="75.0" text="Month" />
                         <TableColumn fx:id="tcKey" prefWidth="75.0" text="Key" />
                         <TableColumn fx:id="tcBibKey" prefWidth="75.0" text="BibKey" />
+                        <TableColumn fx:id="tcKeywords" prefWidth="75.0" text="Keywords" />
                     </columns>
                   </TableView>
                </children></AnchorPane>

@@ -125,48 +125,56 @@ public class ProceedingsController implements Initializable {
 	private TableColumn<Proceedings, String> tcUrl;
 
 	@FXML
+	private TableColumn<Proceedings, String> tcKeywords;
+
+	@FXML
+	private Button addfromtablebt;
+
+	@FXML
+	void addFromTable(ActionEvent event) {
+		Proceedings fromtable = tvProceedings.getSelectionModel().getSelectedItem();
+		tfAddress.setText(fromtable.getAddress());
+		tfEditor.setText(fromtable.getEditor());
+		tfTitle.setText(fromtable.getTitle());
+		tfYear.setText(fromtable.getYear());
+		tfPublisher.setText(fromtable.getPublisher());
+
+		tfVolume.setText(fromtable.getVolume());
+		tfNumber.setText(fromtable.getNumber());
+		tfSeries.setText(fromtable.getSeries());
+		tfOrganization.setText(fromtable.getOrganization());
+		tfMonth.setText(fromtable.getMonth());
+		tfNote.setText(fromtable.getNote());
+		tfKey.setText(fromtable.getKey());
+
+		tfBibKey.setText(fromtable.getBibkey());
+		tfkeywords.setText(fromtable.getKeywords());
+	}
+	
+	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
 		em.getTransaction().begin();
-		
-		for(Proceedings toAdd: ClassOfLists.listOfProceedings) {
+
+		for (Proceedings toAdd : ClassOfLists.listOfProceedings) {
 			em.persist(toAdd);
 		}
-		em.getTransaction().commit();  
-	      
-	    em.close();  
-	    emf.close(); 
-	    
-	    ClassOfLists.listOfProceedings.clear();
+		em.getTransaction().commit();
+
+		em.close();
+		emf.close();
+
+		ClassOfLists.listOfProceedings.clear();
 		refresh();
 		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
 	}
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		Proceedings proceedingsToAdd = new Proceedings();
-
-		System.out.println("po try");
-
-		proceedingsToAdd.setAddress(tfAddress.getText());
-		proceedingsToAdd.setEditor(tfEditor.getText());
-		proceedingsToAdd.setTitle(tfTitle.getText());
-		proceedingsToAdd.setYear(tfYear.getText());
-		proceedingsToAdd.setPublisher(tfPublisher.getText());
-
-		proceedingsToAdd.setVolume(tfVolume.getText());
-		proceedingsToAdd.setNumber(tfNumber.getText());
-		proceedingsToAdd.setSeries(tfSeries.getText());
-		proceedingsToAdd.setOrganization(tfOrganization.getText());
-		proceedingsToAdd.setMonth(tfMonth.getText());
-		proceedingsToAdd.setNote(tfNote.getText());
-		proceedingsToAdd.setKey(tfKey.getText());
-		proceedingsToAdd.setBibkey(tfBibKey.getText());
-
-		System.out.println("przed add");
+		Proceedings proceedingsToAdd = createElement();
 
 		ClassOfLists.listOfProceedings.add(proceedingsToAdd);
 
@@ -211,26 +219,32 @@ public class ProceedingsController implements Initializable {
 
 	}
 
+	private Proceedings createElement() {
+
+		Proceedings proceedings = new Proceedings();
+
+		proceedings.setAddress(tfAddress.getText());
+		proceedings.setEditor(tfEditor.getText());
+		proceedings.setTitle(tfTitle.getText());
+		proceedings.setYear(tfYear.getText());
+		proceedings.setPublisher(tfPublisher.getText());
+
+		proceedings.setVolume(tfVolume.getText());
+		proceedings.setNumber(tfNumber.getText());
+		proceedings.setSeries(tfSeries.getText());
+		proceedings.setOrganization(tfOrganization.getText());
+		proceedings.setMonth(tfMonth.getText());
+		proceedings.setNote(tfNote.getText());
+		proceedings.setKey(tfKey.getText());
+		proceedings.setBibkey(tfBibKey.getText());
+
+		proceedings.setKeywords(tfkeywords.getText());
+		return proceedings;
+	}
+
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Proceedings proceedingsToDel = new Proceedings();
-
-		System.out.println("po try");
-
-		proceedingsToDel.setAddress(tfAddress.getText());
-		proceedingsToDel.setEditor(tfEditor.getText());
-		proceedingsToDel.setTitle(tfTitle.getText());
-		proceedingsToDel.setYear(tfYear.getText());
-		proceedingsToDel.setPublisher(tfPublisher.getText());
-
-		proceedingsToDel.setVolume(tfVolume.getText());
-		proceedingsToDel.setNumber(tfNumber.getText());
-		proceedingsToDel.setSeries(tfSeries.getText());
-		proceedingsToDel.setOrganization(tfOrganization.getText());
-		proceedingsToDel.setMonth(tfMonth.getText());
-		proceedingsToDel.setNote(tfNote.getText());
-		proceedingsToDel.setKey(tfKey.getText());
-		proceedingsToDel.setBibkey(tfBibKey.getText());
+		Proceedings proceedingsToDel =createElement();
 
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
@@ -264,6 +278,7 @@ public class ProceedingsController implements Initializable {
 		tcNote.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Key"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Keywords"));
 		refresh();
 	}
 

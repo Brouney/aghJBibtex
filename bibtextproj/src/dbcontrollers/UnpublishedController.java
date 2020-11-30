@@ -96,6 +96,9 @@ public class UnpublishedController implements Initializable {
 	private TableColumn<Unpublished, String> tcKey;
 
 	@FXML
+	private TableColumn<Unpublished, String> tcKeywords;
+
+	@FXML
 	void addFromTable(ActionEvent event) {
 		Unpublished fromtable = tvUnpublished.getSelectionModel().getSelectedItem();
 		tfAuthor.setText(fromtable.getAuthor());
@@ -244,6 +247,7 @@ public class UnpublishedController implements Initializable {
 		tcNote.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Note"));
 		tcKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Key"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Keywords"));
 		refresh();
 	}
 

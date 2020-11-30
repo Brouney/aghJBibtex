@@ -119,6 +119,9 @@ public class ArticleController implements Initializable {
 
 	@FXML
 	private TableColumn<Article, String> tcDoi;
+	
+	@FXML
+	private TableColumn<Article, String> tcKeywords;
 
 	@FXML
 	private Button addfromtablebt;
@@ -292,6 +295,7 @@ public class ArticleController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Article, String>("Key"));
 		tcDoi.setCellValueFactory(new PropertyValueFactory<Article, String>("Doi"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Article, String>("Bibkey"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Article, String>("Keywords"));
 		refresh();
 	}
 }
