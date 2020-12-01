@@ -71,21 +71,19 @@ public class Book extends EntryTypes {
 		Value val = null;
 		Value strval = null;
 		ReferenceValue refval = null;
-		
-		
-		
+
 		try {
 			Key str2 = createFrom.getKey();
-			
+
 			if (str2 != null) {
-				this.setBibkey(str2.getValue()); 
+				this.setBibkey(str2.getValue());
 			}
 
 		} catch (Exception e) {
-			
+
 			System.out.println(e.getMessage());
 		}
-		
+
 		try {
 			val = createFrom.getField(createFrom.KEY_AUTHOR);
 			strval = (Value) val;
@@ -98,7 +96,8 @@ public class Book extends EntryTypes {
 				this.author = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookau");
+			System.out.print(e.getMessage());
+			System.out.println("Bookau");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_ADDRESS);
@@ -112,7 +111,8 @@ public class Book extends EntryTypes {
 				this.address = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookad");
+			System.out.print(e.getMessage());
+			System.out.println("Bookad");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_EDITOR);
@@ -126,7 +126,8 @@ public class Book extends EntryTypes {
 				this.editor = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Booked");
+			System.out.print(e.getMessage());
+			System.out.println("Booked");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_TITLE);
@@ -140,7 +141,8 @@ public class Book extends EntryTypes {
 				this.title = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Booktit");
+			System.out.print(e.getMessage());
+			System.out.println("Booktit");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_YEAR);
@@ -154,7 +156,8 @@ public class Book extends EntryTypes {
 				this.year = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookyear");
+			System.out.print(e.getMessage());
+			System.out.println("Bookyear");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_PUBLISHER);
@@ -168,7 +171,8 @@ public class Book extends EntryTypes {
 				this.publisher = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookpub");
+			System.out.print(e.getMessage());
+			System.out.println("Bookpub");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_VOLUME);
@@ -182,7 +186,8 @@ public class Book extends EntryTypes {
 				this.volume = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookvol");
+			System.out.print(e.getMessage());
+			System.out.println("Bookvol");
 		}
 		try {
 
@@ -197,7 +202,8 @@ public class Book extends EntryTypes {
 				this.number = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Booknum");
+			System.out.print(e.getMessage());
+			System.out.println("Booknum");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_SERIES);
@@ -211,7 +217,8 @@ public class Book extends EntryTypes {
 				this.series = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookser");
+			System.out.print(e.getMessage());
+			System.out.println("Bookser");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_EDITION);
@@ -225,7 +232,8 @@ public class Book extends EntryTypes {
 				this.edition = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Booked");
+			System.out.print(e.getMessage());
+			System.out.println("Booked");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_MONTH);
@@ -239,7 +247,8 @@ public class Book extends EntryTypes {
 				this.month = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookmon");
+			System.out.print(e.getMessage());
+			System.out.println("Bookmon");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_NOTE);
@@ -253,7 +262,8 @@ public class Book extends EntryTypes {
 				this.note = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Booknote");
+			System.out.print(e.getMessage());
+			System.out.println("Booknote");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_KEY);
@@ -267,7 +277,8 @@ public class Book extends EntryTypes {
 				this.key = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookkey");
+			System.out.print(e.getMessage());
+			System.out.println("Bookkey");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_URL);
@@ -281,7 +292,8 @@ public class Book extends EntryTypes {
 				this.url = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());			System.out.println("Bookurl");
+			System.out.print(e.getMessage());
+			System.out.println("Bookurl");
 		}
 
 	}
@@ -411,6 +423,67 @@ public class Book extends EntryTypes {
 			return false;
 		}
 
+	}
+
+	@Override
+	public String toString() {
+		String fileString;
+		fileString = "@Author{";
+
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			fileString += this.getBibkey() + ",\n";
+		} else {
+			fileString += "\n";
+		}
+		if ((this.address != (null)) && !this.address.isEmpty()) {
+			fileString += "address = \"" + this.address + "\",\n";
+		}
+
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			fileString += "author = \"" + this.author + "\",\n";
+		}
+
+		if ((this.edition != (null)) && !this.edition.isEmpty()) {
+			fileString += "edition = \"" + this.edition + "\",\n";
+		}
+		if ((this.editor != (null)) && !this.editor.isEmpty()) {
+			fileString += "editor = \"" + this.editor + "\",\n";
+		}
+
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			fileString += "key = \"" + this.key + "\",\n";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			fileString += "month = \"" + this.month + "\",\n";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			fileString += "note = \"" + this.note + "\",\n";
+		}
+		if ((this.number != (null)) && !this.number.isEmpty()) {
+			fileString += "number = \"" + this.number + "\",\n";
+		}
+
+		if ((this.publisher != (null)) && !this.publisher.isEmpty()) {
+			fileString += "publisher = \"" + this.publisher + "\",\n";
+		}
+
+		if ((this.series != (null)) && !this.series.isEmpty()) {
+			fileString += "series = \"" + this.series + "\",\n";
+		}
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			fileString += "title = \"" + this.title + "\",\n";
+		}
+
+		if ((this.volume != (null)) && !this.volume.isEmpty()) {
+			fileString += "volume = \"" + this.volume + "\",\n";
+		}
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			fileString += "year = \"" + this.year + "\",\n";
+		}
+
+		fileString += "}\n";
+
+		return fileString;
 	}
 
 }

@@ -64,17 +64,16 @@ public class Article extends EntryTypes {
 		Value strval = null;
 		try {
 			Key str2 = createFrom.getKey();
-			
+
 			if (str2 != null) {
-				this.setBibkey(str2.getValue()); 
+				this.setBibkey(str2.getValue());
 			}
 
 		} catch (Exception e) {
-			
+
 			System.out.println(e.getMessage());
 		}
-		
-		
+
 		try {
 			val = createFrom.getField(createFrom.KEY_AUTHOR);
 			strval = (Value) val;
@@ -340,7 +339,50 @@ public class Article extends EntryTypes {
 
 	@Override
 	public String toString() {
-		return "autor: " + author + " title: " + title;
+		String fileString;
+		fileString = "@Author{";
+
+		if ((this.getBibkey() != (null))&& !this.getBibkey().isEmpty()) {
+			fileString += this.getBibkey() + ",\n";
+		} else {
+			fileString += "\n";
+		}
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			fileString += "author = \"" + this.author + "\",\n";
+		}
+		if ((this.journal != (null)) && !this.journal.isEmpty()) {
+			fileString += "journal = \"" + this.journal + "\",\n";
+		}
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			fileString += "title = \"" + this.title + "\",\n";
+		}
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			fileString += "year = \"" + this.year + "\",\n";
+		}
+		if ((this.volume != (null)) && !this.volume.isEmpty()) {
+			fileString += "volume = \"" + this.volume + "\",\n";
+		}
+		if ((this.pages != (null)) && !this.pages.isEmpty()) {
+			fileString += "pages = \"" + this.pages + "\",\n";
+		}
+		if ((this.number != (null)) && !this.number.isEmpty()) {
+			fileString += "number = \"" + this.number + "\",\n";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			fileString += "month = \"" + this.month + "\",\n";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			fileString += "note = \"" + this.note + "\",\n";
+		}
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			fileString += "key = \"" + this.key + "\",\n";
+		}
+		if ((this.doi != (null)) && !this.doi.isEmpty()) {
+			fileString += "doi = \"" + this.doi + "\",\n";
+		}
+		fileString += "}\n";
+
+		return fileString;
 	}
 
 }

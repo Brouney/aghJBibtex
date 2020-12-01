@@ -58,16 +58,16 @@ public class Manual extends EntryTypes {
 		ReferenceValue refval = null;
 		try {
 			Key str2 = createFrom.getKey();
-			
+
 			if (str2 != null) {
-				this.setBibkey(str2.getValue()); 
+				this.setBibkey(str2.getValue());
 			}
 
 		} catch (Exception e) {
-			
+
 			System.out.println(e.getMessage());
 		}
-		
+
 		try {
 			val = createFrom.getField(createFrom.KEY_AUTHOR);
 			strval = (Value) val;
@@ -80,7 +80,8 @@ public class Manual extends EntryTypes {
 				this.author = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualau");
+			System.out.print(e.getMessage());
+			System.out.println("manualau");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_ADDRESS);
@@ -94,7 +95,8 @@ public class Manual extends EntryTypes {
 				this.address = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualad");
+			System.out.print(e.getMessage());
+			System.out.println("manualad");
 		}
 		try {
 
@@ -109,7 +111,8 @@ public class Manual extends EntryTypes {
 				this.title = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualtit");
+			System.out.print(e.getMessage());
+			System.out.println("manualtit");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_YEAR);
@@ -123,7 +126,8 @@ public class Manual extends EntryTypes {
 				this.year = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualyea");
+			System.out.print(e.getMessage());
+			System.out.println("manualyea");
 		}
 		try {
 
@@ -138,7 +142,8 @@ public class Manual extends EntryTypes {
 				this.edition = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualed");
+			System.out.print(e.getMessage());
+			System.out.println("manualed");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_MONTH);
@@ -152,7 +157,8 @@ public class Manual extends EntryTypes {
 				this.month = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualmon");
+			System.out.print(e.getMessage());
+			System.out.println("manualmon");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_NOTE);
@@ -166,7 +172,8 @@ public class Manual extends EntryTypes {
 				this.note = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualnote");
+			System.out.print(e.getMessage());
+			System.out.println("manualnote");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_KEY);
@@ -180,7 +187,8 @@ public class Manual extends EntryTypes {
 				this.key = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualkey");
+			System.out.print(e.getMessage());
+			System.out.println("manualkey");
 		}
 		try {
 
@@ -195,7 +203,8 @@ public class Manual extends EntryTypes {
 				this.organization = refval.toUserString();
 			}
 
-			System.out.print(e.getMessage());System.out.println("manualorg");
+			System.out.print(e.getMessage());
+			System.out.println("manualorg");
 		}
 
 	}
@@ -283,6 +292,55 @@ public class Manual extends EntryTypes {
 			return false;
 		}
 
+	}
+
+	@Override
+	public String toString() {
+		String fileString;
+		fileString = "@Author{";
+
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			fileString += this.getBibkey() + ",\n";
+		} else {
+			fileString += "\n";
+		}
+		if ((this.address != (null)) && !this.address.isEmpty()) {
+			fileString += "address = \"" + this.address + "\",\n";
+		}
+
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			fileString += "author = \"" + this.author + "\",\n";
+		}
+
+		if ((this.edition != (null)) && !this.edition.isEmpty()) {
+			fileString += "edition = \"" + this.edition + "\",\n";
+		}
+
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			fileString += "key = \"" + this.key + "\",\n";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			fileString += "month = \"" + this.month + "\",\n";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			fileString += "note = \"" + this.note + "\",\n";
+		}
+
+		if ((this.organization != (null)) && !this.organization.isEmpty()) {
+			fileString += "organization = \"" + this.organization + "\",\n";
+		}
+
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			fileString += "title = \"" + this.title + "\",\n";
+		}
+
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			fileString += "year = \"" + this.year + "\",\n";
+		}
+
+		fileString += "}\n";
+
+		return fileString;
 	}
 
 }

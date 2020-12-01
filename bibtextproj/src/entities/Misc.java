@@ -51,13 +51,13 @@ public class Misc extends EntryTypes {
 		ReferenceValue refval = null;
 		try {
 			Key str2 = createFrom.getKey();
-			
+
 			if (str2 != null) {
-				this.setBibkey(str2.getValue()); 
+				this.setBibkey(str2.getValue());
 			}
 
 		} catch (Exception e) {
-			
+
 			System.out.println(e.getMessage());
 		}
 		try {
@@ -72,7 +72,8 @@ public class Misc extends EntryTypes {
 				this.author = refval.toUserString();
 			}
 
-			System.out.println(e.getMessage());System.out.print("Misc");
+			System.out.println(e.getMessage());
+			System.out.print("Misc");
 		}
 		try {
 
@@ -87,7 +88,8 @@ public class Misc extends EntryTypes {
 				this.title = refval.toUserString();
 			}
 
-			System.out.println(e.getMessage());System.out.print("Misc");
+			System.out.println(e.getMessage());
+			System.out.print("Misc");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_YEAR);
@@ -101,7 +103,8 @@ public class Misc extends EntryTypes {
 				this.year = refval.toUserString();
 			}
 
-			System.out.println(e.getMessage());System.out.print("Misc");
+			System.out.println(e.getMessage());
+			System.out.print("Misc");
 		}
 		try {
 
@@ -116,7 +119,8 @@ public class Misc extends EntryTypes {
 				this.month = refval.toUserString();
 			}
 
-			System.out.println(e.getMessage());System.out.print("Misc");
+			System.out.println(e.getMessage());
+			System.out.print("Misc");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_NOTE);
@@ -130,7 +134,8 @@ public class Misc extends EntryTypes {
 				this.note = refval.toUserString();
 			}
 
-			System.out.println(e.getMessage());System.out.print("Misc");
+			System.out.println(e.getMessage());
+			System.out.print("Misc");
 		}
 		try {
 			val = createFrom.getField(createFrom.KEY_KEY);
@@ -144,7 +149,8 @@ public class Misc extends EntryTypes {
 				this.key = refval.toUserString();
 			}
 
-			System.out.println(e.getMessage());System.out.print("Misc");
+			System.out.println(e.getMessage());
+			System.out.print("Misc");
 		}
 		try {
 
@@ -159,7 +165,8 @@ public class Misc extends EntryTypes {
 				this.howpublished = refval.toUserString();
 			}
 
-			System.out.println(e.getMessage());System.out.print("Misc");
+			System.out.println(e.getMessage());
+			System.out.print("Misc");
 		}
 
 	}
@@ -232,4 +239,45 @@ public class Misc extends EntryTypes {
 
 	}
 
+	@Override
+	public String toString() {
+		String fileString;
+		fileString = "@Author{";
+
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			fileString += this.getBibkey() + ",\n";
+		} else {
+			fileString += "\n";
+		}
+
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			fileString += "author = \"" + this.author + "\",\n";
+		}
+
+		if ((this.howpublished != (null)) && !this.howpublished.isEmpty()) {
+			fileString += "howpublished = \"" + this.howpublished + "\",\n";
+		}
+
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			fileString += "key = \"" + this.key + "\",\n";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			fileString += "month = \"" + this.month + "\",\n";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			fileString += "note = \"" + this.note + "\",\n";
+		}
+
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			fileString += "title = \"" + this.title + "\",\n";
+		}
+
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			fileString += "year = \"" + this.year + "\",\n";
+		}
+
+		fileString += "}\n";
+
+		return fileString;
+	}
 }

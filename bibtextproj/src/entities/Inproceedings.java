@@ -75,13 +75,13 @@ public class Inproceedings extends EntryTypes {
 		ReferenceValue refval = null;
 		try {
 			Key str2 = createFrom.getKey();
-			
+
 			if (str2 != null) {
-				this.setBibkey(str2.getValue()); 
+				this.setBibkey(str2.getValue());
 			}
 
 		} catch (Exception e) {
-			
+
 			System.out.println(e.getMessage());
 		}
 		try {
@@ -435,6 +435,72 @@ public class Inproceedings extends EntryTypes {
 			return false;
 		}
 
+	}
+
+	@Override
+	public String toString() {
+		String fileString;
+		fileString = "@Author{";
+
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			fileString += this.getBibkey() + ",\n";
+		} else {
+			fileString += "\n";
+		}
+		if ((this.address != (null)) && !this.address.isEmpty()) {
+			fileString += "address = \"" + this.address + "\",\n";
+		}
+
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			fileString += "author = \"" + this.author + "\",\n";
+		}
+		if ((this.booktitle != (null)) && !this.booktitle.isEmpty()) {
+			fileString += "booktitle = \"" + this.booktitle + "\",\n";
+		}
+
+		if ((this.editor != (null)) && !this.editor.isEmpty()) {
+			fileString += "editor = \"" + this.editor + "\",\n";
+		}
+
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			fileString += "key = \"" + this.key + "\",\n";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			fileString += "month = \"" + this.month + "\",\n";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			fileString += "note = \"" + this.note + "\",\n";
+		}
+		if ((this.number != (null)) && !this.number.isEmpty()) {
+			fileString += "number = \"" + this.number + "\",\n";
+		}
+		if ((this.organization != (null)) && !this.organization.isEmpty()) {
+			fileString += "organization = \"" + this.organization + "\",\n";
+		}
+		if ((this.pages != (null)) && !this.pages.isEmpty()) {
+			fileString += "pages = \"" + this.pages + "\",\n";
+		}
+		if ((this.publisher != (null)) && !this.publisher.isEmpty()) {
+			fileString += "publisher = \"" + this.publisher + "\",\n";
+		}
+
+		if ((this.series != (null)) && !this.series.isEmpty()) {
+			fileString += "series = \"" + this.series + "\",\n";
+		}
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			fileString += "title = \"" + this.title + "\",\n";
+		}
+
+		if ((this.volume != (null)) && !this.volume.isEmpty()) {
+			fileString += "volume = \"" + this.volume + "\",\n";
+		}
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			fileString += "year = \"" + this.year + "\",\n";
+		}
+
+		fileString += "}\n";
+
+		return fileString;
 	}
 
 }

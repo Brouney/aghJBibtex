@@ -182,6 +182,9 @@ public class ArticleController implements Initializable {
 	@FXML
 	void addElementToFile(ActionEvent event) {
 		
+		Article tofile = new Article();
+		editelement(tofile);
+		System.out.println(tofile);
 		
 		
 	}

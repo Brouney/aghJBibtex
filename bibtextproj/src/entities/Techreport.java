@@ -309,4 +309,60 @@ public class Techreport extends EntryTypes {
 		}
 
 	}
+	@Override
+	public String toString() {
+		String fileString;
+		fileString = "@Author{";
+
+		if ((this.getBibkey() != (null))&& !this.getBibkey().isEmpty()) {
+			fileString += this.getBibkey() + ",\n";
+		} else {
+			fileString += "\n";
+		}
+		if ((this.address != (null)) && !this.address.isEmpty()) {
+			fileString += "address = \"" + this.address + "\",\n";
+		}
+		
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			fileString += "author = \"" + this.author + "\",\n";
+		}
+	
+		if ((this.institution != (null)) && !this.institution.isEmpty()) {
+			fileString += "institution = \"" + this.institution + "\",\n";
+		}
+		
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			fileString += "key = \"" + this.key + "\",\n";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			fileString += "month = \"" + this.month + "\",\n";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			fileString += "note = \"" + this.note + "\",\n";
+		}
+		if ((this.number != (null)) && !this.number.isEmpty()) {
+			fileString += "number = \"" + this.number + "\",\n";
+		}
+	
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			fileString += "title = \"" + this.title + "\",\n";
+		}
+		if ((this.type != (null)) && !this.type.isEmpty()) {
+			fileString += "type = \"" + this.type + "\",\n";
+		}
+		
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			fileString += "year = \"" + this.year + "\",\n";
+		}
+		
+		
+		
+		
+		
+		
+		
+		fileString += "}\n";
+
+		return fileString;
+	}
 }
