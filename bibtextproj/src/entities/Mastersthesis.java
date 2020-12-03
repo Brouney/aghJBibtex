@@ -288,7 +288,7 @@ public class Mastersthesis extends EntryTypes {
 	@Override
 	public String toString() {
 		String fileString;
-		fileString = "@Author{";
+		fileString = "@MastersThesis{";
 
 		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 			fileString += this.getBibkey() + ",\n";

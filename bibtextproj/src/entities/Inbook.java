@@ -424,7 +424,7 @@ public class Inbook extends EntryTypes {
 	@Override
 	public String toString() {
 		String fileString;
-		fileString = "@Author{";
+		fileString = "@Inbook{";
 
 		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 			fileString += this.getBibkey() + ",\n";

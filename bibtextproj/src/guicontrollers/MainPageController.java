@@ -33,10 +33,15 @@ import gui.FxmlLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class MainPageController implements Initializable {
 
@@ -135,6 +140,37 @@ public class MainPageController implements Initializable {
 
 	@FXML
 	private Button Changebt;
+
+	@FXML
+	private Button exportbt;
+
+	public static File fileToExport;
+	@FXML
+	void chooseFileToExport(ActionEvent event) {
+
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Files");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("BIB files (*.bib)", "*.bib");
+		fileChooser.getExtensionFilters().add(extFilter);
+		
+		Stage stage = (Stage) mainBorderPane.getScene().getWindow();
+		
+		
+		
+		
+		fileToExport = fileChooser.showOpenDialog(stage);
+		
+		if (fileToExport == null) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Opening file error");
+			alert.setHeaderText(null);
+			alert.setContentText("Please choose one .bib file.");
+			alert.showAndWait();
+			
+
+		}
+		System.out.println(fileToExport.getAbsolutePath());
+	}
 
 	@FXML
 	void downloadDB(ActionEvent event) {
@@ -307,119 +343,139 @@ public class MainPageController implements Initializable {
 	@FXML
 	void loadFileMethod(ActionEvent event) throws Exception {
 
-		File input = new File("C:\\Users\\Piotrkonto\\Desktop\\INZYNIER\\aghJBibtex\\bibtextproj\\src\\test\\file.bib");
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Files");
+		Stage stage = (Stage) mainBorderPane.getScene().getWindow();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("BIB files (*.bib)", "*.bib");
+		fileChooser.getExtensionFilters().add(extFilter);
+		List<File> fileList = fileChooser.showOpenMultipleDialog(stage);
+		boolean enable = true;
+		if (fileList == null) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Opening file error");
+			alert.setHeaderText(null);
+			alert.setContentText("Please choose at least one .bib file.");
+			alert.showAndWait();
+			enable = false;
 
-		try {
-			BibTeXDatabase database = parseBibTeX(input);
-
-			List<BibTeXObject> obj = database.getObjects();
-			Map<Key, BibTeXEntry> entries = database.getEntries();
-			Collection<BibTeXEntry> values = entries.values();
-			int i = 0;
-			int proceed = 0;
-			int book = 0;
-			int articlee = 0;
-			for (BibTeXEntry entry : values) {
-
-				// System.out.println(entry.getType());
-				String toswitch = entry.getType().toString();// System.out.println(i++ + toswitch);
-				switch (toswitch) {
-				case "article":
-				case "Article":
-					ClassOfLists.listOfArticles.add(new Article(entry));
-					changeLabelCountArticle(Integer.toString(ClassOfLists.listOfArticles.size()));
-					articlee++;
-					break;
-				case "book":
-				case "Book":
-					book++;
-					ClassOfLists.listOfBooks.add(new Book(entry));
-					changeLabelCountBook(Integer.toString(ClassOfLists.listOfBooks.size()));
-					break;
-				case "booklet":
-				case "Booklet":
-					ClassOfLists.listOfBooklet.add(new Booklet(entry));
-					changeLabelCountBooklet(Integer.toString(ClassOfLists.listOfBooklet.size()));
-					break;
-				case "conference":
-				case "Conference":
-					ClassOfLists.listOfConference.add(new Conference(entry));
-					changeLabelCountConference(Integer.toString(ClassOfLists.listOfConference.size()));
-					break;
-				case "inbook":
-				case "Inbook":
-					ClassOfLists.listOfInbook.add(new Inbook(entry));
-					changeLabelCountInbook(Integer.toString(ClassOfLists.listOfInbook.size()));
-					break;
-				case "incollection":
-				case "Incollection":
-					ClassOfLists.listOfIncollection.add(new Incollection(entry));
-					changeLabelCountIncollection(Integer.toString(ClassOfLists.listOfIncollection.size()));
-					break;
-				case "inproceedings":
-				case "InProceedings":
-					ClassOfLists.listOfInproceedings.add(new Inproceedings(entry));
-					changeLabelCountInproceedings(Integer.toString(ClassOfLists.listOfInproceedings.size()));
-					break;
-				case "manual":
-				case "Manual":
-					ClassOfLists.listOfManual.add(new Manual(entry));
-					changeLabelCountManual(Integer.toString(ClassOfLists.listOfManual.size()));
-					break;
-				case "mastersthesis":
-				case "MastersThesis":
-					ClassOfLists.listOfMastersthesis.add(new Mastersthesis(entry));
-					changeLabelCountMastersthesis(Integer.toString(ClassOfLists.listOfMastersthesis.size()));
-					break;
-				case "misc":
-				case "Misc":
-					ClassOfLists.listOfMisc.add(new Misc(entry));
-					changeLabelCountMisc(Integer.toString(ClassOfLists.listOfMisc.size()));
-					break;
-				case "phdthesis":
-				case "PhdThesis":
-					ClassOfLists.listOfPhdthesis.add(new Phdthesis(entry));
-					changeLabelCountPhdthesis(Integer.toString(ClassOfLists.listOfPhdthesis.size()));
-					break;
-				case "proceedings":
-				case "Proceedings":
-					proceed++;
-					ClassOfLists.listOfProceedings.add(new Proceedings(entry));
-					changeLabelCountProceedings(Integer.toString(ClassOfLists.listOfProceedings.size()));
-					break;
-				case "techreport":
-				case "TechReport":
-					ClassOfLists.listOfTechreport.add(new Techreport(entry));
-					changeLabelCountTechreport(Integer.toString(ClassOfLists.listOfTechreport.size()));
-					break;
-
-				case "unpublished":
-				case "Unpublished":
-					ClassOfLists.listOfUnpublished.add(new Unpublished(entry));
-					changeLabelCountUnpublished(Integer.toString(ClassOfLists.listOfUnpublished.size()));
-					break;
-
-				}
-
-				/*
-				 * 
-				 * Value str = entry.getField(entry.KEY_ADDRESS); StringValue strval =
-				 * (StringValue) str; if(strval!= null) System.out.println(str.toUserString());
-				 * 
-				 * 
-				 * //klucze identyfikatory Key str2 = entry.getKey();
-				 * System.out.println(str2.getValue());//kl
-				 * 
-				 */
-
-			}
-			// System.out.println("book: "+book+"\nproceedings: "+proceed+"\narticle:
-			// "+articlee);
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 
+		// File input = new
+		// File("C:\\Users\\Piotrkonto\\Desktop\\INZYNIER\\aghJBibtex\\bibtextproj\\src\\test\\file.bib");
+
+		if (enable)
+			for (File input : fileList) {
+				try {
+					BibTeXDatabase database = parseBibTeX(input);
+
+					List<BibTeXObject> obj = database.getObjects();
+					Map<Key, BibTeXEntry> entries = database.getEntries();
+					Collection<BibTeXEntry> values = entries.values();
+					int i = 0;
+					int proceed = 0;
+					int book = 0;
+					int articlee = 0;
+					for (BibTeXEntry entry : values) {
+
+						// System.out.println(entry.getType());
+						String toswitch = entry.getType().toString();// System.out.println(i++ + toswitch);
+						switch (toswitch) {
+						case "article":
+						case "Article":
+							ClassOfLists.listOfArticles.add(new Article(entry));
+							changeLabelCountArticle(Integer.toString(ClassOfLists.listOfArticles.size()));
+							articlee++;
+							break;
+						case "book":
+						case "Book":
+							book++;
+							ClassOfLists.listOfBooks.add(new Book(entry));
+							changeLabelCountBook(Integer.toString(ClassOfLists.listOfBooks.size()));
+							break;
+						case "booklet":
+						case "Booklet":
+							ClassOfLists.listOfBooklet.add(new Booklet(entry));
+							changeLabelCountBooklet(Integer.toString(ClassOfLists.listOfBooklet.size()));
+							break;
+						case "conference":
+						case "Conference":
+							ClassOfLists.listOfConference.add(new Conference(entry));
+							changeLabelCountConference(Integer.toString(ClassOfLists.listOfConference.size()));
+							break;
+						case "inbook":
+						case "Inbook":
+							ClassOfLists.listOfInbook.add(new Inbook(entry));
+							changeLabelCountInbook(Integer.toString(ClassOfLists.listOfInbook.size()));
+							break;
+						case "incollection":
+						case "Incollection":
+							ClassOfLists.listOfIncollection.add(new Incollection(entry));
+							changeLabelCountIncollection(Integer.toString(ClassOfLists.listOfIncollection.size()));
+							break;
+						case "inproceedings":
+						case "InProceedings":
+							ClassOfLists.listOfInproceedings.add(new Inproceedings(entry));
+							changeLabelCountInproceedings(Integer.toString(ClassOfLists.listOfInproceedings.size()));
+							break;
+						case "manual":
+						case "Manual":
+							ClassOfLists.listOfManual.add(new Manual(entry));
+							changeLabelCountManual(Integer.toString(ClassOfLists.listOfManual.size()));
+							break;
+						case "mastersthesis":
+						case "MastersThesis":
+							ClassOfLists.listOfMastersthesis.add(new Mastersthesis(entry));
+							changeLabelCountMastersthesis(Integer.toString(ClassOfLists.listOfMastersthesis.size()));
+							break;
+						case "misc":
+						case "Misc":
+							ClassOfLists.listOfMisc.add(new Misc(entry));
+							changeLabelCountMisc(Integer.toString(ClassOfLists.listOfMisc.size()));
+							break;
+						case "phdthesis":
+						case "PhdThesis":
+							ClassOfLists.listOfPhdthesis.add(new Phdthesis(entry));
+							changeLabelCountPhdthesis(Integer.toString(ClassOfLists.listOfPhdthesis.size()));
+							break;
+						case "proceedings":
+						case "Proceedings":
+							proceed++;
+							ClassOfLists.listOfProceedings.add(new Proceedings(entry));
+							changeLabelCountProceedings(Integer.toString(ClassOfLists.listOfProceedings.size()));
+							break;
+						case "techreport":
+						case "TechReport":
+							ClassOfLists.listOfTechreport.add(new Techreport(entry));
+							changeLabelCountTechreport(Integer.toString(ClassOfLists.listOfTechreport.size()));
+							break;
+
+						case "unpublished":
+						case "Unpublished":
+							ClassOfLists.listOfUnpublished.add(new Unpublished(entry));
+							changeLabelCountUnpublished(Integer.toString(ClassOfLists.listOfUnpublished.size()));
+							break;
+
+						}
+
+						/*
+						 * 
+						 * Value str = entry.getField(entry.KEY_ADDRESS); StringValue strval =
+						 * (StringValue) str; if(strval!= null) System.out.println(str.toUserString());
+						 * 
+						 * 
+						 * //klucze identyfikatory Key str2 = entry.getKey();
+						 * System.out.println(str2.getValue());//kl
+						 * 
+						 */
+
+					}
+					// System.out.println("book: "+book+"\nproceedings: "+proceed+"\narticle:
+					// "+articlee);
+
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
 	}
 
 	static public BibTeXDatabase parseBibTeX(File file) throws IOException, ParseException {

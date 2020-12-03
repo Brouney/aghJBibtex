@@ -242,7 +242,7 @@ public class Misc extends EntryTypes {
 	@Override
 	public String toString() {
 		String fileString;
-		fileString = "@Author{";
+		fileString = "@Misc{";
 
 		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 			fileString += this.getBibkey() + ",\n";

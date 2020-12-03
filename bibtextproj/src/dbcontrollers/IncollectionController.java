@@ -1,5 +1,8 @@
 package dbcontrollers;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -190,30 +193,25 @@ public class IncollectionController implements Initializable {
 		tfkeywords.setText(fromtable.getKeywords());
 	}
 
-	@FXML
-	void addAllToDB(ActionEvent event) {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		for (Incollection toAdd : ClassOfLists.listOfIncollection) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfIncollection.clear();
-		refresh();
-		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
-	}
+	
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
-
+		Incollection tofile = new Incollection();
+		editelement(tofile);
+		System.out.println(tofile);
+		
+		
+		try {
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			BufferedWriter out = new BufferedWriter(fw);
+			out.write(tofile.toString());
+			out.close();
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

@@ -1,5 +1,8 @@
 package dbcontrollers;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -125,7 +128,21 @@ public class UnpublishedController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
-
+		Unpublished tofile = new Unpublished();
+		editelement(tofile);
+		System.out.println(tofile);
+		
+		
+		try {
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			BufferedWriter out = new BufferedWriter(fw);
+			out.write(tofile.toString());
+			out.close();
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

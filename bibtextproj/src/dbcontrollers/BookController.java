@@ -2,8 +2,11 @@ package dbcontrollers;
 
 import application.Main;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -178,27 +181,7 @@ public class BookController implements Initializable {
 
 	}
 
-	@FXML
-	void addAllToDB(ActionEvent event) throws TokenMgrException, ParseException {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		for (Book toAdd : ClassOfLists.listOfBooks) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfBooks.clear();
-		refresh();
-		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
-
-	}
+	
 
 	@FXML
 	void cleanText(ActionEvent event) {
@@ -244,7 +227,21 @@ public class BookController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
-
+		Book tofile = new Book();
+		editelement(tofile);
+		System.out.println(tofile);
+		
+		
+		try {
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			BufferedWriter out = new BufferedWriter(fw);
+			out.write(tofile.toString());
+			out.close();
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

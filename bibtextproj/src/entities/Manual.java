@@ -297,7 +297,7 @@ public class Manual extends EntryTypes {
 	@Override
 	public String toString() {
 		String fileString;
-		fileString = "@Author{";
+		fileString = "@Manual{";
 
 		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 			fileString += this.getBibkey() + ",\n";

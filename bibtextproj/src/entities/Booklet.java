@@ -264,7 +264,7 @@ public class Booklet extends EntryTypes {
 	@Override
 	public String toString() {
 		String fileString;
-		fileString = "@Author{";
+		fileString = "@Booklet{";
 
 		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 			fileString += this.getBibkey() + ",\n";
