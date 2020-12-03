@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -149,9 +151,9 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	private TableColumn<Conference, String> tcEditor;
-	
+
 	@FXML
-	private TableColumn<Conference  , String> tcKeywords;
+	private TableColumn<Conference, String> tcKeywords;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -218,8 +220,6 @@ public class ConferenceController implements Initializable {
 
 	}
 
-	
-
 	void refresh() {
 		ObservableList<Conference> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfConference);
 
@@ -231,14 +231,13 @@ public class ConferenceController implements Initializable {
 		Conference tofile = new Conference();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -247,7 +246,22 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
+		Conference tofind = new Conference();
+		editelement(tofind);
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		try {
+			List<Conference> Conferencetitems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfConference = new ArrayList<Conference>(Conferencetitems);
+			Main.mainController
+					.changeLabelCountConference(Integer.toString(dbcontrollers.ClassOfLists.listOfConference.size()));
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@FXML
@@ -321,7 +335,7 @@ public class ConferenceController implements Initializable {
 
 		em.close();
 		emf.close();
-	
+
 	}
 
 	@FXML
@@ -347,9 +361,6 @@ public class ConferenceController implements Initializable {
 		tfkeywords.setText("");
 	}
 
-	
-	
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -369,7 +380,7 @@ public class ConferenceController implements Initializable {
 		tcSeries.setCellValueFactory(new PropertyValueFactory<Conference, String>("Series"));
 		tcEditor.setCellValueFactory(new PropertyValueFactory<Conference, String>("Editor"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Conference, String>("Bibkey"));
-		tcKeywords.setCellValueFactory(new PropertyValueFactory<Conference  , String>("Keywords"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Conference, String>("Keywords"));
 		refresh();
 	}
 }

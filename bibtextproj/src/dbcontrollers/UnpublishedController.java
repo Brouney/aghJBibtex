@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -131,14 +133,13 @@ public class UnpublishedController implements Initializable {
 		Unpublished tofile = new Unpublished();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,6 +148,23 @@ public class UnpublishedController implements Initializable {
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
+		Unpublished tofind = new Unpublished();
+		editelement(tofind);
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Unpublished> Unpublisheditems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfUnpublished = new ArrayList<Unpublished>(Unpublisheditems);
+			Main.mainController
+					.changeLabelCountUnpublished(Integer.toString(dbcontrollers.ClassOfLists.listOfUnpublished.size()));
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 

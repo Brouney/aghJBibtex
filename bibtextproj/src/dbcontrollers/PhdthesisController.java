@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -141,14 +143,13 @@ public class PhdthesisController implements Initializable {
 		Phdthesis tofile = new Phdthesis();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -247,6 +248,23 @@ public class PhdthesisController implements Initializable {
 	@FXML
 	void searchdbfunc(ActionEvent event) {
 
+		Phdthesis tofind = new Phdthesis();
+		editelement(tofind);
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Phdthesis> Phdthesisitems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfPhdthesis = new ArrayList<Phdthesis>(Phdthesisitems);
+			Main.mainController
+					.changeLabelCountPhdthesis(Integer.toString(dbcontrollers.ClassOfLists.listOfPhdthesis.size()));
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	void refresh() {

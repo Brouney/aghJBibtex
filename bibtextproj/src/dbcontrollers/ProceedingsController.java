@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -164,14 +166,13 @@ public class ProceedingsController implements Initializable {
 		Proceedings tofile = new Proceedings();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -181,6 +182,24 @@ public class ProceedingsController implements Initializable {
 	@FXML
 	void searchdbfunc(ActionEvent event) {
 
+		Proceedings tofind = new Proceedings();
+		editelement(tofind);
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Proceedings> Proceedingsitems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfProceedings = new ArrayList<Proceedings>(Proceedingsitems);
+			Main.mainController
+					.changeLabelCountProceedings(Integer.toString(dbcontrollers.ClassOfLists.listOfProceedings.size()));
+			refresh();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@FXML

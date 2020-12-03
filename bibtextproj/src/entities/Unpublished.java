@@ -242,4 +242,40 @@ public class Unpublished extends EntryTypes {
 
 		return fileString;
 	}
+
+	public String generateQuery() {
+
+		String query = "select f from fields f where bibitem = 'Unpublished' ";
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			query += " AND bibkey LIKE '%" + this.getBibkey() + "%' ";
+		}
+
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			query += " AND author LIKE '%" + this.author + "%' ";
+		}
+
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			query += " AND key LIKE '%" + this.key + "%' ";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			query += " AND month LIKE '%" + this.month + "%' ";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			query += " AND note LIKE '%" + this.note + "%' ";
+		}
+
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			query += " AND title LIKE '%" + this.title + "%' ";
+		}
+
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			query += " AND year LIKE '%" + this.year + "%' ";
+		}
+
+		if ((this.getKeywords() != (null)) && !this.getKeywords().isEmpty()) {
+			query += "AND keywords LIKE '%" + this.getKeywords() + "%' ";
+		}
+
+		return query;
+	}
 }

@@ -156,14 +156,13 @@ public class InbookController implements Initializable {
 		Inbook tofile = new Inbook();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -172,7 +171,23 @@ public class InbookController implements Initializable {
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
+		Inbook tofind = new Inbook();
+		editelement(tofind);
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Inbook> Inbookitems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfInbook = new ArrayList<Inbook>(Inbookitems);
+			Main.mainController
+					.changeLabelCountInbook(Integer.toString(dbcontrollers.ClassOfLists.listOfInbook.size()));
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@FXML
@@ -195,27 +210,6 @@ public class InbookController implements Initializable {
 		tfUrl.setText(fromtable.getUrl());
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
-	}
-
-	@FXML
-	void addAllToDB(ActionEvent event) {
-		EntityManagerFactory emf = null;
-		emf = Persistence.createEntityManagerFactory("bibtextproj");
-		EntityManager em = null;
-		em = emf.createEntityManager();
-		em.getTransaction().begin();
-
-		for (Inbook toAdd : ClassOfLists.listOfInbook) {
-			em.persist(toAdd);
-		}
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
-
-		ClassOfLists.listOfInbook.clear();
-		refresh();
-		Main.mainController.changeLabelCountInbook(Integer.toString((ClassOfLists.listOfInbook.size())));
 	}
 
 	@FXML

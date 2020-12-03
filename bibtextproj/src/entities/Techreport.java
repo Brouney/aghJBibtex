@@ -60,13 +60,13 @@ public class Techreport extends EntryTypes {
 		ReferenceValue refval = null;
 		try {
 			Key str2 = createFrom.getKey();
-			
+
 			if (str2 != null) {
-				this.setBibkey(str2.getValue()); 
+				this.setBibkey(str2.getValue());
 			}
 
 		} catch (Exception e) {
-			
+
 			System.out.println(e.getMessage());
 		}
 		try {
@@ -309,12 +309,13 @@ public class Techreport extends EntryTypes {
 		}
 
 	}
+
 	@Override
 	public String toString() {
 		String fileString;
 		fileString = "@TechReport{";
 
-		if ((this.getBibkey() != (null))&& !this.getBibkey().isEmpty()) {
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 			fileString += this.getBibkey() + ",\n";
 		} else {
 			fileString += "\n";
@@ -322,15 +323,15 @@ public class Techreport extends EntryTypes {
 		if ((this.address != (null)) && !this.address.isEmpty()) {
 			fileString += "address = \"" + this.address + "\",\n";
 		}
-		
+
 		if ((this.author != (null)) && !this.author.isEmpty()) {
 			fileString += "author = \"" + this.author + "\",\n";
 		}
-	
+
 		if ((this.institution != (null)) && !this.institution.isEmpty()) {
 			fileString += "institution = \"" + this.institution + "\",\n";
 		}
-		
+
 		if ((this.key != (null)) && !this.key.isEmpty()) {
 			fileString += "key = \"" + this.key + "\",\n";
 		}
@@ -343,26 +344,69 @@ public class Techreport extends EntryTypes {
 		if ((this.number != (null)) && !this.number.isEmpty()) {
 			fileString += "number = \"" + this.number + "\",\n";
 		}
-	
+
 		if ((this.title != (null)) && !this.title.isEmpty()) {
 			fileString += "title = \"" + this.title + "\",\n";
 		}
 		if ((this.type != (null)) && !this.type.isEmpty()) {
 			fileString += "type = \"" + this.type + "\",\n";
 		}
-		
+
 		if ((this.year != (null)) && !this.year.isEmpty()) {
 			fileString += "year = \"" + this.year + "\",\n";
 		}
-		
-		
-		
-		
-		
-		
-		
+
 		fileString += "}\n";
 
 		return fileString;
+	}
+
+	public String generateQuery() {
+
+		String query = "select f from fields f where bibitem = 'Techreport' ";
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			query += " AND bibkey LIKE '%" + this.getBibkey() + "%' ";
+		}
+		if ((this.address != (null)) && !this.address.isEmpty()) {
+			query += " AND address LIKE '%" + this.address + "%' ";
+		}
+
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			query += " AND author LIKE '%" + this.author + "%' ";
+		}
+
+		if ((this.institution != (null)) && !this.institution.isEmpty()) {
+			query += " AND institution LIKE '%" + this.institution + "%' ";
+		}
+
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			query += " AND key LIKE '%" + this.key + "%' ";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			query += " AND month LIKE '%" + this.month + "%' ";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			query += " AND note LIKE '%" + this.note + "%' ";
+		}
+		if ((this.number != (null)) && !this.number.isEmpty()) {
+			query += " AND number LIKE '%" + this.number + "%' ";
+		}
+
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			query += " AND title LIKE '%" + this.title + "%' ";
+		}
+		if ((this.type != (null)) && !this.type.isEmpty()) {
+			query += " AND type LIKE '%" + this.type + "%' ";
+		}
+
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			query += " AND year LIKE '%" + this.year + "%' ";
+		}
+
+		if ((this.getKeywords() != (null)) && !this.getKeywords().isEmpty()) {
+			query += "AND keywords LIKE '%" + this.getKeywords() + "%' ";
+		}
+
+		return query;
 	}
 }

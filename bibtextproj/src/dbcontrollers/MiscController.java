@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -127,14 +129,13 @@ public class MiscController implements Initializable {
 		Misc tofile = new Misc();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -217,7 +218,22 @@ public class MiscController implements Initializable {
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
+		Misc tofind = new Misc();
+		editelement(tofind);
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Misc> Miscitems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfMisc = new ArrayList<Misc>(Miscitems);
+			Main.mainController.changeLabelCountMisc(Integer.toString(dbcontrollers.ClassOfLists.listOfMisc.size()));
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private void editelement(Misc misc) {

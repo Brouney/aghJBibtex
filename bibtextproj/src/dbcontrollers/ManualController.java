@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -117,14 +119,9 @@ public class ManualController implements Initializable {
 
 	@FXML
 	private TableColumn<Manual, String> tcEdition;
-	
-	
-
-
-
 
 	@FXML
-		private TableColumn<Manual  , String> tcKeywords;
+	private TableColumn<Manual, String> tcKeywords;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -170,14 +167,13 @@ public class ManualController implements Initializable {
 		Manual tofile = new Manual();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -186,6 +182,24 @@ public class ManualController implements Initializable {
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
+		Manual tofind = new Manual();
+		editelement(tofind);
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Manual> Manualitems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfManual = new ArrayList<Manual>(Manualitems);
+			Main.mainController
+					.changeLabelCountManual(Integer.toString(dbcontrollers.ClassOfLists.listOfManual.size()));
+
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 
@@ -370,7 +384,7 @@ public class ManualController implements Initializable {
 		tcOrganization.setCellValueFactory(new PropertyValueFactory<Manual, String>("Organization"));
 		tcEdition.setCellValueFactory(new PropertyValueFactory<Manual, String>("Edition"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Manual, String>("Bibkey"));
-		tcKeywords.setCellValueFactory(new PropertyValueFactory<Manual  , String>("Keywords"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Manual, String>("Keywords"));
 		refresh();
 	}
 

@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -116,15 +118,9 @@ public class TechreportController implements Initializable {
 	@FXML
 	private TableColumn<Techreport, String> tcKey;
 
+	@FXML
+	private TableColumn<Techreport, String> tcKeywords;
 
-
-
-
-
-@FXML
-	private TableColumn< Techreport , String> tcKeywords;
-	
-	
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Techreport fromtable = tvTechreport.getSelectionModel().getSelectedItem();
@@ -144,6 +140,24 @@ public class TechreportController implements Initializable {
 	@FXML
 	void searchdbfunc(ActionEvent event) {
 
+		Techreport tofind = new Techreport();
+		editelement(tofind);
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Techreport> Techreportitems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfTechreport = new ArrayList<Techreport>(Techreportitems);
+			Main.mainController
+					.changeLabelCountTechreport(Integer.toString(dbcontrollers.ClassOfLists.listOfTechreport.size()));
+			refresh();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@FXML
@@ -151,14 +165,13 @@ public class TechreportController implements Initializable {
 		Techreport tofile = new Techreport();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -302,7 +315,7 @@ public class TechreportController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Address"));
 		tcInstitution.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Institution"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Bibkey"));
-		tcKeywords.setCellValueFactory(new PropertyValueFactory<  Techreport, String>("Keywords"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Keywords"));
 		refresh();
 
 	}

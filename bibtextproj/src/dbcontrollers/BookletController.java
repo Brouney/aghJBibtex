@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -107,9 +109,9 @@ public class BookletController implements Initializable {
 
 	@FXML
 	private TableColumn<Booklet, String> tcKey;
-	
+
 	@FXML
-	private TableColumn< Booklet , String> tcKeywords;
+	private TableColumn<Booklet, String> tcKeywords;
 
 	void refresh() {
 		ObservableList<Booklet> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfBooklet);
@@ -119,7 +121,24 @@ public class BookletController implements Initializable {
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
+		Booklet tofind = new Booklet();
+		editelement(tofind);
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Booklet> bookletitems = em.createQuery(tofind.generateQuery()).getResultList();
+
+			dbcontrollers.ClassOfLists.listOfBooklet = new ArrayList<Booklet>(bookletitems);
+			Main.mainController
+					.changeLabelCountBooklet(Integer.toString(dbcontrollers.ClassOfLists.listOfBooklet.size()));
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@FXML
@@ -127,14 +146,13 @@ public class BookletController implements Initializable {
 		Booklet tofile = new Booklet();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -312,7 +330,7 @@ public class BookletController implements Initializable {
 		tcAddress.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Address"));
 		tcHowpublished.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Howpublished"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Bibkey"));
-		tcKeywords.setCellValueFactory(new PropertyValueFactory<Booklet  , String>("Keywords"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Keywords"));
 		refresh();
 	}
 }

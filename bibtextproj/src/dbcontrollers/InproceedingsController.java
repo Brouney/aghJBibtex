@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
@@ -179,7 +181,24 @@ public class InproceedingsController implements Initializable {
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
+		Inproceedings tofind = new Inproceedings();
+		editelement(tofind);
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+
+		try {
+			List<Inproceedings> Inproceedingsitems = em.createQuery(tofind.generateQuery()).getResultList();
+			dbcontrollers.ClassOfLists.listOfInproceedings = new ArrayList<Inproceedings>(Inproceedingsitems);
+			Main.mainController.changeLabelCountInproceedings(
+					Integer.toString(dbcontrollers.ClassOfLists.listOfInproceedings.size()));
+			refresh();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@FXML
@@ -187,14 +206,13 @@ public class InproceedingsController implements Initializable {
 		Inproceedings tofile = new Inproceedings();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

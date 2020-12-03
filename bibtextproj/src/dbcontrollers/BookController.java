@@ -246,7 +246,28 @@ public class BookController implements Initializable {
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
+		
+		Book tofind = new Book();
+		editelement(tofind);
 
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+		
+		
+		
+		try {
+			List<Book> bookitems = em.createQuery(tofind.generateQuery()).getResultList();
+
+			
+
+			dbcontrollers.ClassOfLists.listOfBooks = new ArrayList<Book>(bookitems);
+			Main.mainController.changeLabelCountBook(Integer.toString(dbcontrollers.ClassOfLists.listOfBooks.size()));
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@FXML

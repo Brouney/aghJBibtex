@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 import application.Main;
 import entities.Article;
-
+import guicontrollers.MainPageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -122,7 +122,7 @@ public class ArticleController implements Initializable {
 
 	@FXML
 	private TableColumn<Article, String> tcDoi;
-	
+
 	@FXML
 	private TableColumn<Article, String> tcKeywords;
 
@@ -178,30 +178,45 @@ public class ArticleController implements Initializable {
 	@FXML
 	void searchdbfunc(ActionEvent event) {
 
-		
-		
+		Article tofind = new Article();
+		editelement(tofind);
+
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
+// "select f from fields f where bibitem = 'Article' AND author LIKE '%awd% ' "
+		try {
+			List<Article> artitems = em.createQuery(tofind.generateQuery()).getResultList();
+
+			dbcontrollers.ClassOfLists.listOfArticles = new ArrayList<Article>(artitems);
+			Main.mainController
+					.changeLabelCountArticle(Integer.toString(dbcontrollers.ClassOfLists.listOfArticles.size()));
+			refresh();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
-		
+
 		Article tofile = new Article();
 		editelement(tofile);
 		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 
 	@FXML
@@ -215,9 +230,9 @@ public class ArticleController implements Initializable {
 		em.getTransaction().begin();
 
 		for (Article fromdbobj : ClassOfLists.listOfArticles) {
-			
+
 			Article infunc = em.find(Article.class, fromdbobj.getID());
-			
+
 			em.remove(infunc);
 		}
 		em.getTransaction().commit();
@@ -230,8 +245,6 @@ public class ArticleController implements Initializable {
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
 
 	}
-
-
 
 	private void editelement(Article article) {
 		article.setAuthor(tfAuthor.getText());

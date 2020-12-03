@@ -564,4 +564,74 @@ public class Incollection extends EntryTypes {
 		return fileString;
 	}
 
+	public String generateQuery() {
+
+		String query = "select f from fields f where bibitem = 'Incollection' ";
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			query += " AND bibkey LIKE '%" + this.getBibkey() + "%' ";
+		}
+		if ((this.address != (null)) && !this.address.isEmpty()) {
+			query += " AND address LIKE '%" + this.address + "%' ";
+		}
+
+		if ((this.author != (null)) && !this.author.isEmpty()) {
+			query += " AND author LIKE '%" + this.author + "%' ";
+		}
+		if ((this.booktitle != (null)) && !this.booktitle.isEmpty()) {
+			query += " AND booktitle LIKE '%" + this.booktitle + "%' ";
+		}
+
+		if ((this.chapter != (null)) && !this.chapter.isEmpty()) {
+			query += " AND chapter LIKE '%" + this.chapter + "%' ";
+		}
+
+		if ((this.edition != (null)) && !this.edition.isEmpty()) {
+			query += " AND edition LIKE '%" + this.edition + "%' ";
+		}
+		if ((this.editor != (null)) && !this.editor.isEmpty()) {
+			query += " AND editor LIKE '%" + this.editor + "%' ";
+		}
+
+		if ((this.key != (null)) && !this.key.isEmpty()) {
+			query += " AND key LIKE '%" + this.key + "%' ";
+		}
+		if ((this.month != (null)) && !this.month.isEmpty()) {
+			query += " AND month LIKE '%" + this.month + "%' ";
+		}
+		if ((this.note != (null)) && !this.note.isEmpty()) {
+			query += " AND note LIKE '%" + this.note + "%' ";
+		}
+		if ((this.number != (null)) && !this.number.isEmpty()) {
+			query += " AND number LIKE '%" + this.number + "%' ";
+		}
+
+		if ((this.pages != (null)) && !this.pages.isEmpty()) {
+			query += " AND pages LIKE '%" + this.pages + "%' ";
+		}
+		if ((this.publisher != (null)) && !this.publisher.isEmpty()) {
+			query += " AND publisher LIKE '%" + this.publisher + "%' ";
+		}
+
+		if ((this.series != (null)) && !this.series.isEmpty()) {
+			query += " AND series LIKE '%" + this.series + "%' ";
+		}
+		if ((this.title != (null)) && !this.title.isEmpty()) {
+			query += " AND title LIKE '%" + this.title + "%' ";
+		}
+		if ((this.type != (null)) && !this.type.isEmpty()) {
+			query += " AND type LIKE '%" + this.type + "%' ";
+		}
+		if ((this.volume != (null)) && !this.volume.isEmpty()) {
+			query += " AND volume LIKE '%" + this.volume + "%' ";
+		}
+		if ((this.year != (null)) && !this.year.isEmpty()) {
+			query += " AND year LIKE '%" + this.year + "%' ";
+		}
+
+		if ((this.getKeywords() != (null)) && !this.getKeywords().isEmpty()) {
+			query += "AND keywords LIKE '%" + this.getKeywords() + "%' ";
+		}
+
+		return query;
+	}
 }
