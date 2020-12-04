@@ -17,6 +17,7 @@ import entities.Article;
 import entities.Book;
 import entities.Manual;
 import entities.Mastersthesis;
+import gui.MyAlertClass;
 import entities.Mastersthesis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -120,6 +121,7 @@ public class MastersthesisController implements Initializable {
 
 	@FXML
 	private TableColumn<Mastersthesis, String> tcKeywords;
+	MyAlertClass myAlertClass;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -139,6 +141,9 @@ public class MastersthesisController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Mastersthesis tofile = new Mastersthesis();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -148,11 +153,11 @@ public class MastersthesisController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-
+			myAlertClass.addedToFileAlert();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
 		}
+
 	}
 
 	@FXML
@@ -246,6 +251,9 @@ public class MastersthesisController implements Initializable {
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+
+		validate();
+
 		Mastersthesis fromtable = tvMasterthesis.getSelectionModel().getSelectedItem();
 
 		Long id = fromtable.getID();
@@ -264,6 +272,17 @@ public class MastersthesisController implements Initializable {
 
 		em.close();
 		emf.close();
+
+	}
+
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfSchool.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
 
 	}
 
@@ -313,6 +332,7 @@ public class MastersthesisController implements Initializable {
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Mastersthesis, String>("Keywords"));
 		refresh();
+		myAlertClass = new MyAlertClass();
 	}
 
 }

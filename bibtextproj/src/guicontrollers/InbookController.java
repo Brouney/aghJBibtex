@@ -14,6 +14,7 @@ import javax.persistence.Persistence;
 import entities.Book;
 import entities.EntryTypes;
 import entities.Inbook;
+import gui.MyAlertClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,6 +90,10 @@ public class InbookController implements Initializable {
 
 	@FXML
 	private TextField tfkeywords;
+	@FXML
+	private TextField tfchapter;
+	@FXML
+	private TextField tfpages;
 
 	@FXML
 	private TableView<Inbook> tvInbook;
@@ -145,6 +150,13 @@ public class InbookController implements Initializable {
 	private Button addfromtablebt;
 
 	@FXML
+	private TableColumn<Inbook, String> tcPages;
+	@FXML
+	private TableColumn<Inbook, String> tcChapter;
+
+	MyAlertClass myAlertClass;
+	
+	@FXML
 	void addFromTable(ActionEvent event) {
 		Inbook fromtable = tvInbook.getSelectionModel().getSelectedItem();
 		tfAuthor.setText(fromtable.getAuthor());
@@ -164,6 +176,8 @@ public class InbookController implements Initializable {
 		tfUrl.setText(fromtable.getUrl());
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
+		tfchapter.setText(fromtable.getChapter());
+		tfpages.setText(fromtable.getPages());
 	}
 
 	@FXML
@@ -224,6 +238,8 @@ public class InbookController implements Initializable {
 		tfUrl.setText("");
 		tfBibKey.setText("");
 		tfkeywords.setText("");
+		tfchapter.setText("");
+		tfpages.setText("");
 	}
 
 	@FXML
@@ -252,6 +268,8 @@ public class InbookController implements Initializable {
 		inbook.setUrl(tfUrl.getText());
 		inbook.setBibkey(tfBibKey.getText());
 		inbook.setKeywords(tfkeywords.getText());
+		inbook.setPages(tfpages.getText());
+		inbook.setChapter(tfchapter.getText());
 		return inbook;
 
 	}
@@ -292,6 +310,8 @@ public class InbookController implements Initializable {
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Url"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Keywords"));
+		tcChapter.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Chapter"));
+		tcPages.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Pages"));
 		refresh();
 	}
 

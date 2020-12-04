@@ -18,6 +18,7 @@ import entities.Article;
 import entities.Book;
 import entities.EntryTypes;
 import entities.Inbook;
+import gui.MyAlertClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -101,6 +102,11 @@ public class InbookController implements Initializable {
 	private TextField tfkeywords;
 
 	@FXML
+	private TextField tfchapter;
+	@FXML
+	private TextField tfpages;
+
+	@FXML
 	private TableView<Inbook> tvInbook;
 
 	@FXML
@@ -150,9 +156,18 @@ public class InbookController implements Initializable {
 
 	@FXML
 	private TableColumn<Inbook, String> tcKeywords;
+	@FXML
+	private TableColumn<Inbook, String> tcPages;
+	@FXML
+	private TableColumn<Inbook, String> tcChapter;
+
+	MyAlertClass myAlertClass;
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Inbook tofile = new Inbook();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -163,10 +178,11 @@ public class InbookController implements Initializable {
 			out.write(tofile.toString());
 			out.close();
 
+			myAlertClass.addedToFileAlert();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
 		}
+
 	}
 
 	@FXML
@@ -210,6 +226,9 @@ public class InbookController implements Initializable {
 		tfUrl.setText(fromtable.getUrl());
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
+
+		tfchapter.setText(fromtable.getChapter());
+		tfpages.setText(fromtable.getPages());
 	}
 
 	@FXML
@@ -284,12 +303,41 @@ public class InbookController implements Initializable {
 		inbook.setUrl(tfUrl.getText());
 		inbook.setBibkey(tfBibKey.getText());
 		inbook.setKeywords(tfkeywords.getText());
+		inbook.setChapter(tfchapter.getText());
+		inbook.setPages(tfpages.getText());
+	}
+
+	private void validate() {
+
+		boolean badValidation = false;
+		if (tfAuthor.getText().isEmpty() && tfEditor.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (!tfAuthor.getText().isEmpty() && !tfEditor.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (tfTitle.getText().isEmpty() || tfPublisher.getText().isEmpty() || tfYear.getText().isEmpty()) {
+
+			badValidation = true;
+
+		}
+		if (tfchapter.getText().isEmpty() && tfpages.getText().isEmpty()) {
+			badValidation = true;
+		}
+
+		if (badValidation) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
 
 	}
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
 		Inbook fromtable = tvInbook.getSelectionModel().getSelectedItem();
+
+		validate();
 
 		Long id = fromtable.getID();
 
@@ -307,6 +355,7 @@ public class InbookController implements Initializable {
 
 		em.close();
 		emf.close();
+
 	}
 
 	@FXML
@@ -328,6 +377,8 @@ public class InbookController implements Initializable {
 		tfUrl.setText("");
 		tfBibKey.setText("");
 		tfkeywords.setText("");
+		tfpages.setText("");
+		tfchapter.setText("");
 	}
 
 	@Override
@@ -348,7 +399,10 @@ public class InbookController implements Initializable {
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Url"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Keywords"));
+		tcChapter.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Chapter"));
+		tcPages.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Pages"));
 		refresh();
+		myAlertClass = new MyAlertClass();
 	}
 
 	void refresh() {

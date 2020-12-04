@@ -17,6 +17,7 @@ import entities.Article;
 import entities.Book;
 import entities.Inbook;
 import entities.Inproceedings;
+import gui.MyAlertClass;
 import entities.Inproceedings;
 import entities.Inproceedings;
 import javafx.collections.FXCollections;
@@ -158,6 +159,8 @@ public class InproceedingsController implements Initializable {
 	@FXML
 	private TableColumn<Inproceedings, String> tcKeywords;
 
+	MyAlertClass myAlertclass;
+
 	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
@@ -203,6 +206,9 @@ public class InproceedingsController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Inproceedings tofile = new Inproceedings();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -212,11 +218,11 @@ public class InproceedingsController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-
+			myAlertclass.addedToFileAlert();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertclass.fileErrorAlert();
 		}
+
 	}
 
 	@FXML
@@ -317,8 +323,34 @@ public class InproceedingsController implements Initializable {
 
 	}
 
+	private void validate() {
+
+		boolean badValidation = false;
+
+		if (tfAuthor.getText().isEmpty() || tfBooktitle.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+			badValidation = true;
+
+		}
+
+		if (!tfVolume.getText().isEmpty() && !tfNumber.getText().isEmpty()) {
+
+			badValidation = true;
+
+		}
+
+		if (badValidation) {
+			myAlertclass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void editElementInDB(ActionEvent event) {
+
+		validate();
+
 		Inproceedings fromtable = tvInproceedings.getSelectionModel().getSelectedItem();
 
 		Long id = fromtable.getID();
@@ -390,6 +422,8 @@ public class InproceedingsController implements Initializable {
 		tcBooktitle.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Booktitle"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Inproceedings, String>("Keywords"));
+
+		myAlertclass = new MyAlertClass();
 		refresh();
 	}
 

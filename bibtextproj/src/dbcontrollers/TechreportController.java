@@ -17,6 +17,7 @@ import entities.Article;
 import entities.Book;
 import entities.Proceedings;
 import entities.Techreport;
+import gui.MyAlertClass;
 import entities.Techreport;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -121,6 +122,8 @@ public class TechreportController implements Initializable {
 	@FXML
 	private TableColumn<Techreport, String> tcKeywords;
 
+	MyAlertClass myAlertClass;
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Techreport fromtable = tvTechreport.getSelectionModel().getSelectedItem();
@@ -135,6 +138,17 @@ public class TechreportController implements Initializable {
 		tfInstitution.setText(fromtable.getInstitution());
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
+	}
+
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfInstitution.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
 	}
 
 	@FXML
@@ -162,6 +176,9 @@ public class TechreportController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Techreport tofile = new Techreport();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -171,11 +188,13 @@ public class TechreportController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
+			myAlertClass.addedToFileAlert();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
+
 		}
+
 	}
 
 	@FXML
@@ -250,6 +269,9 @@ public class TechreportController implements Initializable {
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+
+		validate();
+
 		Techreport fromtable = tvTechreport.getSelectionModel().getSelectedItem();
 
 		Long id = fromtable.getID();
@@ -316,6 +338,9 @@ public class TechreportController implements Initializable {
 		tcInstitution.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Institution"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Techreport, String>("Keywords"));
+
+		myAlertClass = new MyAlertClass();
+
 		refresh();
 
 	}

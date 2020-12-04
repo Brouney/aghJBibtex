@@ -17,6 +17,7 @@ import entities.Article;
 import entities.Book;
 import entities.Techreport;
 import entities.Unpublished;
+import gui.MyAlertClass;
 import entities.Unpublished;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,6 +104,8 @@ public class UnpublishedController implements Initializable {
 	@FXML
 	private TableColumn<Unpublished, String> tcKeywords;
 
+	MyAlertClass myAlertClass;
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Unpublished fromtable = tvUnpublished.getSelectionModel().getSelectedItem();
@@ -130,6 +133,9 @@ public class UnpublishedController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Unpublished tofile = new Unpublished();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -139,11 +145,13 @@ public class UnpublishedController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
+			myAlertClass.addedToFileAlert();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
+
 		}
+
 	}
 
 	@FXML
@@ -224,6 +232,9 @@ public class UnpublishedController implements Initializable {
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+
+		validate();
+
 		Unpublished fromtable = tvUnpublished.getSelectionModel().getSelectedItem();
 
 		Long id = fromtable.getID();
@@ -264,6 +275,16 @@ public class UnpublishedController implements Initializable {
 		tfkeywords.setText("");
 	}
 
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfTitle.getText().isEmpty() || tfNote.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void deleteAllFromList(ActionEvent event) {
 		ClassOfLists.listOfUnpublished.clear();
@@ -283,6 +304,8 @@ public class UnpublishedController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Key"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Unpublished, String>("Keywords"));
+
+		myAlertClass = new MyAlertClass();
 		refresh();
 	}
 

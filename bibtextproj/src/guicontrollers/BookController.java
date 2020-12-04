@@ -20,6 +20,7 @@ import org.jbibtex.TokenMgrException;
 import entities.Article;
 import entities.Book;
 import entities.EntryTypes;
+import gui.MyAlertClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -151,6 +152,7 @@ public class BookController implements Initializable {
 
 	@FXML
 	private Button addfromtablebt;
+	MyAlertClass myAlertClass;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -242,8 +244,28 @@ public class BookController implements Initializable {
 		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
 	}
 
-	private Book createElement() {
+	private void validate() {
 
+		boolean badValidation = false;
+		if (tfTitle.getText().isEmpty() || tfYear.getText().isEmpty() || tfPublisher.getText().isEmpty()) {
+			badValidation = true;
+
+		}
+		if (tfAuthor.getText().isEmpty() && tfEditor.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (!tfAuthor.getText().isEmpty() && !tfEditor.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (badValidation) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
+	private Book createElement() {
+		validate();
 		Book book = new Book();
 		book.setAuthor(tfAuthor.getText());
 		book.setAddress(tfAddress.getText());
@@ -303,6 +325,7 @@ public class BookController implements Initializable {
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Book, String>("Url"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Book, String>("Keywords"));
+		myAlertClass = new MyAlertClass();
 		refresh();
 	}
 

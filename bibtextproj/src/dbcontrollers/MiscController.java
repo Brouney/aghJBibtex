@@ -108,7 +108,9 @@ public class MiscController implements Initializable {
 
 	@FXML
 	private TableColumn<Misc, String> tcKeywords;
-
+	
+	
+	
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Misc fromtable = tvMisc.getSelectionModel().getSelectedItem();

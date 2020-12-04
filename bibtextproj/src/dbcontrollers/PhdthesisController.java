@@ -18,6 +18,7 @@ import entities.Book;
 import entities.Mastersthesis;
 import entities.Misc;
 import entities.Phdthesis;
+import gui.MyAlertClass;
 import entities.Phdthesis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -122,6 +123,8 @@ public class PhdthesisController implements Initializable {
 	@FXML
 	private TableColumn<Phdthesis, String> tcKeywords;
 
+	MyAlertClass myAlertClass;
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Phdthesis fromtable = tvPhdthesis.getSelectionModel().getSelectedItem();
@@ -140,6 +143,9 @@ public class PhdthesisController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Phdthesis tofile = new Phdthesis();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -149,11 +155,24 @@ public class PhdthesisController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
+			myAlertClass.addedToFileAlert();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
+
 		}
+
+	}
+
+	private void validate()  {
+
+		if (tfAuthor.getText().isEmpty() || tfSchool.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
 	}
 
 	@FXML
@@ -224,6 +243,9 @@ public class PhdthesisController implements Initializable {
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+
+		validate();
+
 		Phdthesis fromtable = tvPhdthesis.getSelectionModel().getSelectedItem();
 
 		Long id = fromtable.getID();
@@ -312,6 +334,8 @@ public class PhdthesisController implements Initializable {
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Phdthesis, String>("Keywords"));
 		refresh();
+		myAlertClass = new MyAlertClass();
+
 	}
 
 }

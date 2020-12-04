@@ -16,6 +16,7 @@ import application.Main;
 import entities.Article;
 import entities.Book;
 import entities.Booklet;
+import gui.MyAlertClass;
 import entities.Booklet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -113,6 +114,8 @@ public class BookletController implements Initializable {
 	@FXML
 	private TableColumn<Booklet, String> tcKeywords;
 
+	MyAlertClass myAlertClass;
+
 	void refresh() {
 		ObservableList<Booklet> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfBooklet);
 
@@ -143,6 +146,9 @@ public class BookletController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Booklet tofile = new Booklet();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -153,10 +159,21 @@ public class BookletController implements Initializable {
 			out.write(tofile.toString());
 			out.close();
 
+			myAlertClass.addedToFileAlert();
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
 		}
+
+	}
+
+	private void validate()  {
+
+		if (tfTitle.getText().isEmpty()) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
 	}
 
 	@FXML
@@ -246,6 +263,8 @@ public class BookletController implements Initializable {
 	void editElementInDB(ActionEvent event) {
 		Booklet fromtable = tvBooklet.getSelectionModel().getSelectedItem();
 
+		validate();
+
 		Long id = fromtable.getID();
 
 		EntityManagerFactory emf = null;
@@ -262,6 +281,7 @@ public class BookletController implements Initializable {
 
 		em.close();
 		emf.close();
+
 	}
 
 	@FXML
@@ -332,5 +352,6 @@ public class BookletController implements Initializable {
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Keywords"));
 		refresh();
+		myAlertClass = new MyAlertClass();
 	}
 }

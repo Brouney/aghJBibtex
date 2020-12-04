@@ -18,6 +18,7 @@ import entities.Book;
 import entities.Inproceedings;
 import entities.Phdthesis;
 import entities.Proceedings;
+import gui.MyAlertClass;
 import entities.Proceedings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -139,6 +140,7 @@ public class ProceedingsController implements Initializable {
 
 	@FXML
 	private TableColumn<Proceedings, String> tcKeywords;
+	MyAlertClass myAlertclass;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -163,6 +165,9 @@ public class ProceedingsController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Proceedings tofile = new Proceedings();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -172,11 +177,13 @@ public class ProceedingsController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
+			myAlertclass.addedToFileAlert();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertclass.fileErrorAlert();
+
 		}
+
 	}
 
 	@FXML
@@ -276,6 +283,9 @@ public class ProceedingsController implements Initializable {
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+
+		validate();
+
 		Proceedings fromtable = tvProceedings.getSelectionModel().getSelectedItem();
 
 		Long id = fromtable.getID();
@@ -302,6 +312,27 @@ public class ProceedingsController implements Initializable {
 		ObservableList<Proceedings> tableViewList = FXCollections.observableArrayList(ClassOfLists.listOfProceedings);
 
 		tvProceedings.setItems(tableViewList);
+	}
+
+	private void validate() {
+
+		boolean badValidation = false;
+
+		if (tfTitle.getText().isEmpty() || tfYear.getText().isEmpty()) {
+
+			badValidation = true;
+		}
+
+		if (!tfVolume.getText().isEmpty() && !tfNumber.getText().isEmpty()) {
+
+			badValidation = true;
+
+		}
+		if (badValidation) {
+			myAlertclass.objectErrorAlert();
+
+		}
+
 	}
 
 	@FXML
@@ -348,6 +379,8 @@ public class ProceedingsController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Key"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Proceedings, String>("Keywords"));
+		myAlertclass = new MyAlertClass();
+
 		refresh();
 	}
 

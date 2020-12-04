@@ -23,15 +23,18 @@ import org.jbibtex.TokenMgrException;
 import entities.Article;
 import entities.Book;
 import entities.EntryTypes;
+import gui.MyAlertClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class BookController implements Initializable {
@@ -158,6 +161,8 @@ public class BookController implements Initializable {
 	@FXML
 	private TableColumn<Book, String> tcKeywords;
 
+	MyAlertClass myAlertClass;
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Book fromtable = tvBooks.getSelectionModel().getSelectedItem();
@@ -181,17 +186,14 @@ public class BookController implements Initializable {
 
 	}
 
-	
-
 	@FXML
 	void cleanText(ActionEvent event) {
 		tfAuthor.setText("");
-		tfAddress.setText("");
 		tfEditor.setText("");
 		tfTitle.setText("");
 		tfYear.setText("");
 		tfPublisher.setText("");
-
+		tfAddress.setText("");
 		tfVolume.setText("");
 		tfNumber.setText("");
 		tfSeries.setText("");
@@ -221,32 +223,36 @@ public class BookController implements Initializable {
 		tcKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Key"));
 		tcUrl.setCellValueFactory(new PropertyValueFactory<Book, String>("Url"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Book, String>("Bibkey"));
-		tcKeywords.setCellValueFactory(new PropertyValueFactory<Book  , String>("Keywords"));
+		tcKeywords.setCellValueFactory(new PropertyValueFactory<Book, String>("Keywords"));
 		refresh();
+
+		myAlertClass = new MyAlertClass();
 	}
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Book tofile = new Book();
 		editelement(tofile);
-		System.out.println(tofile);
-		
-		
+
 		try {
-			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(),true);
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-		
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.addedToFileAlert();
+
+		} catch (Exception e) {
+			myAlertClass.fileErrorAlert();
 		}
+
 	}
 
 	@FXML
 	void searchdbfunc(ActionEvent event) {
-		
+
 		Book tofind = new Book();
 		editelement(tofind);
 
@@ -254,13 +260,9 @@ public class BookController implements Initializable {
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
-		
-		
-		
+
 		try {
 			List<Book> bookitems = em.createQuery(tofind.generateQuery()).getResultList();
-
-			
 
 			dbcontrollers.ClassOfLists.listOfBooks = new ArrayList<Book>(bookitems);
 			Main.mainController.changeLabelCountBook(Integer.toString(dbcontrollers.ClassOfLists.listOfBooks.size()));
@@ -323,15 +325,35 @@ public class BookController implements Initializable {
 
 	}
 
+	private void validate() {
+
+		boolean badValidation = false;
+		if (tfTitle.getText().isEmpty() || tfYear.getText().isEmpty() || tfPublisher.getText().isEmpty()) {
+			badValidation = true;
+
+		}
+		if (tfAuthor.getText().isEmpty() && tfEditor.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (!tfAuthor.getText().isEmpty() && !tfEditor.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (badValidation) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	private void editelement(Book book) {
 
 		book.setAuthor(tfAuthor.getText());
-		book.setAddress(tfAddress.getText());
 		book.setEditor(tfEditor.getText());
 		book.setTitle(tfTitle.getText());
 		book.setYear(tfYear.getText());
 		book.setPublisher(tfPublisher.getText());
 
+		book.setAddress(tfAddress.getText());
 		book.setVolume(tfVolume.getText());
 		book.setNumber(tfNumber.getText());
 		book.setSeries(tfSeries.getText());
@@ -346,6 +368,8 @@ public class BookController implements Initializable {
 	@FXML
 	void editElementInDB(ActionEvent event) {
 		Book fromtable = tvBooks.getSelectionModel().getSelectedItem();
+
+		validate();
 
 		Long id = fromtable.getID();
 
@@ -363,6 +387,7 @@ public class BookController implements Initializable {
 
 		em.close();
 		emf.close();
+
 	}
 
 	void refresh() {

@@ -17,6 +17,7 @@ import entities.Article;
 import entities.Book;
 import entities.Inbook;
 import entities.Incollection;
+import gui.MyAlertClass;
 import entities.Incollection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -169,6 +170,8 @@ public class IncollectionController implements Initializable {
 	@FXML
 	private TableColumn<Incollection, String> tcKeywords;
 
+	MyAlertClass myAlertClass;
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Incollection fromtable = tvIncollection.getSelectionModel().getSelectedItem();
@@ -197,6 +200,9 @@ public class IncollectionController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Incollection tofile = new Incollection();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -206,11 +212,11 @@ public class IncollectionController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-
+			myAlertClass.addedToFileAlert();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
 		}
+
 	}
 
 	@FXML
@@ -310,8 +316,31 @@ public class IncollectionController implements Initializable {
 		incollection.setKeywords(tfkeywords.getText());
 	}
 
+	private void validate() {
+
+		boolean badValidation = false;
+
+		if (tfAuthor.getText().isEmpty() || tfBooktitle.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty() || tfPublisher.getText().isEmpty()) {
+			badValidation = true;
+
+		}
+
+		if (!tfVolume.getText().isEmpty() && !tfNumber.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (badValidation) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void editElementInDB(ActionEvent event) {
+
+		validate();
+
 		Incollection fromtable = tvIncollection.getSelectionModel().getSelectedItem();
 
 		Long id = fromtable.getID();
@@ -386,6 +415,8 @@ public class IncollectionController implements Initializable {
 		tcBooktitle.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Booktitle"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Incollection, String>("Keywords"));
+
+		myAlertClass = new MyAlertClass();
 		refresh();
 	}
 

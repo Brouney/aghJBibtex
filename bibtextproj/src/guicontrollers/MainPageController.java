@@ -145,6 +145,7 @@ public class MainPageController implements Initializable {
 	private Button exportbt;
 
 	public static File fileToExport;
+
 	@FXML
 	void chooseFileToExport(ActionEvent event) {
 
@@ -152,21 +153,17 @@ public class MainPageController implements Initializable {
 		fileChooser.setTitle("Open Files");
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("BIB files (*.bib)", "*.bib");
 		fileChooser.getExtensionFilters().add(extFilter);
-		
+
 		Stage stage = (Stage) mainBorderPane.getScene().getWindow();
-		
-		
-		
-		
+
 		fileToExport = fileChooser.showOpenDialog(stage);
-		
+
 		if (fileToExport == null) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Opening file error");
 			alert.setHeaderText(null);
 			alert.setContentText("Please choose one .bib file.");
 			alert.showAndWait();
-			
 
 		}
 		System.out.println(fileToExport.getAbsolutePath());

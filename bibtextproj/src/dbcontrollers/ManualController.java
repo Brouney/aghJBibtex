@@ -19,6 +19,7 @@ import entities.Booklet;
 import entities.Inbook;
 import entities.Incollection;
 import entities.Manual;
+import gui.MyAlertClass;
 import entities.Manual;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -122,6 +123,7 @@ public class ManualController implements Initializable {
 
 	@FXML
 	private TableColumn<Manual, String> tcKeywords;
+	MyAlertClass myAlertClass;
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -164,6 +166,9 @@ public class ManualController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Manual tofile = new Manual();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -173,11 +178,11 @@ public class ManualController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-
+			myAlertClass.addedToFileAlert();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
 		}
+
 	}
 
 	@FXML
@@ -256,6 +261,9 @@ public class ManualController implements Initializable {
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
+
+		validate();
+
 		Manual fromtable = tvManual.getSelectionModel().getSelectedItem();
 
 		Long id = fromtable.getID();
@@ -274,6 +282,15 @@ public class ManualController implements Initializable {
 
 		em.close();
 		emf.close();
+
+	}
+
+	private void validate() {
+
+		if (tfTitle.getText().isEmpty()) {
+			myAlertClass.objectErrorAlert();
+
+		}
 
 	}
 
@@ -386,6 +403,8 @@ public class ManualController implements Initializable {
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Manual, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Manual, String>("Keywords"));
 		refresh();
+
+		myAlertClass = new MyAlertClass();
 	}
 
 }

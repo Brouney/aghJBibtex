@@ -30,13 +30,14 @@ public class Article extends EntryTypes {
 	@Column(name = "year")
 	private String year;
 
-	@Column(name = "volume")
-	private String volume;
-
 	@Column(name = "journal")
 	private String journal;
 
 	// optional
+
+	@Column(name = "volume")
+	private String volume;
+
 	@Column(name = "number")
 	private String number;
 
@@ -340,9 +341,9 @@ public class Article extends EntryTypes {
 	public String generateQuery() {
 
 		String query = "select f from fields f where bibitem = 'Article' ";
-		
+
 		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
-			query += " AND bibkey LIKE '%"+this.getBibkey() + "%' ";
+			query += " AND bibkey LIKE '%" + this.getBibkey() + "%' ";
 		}
 		if ((this.author != (null)) && !this.author.isEmpty()) {
 			query += " AND author LIKE '%" + this.author + "%' ";
@@ -380,7 +381,7 @@ public class Article extends EntryTypes {
 		if ((this.getKeywords() != (null)) && !this.getKeywords().isEmpty()) {
 			query += "AND keywords LIKE '%" + this.getKeywords() + "%' ";
 		}
-		
+
 		return query;
 	}
 

@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 import application.Main;
 import entities.Article;
 import entities.Book;
+import gui.MyAlertClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -122,6 +123,18 @@ public class ArticleController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass;
+
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfJournal.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 
@@ -131,8 +144,8 @@ public class ArticleController implements Initializable {
 		tfJournal.setText(fromtable.getJournal());
 		tfTitle.setText(fromtable.getTitle());
 		tfYear.setText(fromtable.getYear());
-		tfVolume.setText(fromtable.getVolume());
 
+		tfVolume.setText(fromtable.getVolume());
 		tfPages.setText(fromtable.getPages());
 		tfNumber.setText(fromtable.getNumber());
 		tfMonth.setText(fromtable.getMonth());
@@ -207,7 +220,7 @@ public class ArticleController implements Initializable {
 	}
 
 	private Article createElement() {
-
+		validate();
 		Article article = new Article();
 
 		article.setAuthor(tfAuthor.getText());
@@ -236,6 +249,7 @@ public class ArticleController implements Initializable {
 		for (Article art : ClassOfLists.listOfArticles) {
 			if (articleToDel.equals(art)) {
 				ClassOfLists.listOfArticles.remove(toDelInLoop);
+				break;
 			}
 			toDelInLoop += 1;
 		}
@@ -261,6 +275,7 @@ public class ArticleController implements Initializable {
 		tcDoi.setCellValueFactory(new PropertyValueFactory<Article, String>("Doi"));
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Article, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Article, String>("Keywords"));
+		myAlertClass = new MyAlertClass();
 		refresh();
 	}
 }

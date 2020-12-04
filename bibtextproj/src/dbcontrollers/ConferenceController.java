@@ -16,6 +16,7 @@ import application.Main;
 import entities.Article;
 import entities.Book;
 import entities.Conference;
+import gui.MyAlertClass;
 import entities.Conference;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -155,6 +156,8 @@ public class ConferenceController implements Initializable {
 	@FXML
 	private TableColumn<Conference, String> tcKeywords;
 
+	MyAlertClass myAlertClass;
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Conference fromtable = tvConference.getSelectionModel().getSelectedItem();
@@ -228,6 +231,9 @@ public class ConferenceController implements Initializable {
 
 	@FXML
 	void addElementToFile(ActionEvent event) {
+
+		validate();
+
 		Conference tofile = new Conference();
 		editelement(tofile);
 		System.out.println(tofile);
@@ -237,11 +243,12 @@ public class ConferenceController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
+			myAlertClass.addedToFileAlert();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.fileErrorAlert();
 		}
+
 	}
 
 	@FXML
@@ -319,6 +326,8 @@ public class ConferenceController implements Initializable {
 	void editElementInDB(ActionEvent event) {
 		Conference fromtable = tvConference.getSelectionModel().getSelectedItem();
 
+		validate();
+
 		Long id = fromtable.getID();
 
 		EntityManagerFactory emf = null;
@@ -361,6 +370,17 @@ public class ConferenceController implements Initializable {
 		tfkeywords.setText("");
 	}
 
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfBooktitle.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -382,5 +402,7 @@ public class ConferenceController implements Initializable {
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Conference, String>("Bibkey"));
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Conference, String>("Keywords"));
 		refresh();
+
+		myAlertClass = new MyAlertClass();
 	}
 }

@@ -36,6 +36,12 @@ public class Inbook extends EntryTypes {
 	@Column(name = "publisher")
 	private String publisher;
 
+	@Column(name = "chapter")
+	private String chapter;
+
+	@Column(name = "pages")
+	private String pages;
+
 	// optional
 	@Column(name = "volume")
 	private String volume;
@@ -298,7 +304,54 @@ public class Inbook extends EntryTypes {
 
 			System.out.println(e.getMessage());
 		}
+		try {
 
+			val = createFrom.getField(createFrom.KEY_CHAPTER);
+			strval = (StringValue) val;
+			if (strval != null) {
+				this.chapter = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.chapter = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+
+		try {
+
+			val = createFrom.getField(createFrom.KEY_PAGES);
+			strval = (StringValue) val;
+			if (strval != null) {
+				this.pages = strval.toUserString();
+			}
+		} catch (Exception e) {
+			refval = (ReferenceValue) val;
+			if (refval != null) {
+				this.pages = refval.toUserString();
+			}
+
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	public String getChapter() {
+		return chapter;
+	}
+
+	public void setChapter(String chapter) {
+		this.chapter = chapter;
+	}
+
+	public String getPages() {
+		return pages;
+	}
+
+	public void setPages(String pages) {
+		this.pages = pages;
 	}
 
 	public String getType() {
@@ -445,6 +498,12 @@ public class Inbook extends EntryTypes {
 		if ((this.editor != (null)) && !this.editor.isEmpty()) {
 			fileString += "editor = \"" + this.editor + "\",\n";
 		}
+		if ((this.chapter != (null)) && !this.chapter.isEmpty()) {
+			fileString += "chapter = \"" + this.chapter + "\",\n";
+		}
+		if ((this.pages != (null)) && !this.pages.isEmpty()) {
+			fileString += "pages = \"" + this.pages + "\",\n";
+		}
 
 		if ((this.key != (null)) && !this.key.isEmpty()) {
 			fileString += "key = \"" + this.key + "\",\n";
@@ -540,6 +599,12 @@ public class Inbook extends EntryTypes {
 
 		if ((this.getKeywords() != (null)) && !this.getKeywords().isEmpty()) {
 			query += "AND keywords LIKE '%" + this.getKeywords() + "%' ";
+		}
+		if ((this.chapter != (null)) && !this.chapter.isEmpty()) {
+			query += " AND chapter LIKE '%" + this.chapter + "%' ";
+		}
+		if ((this.pages != (null)) && !this.pages.isEmpty()) {
+			query += " AND pages LIKE '%" + this.pages + "%' ";
 		}
 
 		return query;
