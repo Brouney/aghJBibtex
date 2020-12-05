@@ -179,7 +179,7 @@ public class ManualController implements Initializable {
 			out.write(tofile.toString());
 			out.close();
 			myAlertClass.addedToFileAlert();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertClass.fileErrorAlert();
 		}
 

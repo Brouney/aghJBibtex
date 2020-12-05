@@ -138,10 +138,9 @@ public class MiscController implements Initializable {
 			BufferedWriter out = new BufferedWriter(fw);
 			out.write(tofile.toString());
 			out.close();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myAlertClass.addedToFileAlert();
+		} catch (Exception e) {
+			myAlertClass.fileErrorAlert();
 		}
 	}
 

@@ -147,7 +147,7 @@ public class UnpublishedController implements Initializable {
 			out.close();
 			myAlertClass.addedToFileAlert();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertClass.fileErrorAlert();
 
 		}

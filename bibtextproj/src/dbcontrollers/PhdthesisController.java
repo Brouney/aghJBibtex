@@ -157,7 +157,7 @@ public class PhdthesisController implements Initializable {
 			out.close();
 			myAlertClass.addedToFileAlert();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertClass.fileErrorAlert();
 
 		}

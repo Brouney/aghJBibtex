@@ -219,7 +219,7 @@ public class InproceedingsController implements Initializable {
 			out.write(tofile.toString());
 			out.close();
 			myAlertclass.addedToFileAlert();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertclass.fileErrorAlert();
 		}
 

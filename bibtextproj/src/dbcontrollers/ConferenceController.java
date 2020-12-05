@@ -245,7 +245,7 @@ public class ConferenceController implements Initializable {
 			out.close();
 			myAlertClass.addedToFileAlert();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertClass.fileErrorAlert();
 		}
 

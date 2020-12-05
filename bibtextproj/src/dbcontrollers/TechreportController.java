@@ -190,7 +190,7 @@ public class TechreportController implements Initializable {
 			out.close();
 			myAlertClass.addedToFileAlert();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertClass.fileErrorAlert();
 
 		}

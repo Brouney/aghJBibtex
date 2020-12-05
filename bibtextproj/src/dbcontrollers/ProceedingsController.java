@@ -179,7 +179,7 @@ public class ProceedingsController implements Initializable {
 			out.close();
 			myAlertclass.addedToFileAlert();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertclass.fileErrorAlert();
 
 		}

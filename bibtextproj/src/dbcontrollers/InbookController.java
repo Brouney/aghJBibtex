@@ -179,7 +179,7 @@ public class InbookController implements Initializable {
 			out.close();
 
 			myAlertClass.addedToFileAlert();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertClass.fileErrorAlert();
 		}
 
@@ -308,30 +308,34 @@ public class InbookController implements Initializable {
 	}
 
 	private void validate() {
+		try {
+			boolean badValidation = false;
+			if (tfAuthor.getText().isEmpty() && tfEditor.getText().isEmpty()) {
+				badValidation = true;
+			}
+			if (!tfAuthor.getText().isEmpty() && !tfEditor.getText().isEmpty()) {
+				badValidation = true;
+			}
+			if (tfTitle.getText().isEmpty() || tfPublisher.getText().isEmpty() || tfYear.getText().isEmpty()) {
 
-		boolean badValidation = false;
-		if (tfAuthor.getText().isEmpty() && tfEditor.getText().isEmpty()) {
-			badValidation = true;
-		}
-		if (!tfAuthor.getText().isEmpty() && !tfEditor.getText().isEmpty()) {
-			badValidation = true;
-		}
-		if (tfTitle.getText().isEmpty() || tfPublisher.getText().isEmpty() || tfYear.getText().isEmpty()) {
+				badValidation = true;
 
-			badValidation = true;
+			}
+			if (tfchapter.getText().isEmpty() && tfpages.getText().isEmpty()) {
+				badValidation = true;
+			}
 
-		}
-		if (tfchapter.getText().isEmpty() && tfpages.getText().isEmpty()) {
-			badValidation = true;
-		}
+			if (badValidation) {
 
-		if (badValidation) {
+				myAlertClass.objectErrorAlert();
 
+			}
+		} catch (Exception e) {
 			myAlertClass.objectErrorAlert();
-
 		}
-
 	}
+
+	
 
 	@FXML
 	void editElementInDB(ActionEvent event) {
@@ -353,7 +357,8 @@ public class InbookController implements Initializable {
 
 		em.getTransaction().commit();
 		try {
-			List<Inbook> Inbookitems = em.createQuery("select f from fields f where bibitem = 'Inbook'").getResultList();
+			List<Inbook> Inbookitems = em.createQuery("select f from fields f where bibitem = 'Inbook'")
+					.getResultList();
 			dbcontrollers.ClassOfLists.listOfInbook = new ArrayList<Inbook>(Inbookitems);
 			Main.mainController
 					.changeLabelCountInbook(Integer.toString(dbcontrollers.ClassOfLists.listOfInbook.size()));

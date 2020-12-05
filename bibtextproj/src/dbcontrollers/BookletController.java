@@ -161,7 +161,7 @@ public class BookletController implements Initializable {
 
 			myAlertClass.addedToFileAlert();
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			myAlertClass.fileErrorAlert();
 		}
 

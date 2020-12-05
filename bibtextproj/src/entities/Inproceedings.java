@@ -440,7 +440,7 @@ public class Inproceedings extends EntryTypes {
 	@Override
 	public String toString() {
 		String fileString;
-		fileString = "@Inproceedings{";
+		fileString = "@InProceedings{";
 
 		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 			fileString += this.getBibkey() + ",\n";
