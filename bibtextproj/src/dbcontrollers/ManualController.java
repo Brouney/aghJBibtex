@@ -279,7 +279,18 @@ public class ManualController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Manual> Manualitems = em.createQuery("select f from fields f where bibitem = 'Manual'").getResultList();
+			dbcontrollers.ClassOfLists.listOfManual = new ArrayList<Manual>(Manualitems);
+			Main.mainController
+					.changeLabelCountManual(Integer.toString(dbcontrollers.ClassOfLists.listOfManual.size()));
 
+			refresh();
+
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

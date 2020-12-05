@@ -133,7 +133,7 @@ public class ArticleController implements Initializable {
 	private Button addfromtablebt;
 
 	MyAlertClass myAlertClass;
-	
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 
@@ -207,26 +207,24 @@ public class ArticleController implements Initializable {
 	@FXML
 	void addElementToFile(ActionEvent event) {
 
-		
-			validate();
+		validate();
 
-			Article tofile = new Article();
-			editelement(tofile);
-			// System.out.println(tofile);
+		Article tofile = new Article();
+		editelement(tofile);
+		// System.out.println(tofile);
 
-			try {
+		try {
 
-				FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
-				BufferedWriter out = new BufferedWriter(fw);
-				out.write(tofile.toString());
-				out.close();
+			FileWriter fw = new FileWriter(guicontrollers.MainPageController.fileToExport.getAbsolutePath(), true);
+			BufferedWriter out = new BufferedWriter(fw);
+			out.write(tofile.toString());
+			out.close();
 
-				myAlertClass.addedToFileAlert();
+			myAlertClass.addedToFileAlert();
 
-			} catch (Exception e) {
-				myAlertClass.fileErrorAlert();
-			}
-		
+		} catch (Exception e) {
+			myAlertClass.fileErrorAlert();
+		}
 
 	}
 
@@ -260,7 +258,7 @@ public class ArticleController implements Initializable {
 	private void validate() {
 
 		if (tfAuthor.getText().isEmpty() || tfJournal.getText().isEmpty() || tfTitle.getText().isEmpty()
-				|| tfYear.getText().isEmpty() ) {
+				|| tfYear.getText().isEmpty()) {
 			myAlertClass.objectErrorAlert();
 
 		}
@@ -272,16 +270,16 @@ public class ArticleController implements Initializable {
 		article.setJournal(tfJournal.getText());
 		article.setTitle(tfTitle.getText());
 		article.setYear(tfYear.getText());
-		
+
 		article.setVolume(tfVolume.getText());
 		article.setPages(tfPages.getText());
 		article.setNumber(tfNumber.getText());
 		article.setMonth(tfMonth.getText());
 		article.setNote(tfNote.getText());
-		
+
 		article.setKey(tfKey.getText());
 		article.setDoi(tfDoi.getText());
-		
+
 		article.setBibkey(tfBibKey.getText());
 		article.setKeywords(tfkeywords.getText());
 	}
@@ -315,27 +313,39 @@ public class ArticleController implements Initializable {
 	@FXML
 	void editElementInDB(ActionEvent event) {
 		Article fromtable = tvArticles.getSelectionModel().getSelectedItem();
-		
-			validate();
 
-			Long id = fromtable.getID();
+		validate();
 
-			EntityManagerFactory emf = null;
-			emf = Persistence.createEntityManagerFactory("bibtextproj");
-			EntityManager em = null;
-			em = emf.createEntityManager();
+		Long id = fromtable.getID();
 
-			Article fromdbobj = em.find(Article.class, id);
-			editelement(fromdbobj);
-			em.getTransaction().begin();
-			em.merge(fromdbobj);
+		EntityManagerFactory emf = null;
+		emf = Persistence.createEntityManagerFactory("bibtextproj");
+		EntityManager em = null;
+		em = emf.createEntityManager();
 
-			em.getTransaction().commit();
+		Article fromdbobj = em.find(Article.class, id);
+		editelement(fromdbobj);
+		em.getTransaction().begin();
+		em.merge(fromdbobj);
 
-			em.close();
-			emf.close();
+		em.getTransaction().commit();
 
 		
+		try {
+			List<Article> artitems = em.createQuery("select f from fields f where bibitem = 'Article'").getResultList();
+
+			dbcontrollers.ClassOfLists.listOfArticles = new ArrayList<Article>(artitems);
+			Main.mainController
+					.changeLabelCountArticle(Integer.toString(dbcontrollers.ClassOfLists.listOfArticles.size()));
+			refresh();
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		em.close();
+		emf.close();
+
 	}
 
 	@Override

@@ -250,7 +250,17 @@ public class UnpublishedController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
-
+		try {
+			List<Unpublished> Unpublisheditems = em.createQuery("select f from fields f where bibitem = 'Unpublished'")
+					.getResultList();
+			dbcontrollers.ClassOfLists.listOfUnpublished = new ArrayList<Unpublished>(Unpublisheditems);
+			Main.mainController
+					.changeLabelCountUnpublished(Integer.toString(dbcontrollers.ClassOfLists.listOfUnpublished.size()));
+			refresh();
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

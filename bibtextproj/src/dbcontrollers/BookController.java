@@ -384,7 +384,17 @@ public class BookController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Book> bookitems = em.createQuery("select f from fields f where bibitem = 'Book'").getResultList();
 
+			dbcontrollers.ClassOfLists.listOfBooks = new ArrayList<Book>(bookitems);
+			Main.mainController.changeLabelCountBook(Integer.toString(dbcontrollers.ClassOfLists.listOfBooks.size()));
+			refresh();
+
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

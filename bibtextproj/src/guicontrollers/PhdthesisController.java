@@ -11,6 +11,7 @@ import application.Main;
 import entities.Book;
 import entities.Misc;
 import entities.Phdthesis;
+import gui.MyAlertClass;
 import entities.Phdthesis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -112,6 +113,19 @@ public class PhdthesisController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass = new MyAlertClass();
+
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfSchool.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Phdthesis fromtable = tvPhdthesis.getSelectionModel().getSelectedItem();
@@ -147,6 +161,7 @@ public class PhdthesisController implements Initializable {
 		ClassOfLists.listOfPhdthesis.clear();
 		refresh();
 		Main.mainController.changeLabelCountPhdthesis(Integer.toString((ClassOfLists.listOfPhdthesis.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -198,7 +213,7 @@ public class PhdthesisController implements Initializable {
 	}
 
 	private Phdthesis createElement() {
-
+		validate();
 		Phdthesis phdthesis = new Phdthesis();
 		phdthesis.setAuthor(tfAuthor.getText());
 		phdthesis.setAddress(tfAddress.getText());

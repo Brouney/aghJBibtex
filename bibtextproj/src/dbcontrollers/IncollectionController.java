@@ -356,7 +356,18 @@ public class IncollectionController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Incollection> Incollectionitems = em.createQuery("select f from fields f where bibitem = 'Incollection'")
+					.getResultList();
+			dbcontrollers.ClassOfLists.listOfIncollection = new ArrayList<Incollection>(Incollectionitems);
+			Main.mainController.changeLabelCountIncollection(
+					Integer.toString(dbcontrollers.ClassOfLists.listOfIncollection.size()));
+			refresh();
 
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

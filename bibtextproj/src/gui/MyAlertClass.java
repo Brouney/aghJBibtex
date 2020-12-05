@@ -10,7 +10,7 @@ public class MyAlertClass {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Object error");
 		alert.setHeaderText(null);
-		alert.setContentText("Please fill all required data");
+		alert.setContentText("You didn't fill all required data");
 		alert.showAndWait();
 
 	}
@@ -31,5 +31,27 @@ public class MyAlertClass {
 		alert.showAndWait();
 
 	}
+	public void addedToDB() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Added!");
+		alert.setHeaderText(null);
+		alert.setContentText("Added to database.");
+		alert.showAndWait();
+		
+		
+		
+	}
+	public void editedInDB() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Edited!");
+		alert.setHeaderText(null);
+		alert.setContentText("Edited element in database.");
+		alert.showAndWait();
+		
+		
+		
+	}
+	
+	
 
 }

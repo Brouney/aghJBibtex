@@ -176,7 +176,7 @@ public class ArticleController implements Initializable {
 		ClassOfLists.listOfArticles.clear();
 		refresh();
 		Main.mainController.changeLabelCountArticle(Integer.toString((ClassOfLists.listOfArticles.size())));
-
+		myAlertClass.addedToDB();
 	}
 
 	@FXML

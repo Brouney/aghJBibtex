@@ -287,7 +287,18 @@ public class TechreportController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Techreport> Techreportitems = em.createQuery("select f from fields f where bibitem = 'Techreport'")
+					.getResultList();
+			dbcontrollers.ClassOfLists.listOfTechreport = new ArrayList<Techreport>(Techreportitems);
+			Main.mainController
+					.changeLabelCountTechreport(Integer.toString(dbcontrollers.ClassOfLists.listOfTechreport.size()));
+			refresh();
+			myAlertClass.editedInDB();
 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

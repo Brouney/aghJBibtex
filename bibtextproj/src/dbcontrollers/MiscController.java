@@ -17,6 +17,7 @@ import entities.Article;
 import entities.Book;
 import entities.Mastersthesis;
 import entities.Misc;
+import gui.MyAlertClass;
 import entities.Misc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -108,9 +109,9 @@ public class MiscController implements Initializable {
 
 	@FXML
 	private TableColumn<Misc, String> tcKeywords;
-	
-	
-	
+
+	MyAlertClass myAlertClass = new MyAlertClass();
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Misc fromtable = tvMisc.getSelectionModel().getSelectedItem();
@@ -212,7 +213,16 @@ public class MiscController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Misc> Miscitems = em.createQuery("select f from fields f where bibitem = 'Misc'").getResultList();
+			dbcontrollers.ClassOfLists.listOfMisc = new ArrayList<Misc>(Miscitems);
+			Main.mainController.changeLabelCountMisc(Integer.toString(dbcontrollers.ClassOfLists.listOfMisc.size()));
+			refresh();
 
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

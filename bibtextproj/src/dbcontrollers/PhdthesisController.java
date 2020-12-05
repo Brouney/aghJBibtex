@@ -164,7 +164,7 @@ public class PhdthesisController implements Initializable {
 
 	}
 
-	private void validate()  {
+	private void validate() {
 
 		if (tfAuthor.getText().isEmpty() || tfSchool.getText().isEmpty() || tfTitle.getText().isEmpty()
 				|| tfYear.getText().isEmpty()) {
@@ -261,7 +261,17 @@ public class PhdthesisController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
-
+		try {
+			List<Phdthesis> Phdthesisitems = em.createQuery("select f from fields f where bibitem = 'Phdthesis'")
+					.getResultList();
+			dbcontrollers.ClassOfLists.listOfPhdthesis = new ArrayList<Phdthesis>(Phdthesisitems);
+			Main.mainController
+					.changeLabelCountPhdthesis(Integer.toString(dbcontrollers.ClassOfLists.listOfPhdthesis.size()));
+			refresh();
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

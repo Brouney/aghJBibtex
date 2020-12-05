@@ -196,6 +196,7 @@ public class BookController implements Initializable {
 		refresh();
 		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfBooks.size())));
 
+		myAlertClass.addedToDB();
 	}
 
 	@FXML

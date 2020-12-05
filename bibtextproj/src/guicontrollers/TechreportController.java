@@ -11,6 +11,7 @@ import application.Main;
 import entities.Book;
 import entities.Proceedings;
 import entities.Techreport;
+import gui.MyAlertClass;
 import entities.Techreport;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -109,10 +110,21 @@ public class TechreportController implements Initializable {
 	@FXML
 	private TableColumn<Techreport, String> tcKeywords;
 
-
 	@FXML
 	private Button addfromtablebt;
-	
+
+	MyAlertClass myAlertClass = new MyAlertClass();
+
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfInstitution.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -129,7 +141,7 @@ public class TechreportController implements Initializable {
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
 	}
-	
+
 	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
@@ -149,6 +161,7 @@ public class TechreportController implements Initializable {
 		ClassOfLists.listOfTechreport.clear();
 		refresh();
 		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -162,9 +175,8 @@ public class TechreportController implements Initializable {
 			System.out.println(e.getMessage());
 		}
 
-		
 		refresh();
-		
+
 		Main.mainController.changeLabelCountTechreport(Integer.toString((ClassOfLists.listOfTechreport.size())));
 
 	}
@@ -201,7 +213,7 @@ public class TechreportController implements Initializable {
 	}
 
 	private Techreport createElement() {
-
+		validate();
 		Techreport techreport = new Techreport();
 
 		techreport.setAuthor(tfAuthor.getText());

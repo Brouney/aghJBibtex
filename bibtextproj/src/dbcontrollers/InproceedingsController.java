@@ -366,7 +366,18 @@ public class InproceedingsController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Inproceedings> Inproceedingsitems = em.createQuery("select f from fields f where bibitem = 'Inproceedings'")
+					.getResultList();
+			dbcontrollers.ClassOfLists.listOfInproceedings = new ArrayList<Inproceedings>(Inproceedingsitems);
+			Main.mainController.changeLabelCountInproceedings(
+					Integer.toString(dbcontrollers.ClassOfLists.listOfInproceedings.size()));
+			refresh();
 
+			myAlertclass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

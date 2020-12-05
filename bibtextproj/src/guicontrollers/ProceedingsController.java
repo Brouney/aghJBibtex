@@ -11,6 +11,7 @@ import application.Main;
 import entities.Book;
 import entities.Phdthesis;
 import entities.Proceedings;
+import gui.MyAlertClass;
 import entities.Proceedings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -130,6 +131,29 @@ public class ProceedingsController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass = new MyAlertClass();
+
+	private void validate() {
+
+		boolean badValidation = false;
+
+		if (tfTitle.getText().isEmpty() || tfYear.getText().isEmpty()) {
+
+			badValidation = true;
+		}
+
+		if (!tfVolume.getText().isEmpty() && !tfNumber.getText().isEmpty()) {
+
+			badValidation = true;
+
+		}
+		if (badValidation) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Proceedings fromtable = tvProceedings.getSelectionModel().getSelectedItem();
@@ -150,7 +174,7 @@ public class ProceedingsController implements Initializable {
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
 	}
-	
+
 	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
@@ -170,6 +194,7 @@ public class ProceedingsController implements Initializable {
 		ClassOfLists.listOfProceedings.clear();
 		refresh();
 		Main.mainController.changeLabelCountProceedings(Integer.toString((ClassOfLists.listOfProceedings.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -220,7 +245,7 @@ public class ProceedingsController implements Initializable {
 	}
 
 	private Proceedings createElement() {
-
+		validate();
 		Proceedings proceedings = new Proceedings();
 
 		proceedings.setAddress(tfAddress.getText());
@@ -244,7 +269,7 @@ public class ProceedingsController implements Initializable {
 
 	@FXML
 	void deleteElementFromList(ActionEvent event) {
-		Proceedings proceedingsToDel =createElement();
+		Proceedings proceedingsToDel = createElement();
 
 		int toDelInLoop = 0;
 		System.out.println("przed forem");

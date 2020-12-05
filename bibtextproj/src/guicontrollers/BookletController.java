@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import application.Main;
 import entities.Book;
 import entities.Booklet;
+import gui.MyAlertClass;
 import entities.Booklet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -104,6 +105,17 @@ public class BookletController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass;
+
+	private void validate() {
+
+		if (tfTitle.getText().isEmpty()) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Booklet fromtable = tvBooklet.getSelectionModel().getSelectedItem();
@@ -138,6 +150,7 @@ public class BookletController implements Initializable {
 		ClassOfLists.listOfBooklet.clear();
 		refresh();
 		Main.mainController.changeLabelCountBooklet(Integer.toString((ClassOfLists.listOfBooklet.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -180,7 +193,7 @@ public class BookletController implements Initializable {
 	}
 
 	private Booklet createElement() {
-
+		validate();
 		Booklet booklet = new Booklet();
 
 		booklet.setAuthor(tfAuthor.getText());
@@ -228,6 +241,8 @@ public class BookletController implements Initializable {
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Bibkey"));
 
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Keywords"));
+		
+		myAlertClass = new MyAlertClass();
 		refresh();
 	}
 }

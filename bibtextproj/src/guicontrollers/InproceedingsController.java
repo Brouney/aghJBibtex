@@ -11,6 +11,7 @@ import application.Main;
 import entities.Book;
 import entities.Inbook;
 import entities.Inproceedings;
+import gui.MyAlertClass;
 import entities.Inproceedings;
 import entities.Inproceedings;
 import javafx.collections.FXCollections;
@@ -145,9 +146,34 @@ public class InproceedingsController implements Initializable {
 
 	@FXML
 	private TableColumn<Inproceedings, String> tcKeywords;
-	
+
 	@FXML
 	private Button addfromtablebt;
+
+	MyAlertClass myAlertClass = new MyAlertClass();
+
+	private void validate() {
+
+		boolean badValidation = false;
+
+		if (tfAuthor.getText().isEmpty() || tfBooktitle.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+			badValidation = true;
+
+		}
+
+		if (!tfVolume.getText().isEmpty() && !tfNumber.getText().isEmpty()) {
+
+			badValidation = true;
+
+		}
+
+		if (badValidation) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
 
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -191,6 +217,7 @@ public class InproceedingsController implements Initializable {
 		ClassOfLists.listOfInproceedings.clear();
 		refresh();
 		Main.mainController.changeLabelCountInproceedings(Integer.toString((ClassOfLists.listOfInproceedings.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -249,6 +276,7 @@ public class InproceedingsController implements Initializable {
 	}
 
 	private Inproceedings createElement() {
+		validate();
 		Inproceedings inproceedings = new Inproceedings();
 		inproceedings.setAuthor(tfAuthor.getText());
 		inproceedings.setAddress(tfAddress.getText());

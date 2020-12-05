@@ -11,6 +11,7 @@ import application.Main;
 import entities.Book;
 import entities.Mastersthesis;
 import entities.Misc;
+import gui.MyAlertClass;
 import entities.Misc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,9 +98,10 @@ public class MiscController implements Initializable {
 	@FXML
 	private TableColumn<Misc, String> tcKeywords;
 
-
 	@FXML
 	private Button addfromtablebt;
+	
+	MyAlertClass myAlertClass = new MyAlertClass();
 	
 	@FXML
 	void addFromTable(ActionEvent event) {
@@ -135,6 +137,7 @@ public class MiscController implements Initializable {
 		ClassOfLists.listOfMisc.clear();
 		refresh();
 		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML

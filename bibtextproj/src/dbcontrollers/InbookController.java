@@ -352,7 +352,18 @@ public class InbookController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Inbook> Inbookitems = em.createQuery("select f from fields f where bibitem = 'Inbook'").getResultList();
+			dbcontrollers.ClassOfLists.listOfInbook = new ArrayList<Inbook>(Inbookitems);
+			Main.mainController
+					.changeLabelCountInbook(Integer.toString(dbcontrollers.ClassOfLists.listOfInbook.size()));
+			refresh();
 
+			myAlertClass.editedInDB();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

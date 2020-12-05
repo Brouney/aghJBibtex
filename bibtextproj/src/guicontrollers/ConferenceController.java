@@ -11,6 +11,7 @@ import application.Main;
 import entities.Article;
 import entities.Book;
 import entities.Conference;
+import gui.MyAlertClass;
 import entities.Conference;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -147,6 +148,19 @@ public class ConferenceController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass = new MyAlertClass();
+
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfBooktitle.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Conference fromtable = tvConference.getSelectionModel().getSelectedItem();
@@ -188,6 +202,7 @@ public class ConferenceController implements Initializable {
 		ClassOfLists.listOfConference.clear();
 		refresh();
 		Main.mainController.changeLabelCountConference(Integer.toString((ClassOfLists.listOfConference.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -228,7 +243,7 @@ public class ConferenceController implements Initializable {
 	}
 
 	private Conference createElement() {
-
+		validate();
 		Conference conference = new Conference();
 
 		conference.setAuthor(tfAuthor.getText());

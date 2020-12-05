@@ -11,6 +11,7 @@ import application.Main;
 import entities.Book;
 import entities.Techreport;
 import entities.Unpublished;
+import gui.MyAlertClass;
 import entities.Unpublished;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,6 +95,18 @@ public class UnpublishedController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass = new MyAlertClass();
+
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfTitle.getText().isEmpty() || tfNote.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Unpublished fromtable = tvUnpublished.getSelectionModel().getSelectedItem();
@@ -127,6 +140,7 @@ public class UnpublishedController implements Initializable {
 		ClassOfLists.listOfUnpublished.clear();
 		refresh();
 		Main.mainController.changeLabelCountUnpublished(Integer.toString((ClassOfLists.listOfUnpublished.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML

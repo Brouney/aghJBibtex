@@ -269,7 +269,18 @@ public class MastersthesisController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Mastersthesis> Mastersthesisitems = em.createQuery("select f from fields f where bibitem = 'Mastersthesis'")
+					.getResultList();
+			dbcontrollers.ClassOfLists.listOfMastersthesis = new ArrayList<Mastersthesis>(Mastersthesisitems);
+			Main.mainController.changeLabelCountMastersthesis(
+					Integer.toString(dbcontrollers.ClassOfLists.listOfMastersthesis.size()));
+			refresh();
+			myAlertClass.editedInDB();
 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

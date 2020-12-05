@@ -301,7 +301,18 @@ public class ProceedingsController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Proceedings> Proceedingsitems = em.createQuery("select f from fields f where bibitem = 'Proceedings'").getResultList();
+			dbcontrollers.ClassOfLists.listOfProceedings = new ArrayList<Proceedings>(Proceedingsitems);
+			Main.mainController
+					.changeLabelCountProceedings(Integer.toString(dbcontrollers.ClassOfLists.listOfProceedings.size()));
+			refresh();
+			myAlertclass.editedInDB();
 
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

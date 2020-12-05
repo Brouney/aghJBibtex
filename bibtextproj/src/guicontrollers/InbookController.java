@@ -154,8 +154,8 @@ public class InbookController implements Initializable {
 	@FXML
 	private TableColumn<Inbook, String> tcChapter;
 
-	MyAlertClass myAlertClass;
-	
+	MyAlertClass myAlertClass = new MyAlertClass();
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Inbook fromtable = tvInbook.getSelectionModel().getSelectedItem();
@@ -199,6 +199,7 @@ public class InbookController implements Initializable {
 		ClassOfLists.listOfInbook.clear();
 		refresh();
 		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -250,6 +251,7 @@ public class InbookController implements Initializable {
 	}
 
 	private Inbook createElement() {
+		validate();
 		Inbook inbook = new Inbook();
 		inbook.setAuthor(tfAuthor.getText());
 		inbook.setAddress(tfAddress.getText());
@@ -271,6 +273,32 @@ public class InbookController implements Initializable {
 		inbook.setPages(tfpages.getText());
 		inbook.setChapter(tfchapter.getText());
 		return inbook;
+
+	}
+
+	private void validate() {
+
+		boolean badValidation = false;
+		if (tfAuthor.getText().isEmpty() && tfEditor.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (!tfAuthor.getText().isEmpty() && !tfEditor.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (tfTitle.getText().isEmpty() || tfPublisher.getText().isEmpty() || tfYear.getText().isEmpty()) {
+
+			badValidation = true;
+
+		}
+		if (tfchapter.getText().isEmpty() && tfpages.getText().isEmpty()) {
+			badValidation = true;
+		}
+
+		if (badValidation) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
 
 	}
 

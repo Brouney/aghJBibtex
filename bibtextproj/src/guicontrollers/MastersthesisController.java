@@ -11,6 +11,7 @@ import application.Main;
 import entities.Book;
 import entities.Manual;
 import entities.Mastersthesis;
+import gui.MyAlertClass;
 import entities.Mastersthesis;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -112,6 +113,19 @@ public class MastersthesisController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass = new MyAlertClass();
+
+	private void validate() {
+
+		if (tfAuthor.getText().isEmpty() || tfSchool.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty()) {
+
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Mastersthesis fromtable = tvMasterthesis.getSelectionModel().getSelectedItem();
@@ -127,7 +141,7 @@ public class MastersthesisController implements Initializable {
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
 	}
-	
+
 	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
@@ -147,6 +161,7 @@ public class MastersthesisController implements Initializable {
 		ClassOfLists.listOfMastersthesis.clear();
 		refresh();
 		Main.mainController.changeLabelCountMastersthesis(Integer.toString((ClassOfLists.listOfMastersthesis.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -202,6 +217,7 @@ public class MastersthesisController implements Initializable {
 	}
 
 	private Mastersthesis createElement() {
+		validate();
 		Mastersthesis mastersthesis = new Mastersthesis();
 		mastersthesis.setAuthor(tfAuthor.getText());
 		mastersthesis.setAddress(tfAddress.getText());

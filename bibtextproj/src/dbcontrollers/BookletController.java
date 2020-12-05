@@ -167,7 +167,7 @@ public class BookletController implements Initializable {
 
 	}
 
-	private void validate()  {
+	private void validate() {
 
 		if (tfTitle.getText().isEmpty()) {
 			myAlertClass.objectErrorAlert();
@@ -279,6 +279,19 @@ public class BookletController implements Initializable {
 
 		em.getTransaction().commit();
 
+		try {
+			List<Booklet> bookletitems = em.createQuery("select f from fields f where bibitem = 'Booklet'")
+					.getResultList();
+
+			dbcontrollers.ClassOfLists.listOfBooklet = new ArrayList<Booklet>(bookletitems);
+			Main.mainController
+					.changeLabelCountBooklet(Integer.toString(dbcontrollers.ClassOfLists.listOfBooklet.size()));
+			refresh();
+
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 

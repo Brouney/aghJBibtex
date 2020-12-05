@@ -13,6 +13,7 @@ import entities.Booklet;
 import entities.Inbook;
 import entities.Incollection;
 import entities.Manual;
+import gui.MyAlertClass;
 import entities.Manual;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,6 +115,17 @@ public class ManualController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass = new MyAlertClass();
+
+	private void validate() {
+
+		if (tfTitle.getText().isEmpty()) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Manual fromtable = tvManual.getSelectionModel().getSelectedItem();
@@ -151,6 +163,7 @@ public class ManualController implements Initializable {
 		ClassOfLists.listOfManual.clear();
 		refresh();
 		Main.mainController.changeLabelCountManual(Integer.toString((ClassOfLists.listOfManual.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -193,7 +206,7 @@ public class ManualController implements Initializable {
 	}
 
 	private Manual createElement() {
-
+		validate();
 		Manual manual = new Manual();
 
 		manual.setAuthor(tfAuthor.getText());

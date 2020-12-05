@@ -11,6 +11,7 @@ import application.Main;
 import entities.Book;
 import entities.Inbook;
 import entities.Incollection;
+import gui.MyAlertClass;
 import entities.Incollection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -160,6 +161,8 @@ public class IncollectionController implements Initializable {
 	@FXML
 	private Button addfromtablebt;
 
+	MyAlertClass myAlertClass = new MyAlertClass();
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Incollection fromtable = tvIncollection.getSelectionModel().getSelectedItem();
@@ -186,6 +189,26 @@ public class IncollectionController implements Initializable {
 		tfkeywords.setText(fromtable.getKeywords());
 	}
 
+	private void validate() {
+
+		boolean badValidation = false;
+
+		if (tfAuthor.getText().isEmpty() || tfBooktitle.getText().isEmpty() || tfTitle.getText().isEmpty()
+				|| tfYear.getText().isEmpty() || tfPublisher.getText().isEmpty()) {
+			badValidation = true;
+
+		}
+
+		if (!tfVolume.getText().isEmpty() && !tfNumber.getText().isEmpty()) {
+			badValidation = true;
+		}
+		if (badValidation) {
+			myAlertClass.objectErrorAlert();
+
+		}
+
+	}
+
 	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
@@ -205,6 +228,7 @@ public class IncollectionController implements Initializable {
 		ClassOfLists.listOfIncollection.clear();
 		refresh();
 		Main.mainController.changeLabelCountIncollection(Integer.toString((ClassOfLists.listOfIncollection.size())));
+		myAlertClass.addedToDB();
 	}
 
 	@FXML
@@ -254,6 +278,8 @@ public class IncollectionController implements Initializable {
 	}
 
 	private Incollection createElement() {
+		
+		validate();
 		Incollection incollection = new Incollection();
 
 		incollection.setAuthor(tfAuthor.getText());

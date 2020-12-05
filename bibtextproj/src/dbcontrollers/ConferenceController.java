@@ -341,7 +341,18 @@ public class ConferenceController implements Initializable {
 		em.merge(fromdbobj);
 
 		em.getTransaction().commit();
+		try {
+			List<Conference> Conferencetitems = em.createQuery("select f from fields f where bibitem = 'Conference'")
+					.getResultList();
+			dbcontrollers.ClassOfLists.listOfConference = new ArrayList<Conference>(Conferencetitems);
+			Main.mainController
+					.changeLabelCountConference(Integer.toString(dbcontrollers.ClassOfLists.listOfConference.size()));
+			refresh();
 
+			myAlertClass.editedInDB();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		em.close();
 		emf.close();
 
