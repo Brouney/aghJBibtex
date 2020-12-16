@@ -350,6 +350,32 @@ public class Proceedings extends EntryTypes {
 	}
 
 	public boolean myequals(Proceedings toCompare) {
+		if (toCompare.getAddress() == null)
+			toCompare.setAddress("");
+		if (toCompare.getEditor() == null)
+			toCompare.setEditor("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getNumber() == null)
+			toCompare.setNumber("");
+		if (toCompare.getOrganization() == null)
+			toCompare.setOrganization("");
+
+		if (toCompare.getPublisher() == null)
+			toCompare.setPublisher("");
+		if (toCompare.getSeries() == null)
+			toCompare.setSeries("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getVolume() == null)
+			toCompare.setVolume("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+
 		if ((this.address.equals(toCompare.getAddress())) && (this.editor.equals(toCompare.getEditor()))
 				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
 				&& (this.publisher.equals(toCompare.getPublisher())) && (this.volume.equals(toCompare.getVolume()))
@@ -419,12 +445,12 @@ public class Proceedings extends EntryTypes {
 
 		return fileString;
 	}
-	
-public String generateQuery()  {
-		
+
+	public String generateQuery() {
+
 		String query = "select f from fields f where bibitem = 'Proceedings' ";
-if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
-			query += " AND bibkey LIKE '%"+this.getBibkey() + "%' ";
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			query += " AND bibkey LIKE '%" + this.getBibkey() + "%' ";
 		}
 		if ((this.address != (null)) && !this.address.isEmpty()) {
 			query += " AND address LIKE '%" + this.address + "%' ";
@@ -449,30 +475,29 @@ if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 		if ((this.organization != (null)) && !this.organization.isEmpty()) {
 			query += " AND organization LIKE '%" + this.organization + "%' ";
 		}
-		
+
 		if ((this.publisher != (null)) && !this.publisher.isEmpty()) {
 			query += " AND publisher LIKE '%" + this.publisher + "%' ";
 		}
-		
+
 		if ((this.series != (null)) && !this.series.isEmpty()) {
 			query += " AND series LIKE '%" + this.series + "%' ";
 		}
 		if ((this.title != (null)) && !this.title.isEmpty()) {
 			query += " AND title LIKE '%" + this.title + "%' ";
 		}
-		
+
 		if ((this.volume != (null)) && !this.volume.isEmpty()) {
 			query += " AND volume LIKE '%" + this.volume + "%' ";
 		}
 		if ((this.year != (null)) && !this.year.isEmpty()) {
 			query += " AND year LIKE '%" + this.year + "%' ";
 		}
-		
-		
+
 		if ((this.getKeywords() != (null)) && !this.getKeywords().isEmpty()) {
 			query += "AND keywords LIKE '%" + this.getKeywords() + "%' ";
 		}
-		
+
 		return query;
 	}
 }

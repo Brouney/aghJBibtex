@@ -221,10 +221,10 @@
                <items>
                   <ToolBar prefHeight="40.0" prefWidth="200.0">
                     <items>
-                      <Button fx:id="Loadfilebt" mnemonicParsing="false" onAction="#loadFileMethod" prefHeight="25.0" prefWidth="102.0" text="Load file" />
-                        <Button fx:id="downloadDBbt" mnemonicParsing="false" onAction="#downloadDB" prefHeight="25.0" prefWidth="105.0" text="DownloadDB" />
-                        <Button fx:id="Changebt" mnemonicParsing="false" onAction="#changeAppFunctions" prefHeight="25.0" prefWidth="225.0" text="Change: Local&lt;-&gt;Database" />
-                        <Button fx:id="exportbt" mnemonicParsing="false" onAction="#chooseFileToExport" prefHeight="25.0" prefWidth="176.0" text="Choose file to export" />
+                      <Button fx:id="Loadfilebt" mnemonicParsing="false" onAction="#loadFileMethod" prefHeight="25.0" prefWidth="102.0" text="Załaduj plik" />
+                        <Button fx:id="downloadDBbt" mnemonicParsing="false" onAction="#downloadDB" prefHeight="25.0" prefWidth="105.0" text="Sciągnij z bazy" />
+                        <Button fx:id="Changebt" mnemonicParsing="false" onAction="#changeAppFunctions" prefHeight="25.0" prefWidth="225.0" text="Zmień: Lokalnie&lt;-&gt;Baza danych" />
+                        <Button fx:id="exportbt" mnemonicParsing="false" onAction="#chooseFileToExport" prefHeight="25.0" prefWidth="260.0" text="Wybierz plik do eksportowania" />
                     </items>
                   </ToolBar>
                </items>

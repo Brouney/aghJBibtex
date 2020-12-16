@@ -94,7 +94,8 @@ public class InbookController implements Initializable {
 	private TextField tfchapter;
 	@FXML
 	private TextField tfpages;
-
+	@FXML
+	private TextField tfType;
 	@FXML
 	private TableView<Inbook> tvInbook;
 
@@ -153,6 +154,8 @@ public class InbookController implements Initializable {
 	private TableColumn<Inbook, String> tcPages;
 	@FXML
 	private TableColumn<Inbook, String> tcChapter;
+	@FXML
+	private TableColumn<Inbook, String> tcType;
 
 	MyAlertClass myAlertClass = new MyAlertClass();
 
@@ -250,6 +253,8 @@ public class InbookController implements Initializable {
 		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
 	}
 
+	
+	
 	private Inbook createElement() {
 		validate();
 		Inbook inbook = new Inbook();
@@ -272,6 +277,8 @@ public class InbookController implements Initializable {
 		inbook.setKeywords(tfkeywords.getText());
 		inbook.setPages(tfpages.getText());
 		inbook.setChapter(tfchapter.getText());
+		inbook.setType(tfType.getText());
+
 		return inbook;
 
 	}
@@ -279,6 +286,48 @@ public class InbookController implements Initializable {
 	private void validate() {
 
 		boolean badValidation = false;
+
+		if (tfAuthor.getText() == null)
+			tfAuthor.setText("");
+		if (tfAddress.getText() == null)
+			tfAddress.setText("");
+		if (tfEditor.getText() == null)
+			tfEditor.setText("");
+		if (tfTitle.getText() == null)
+			tfTitle.setText("");
+		if (tfYear.getText() == null)
+			tfYear.setText("");
+		if (tfPublisher.getText() == null)
+			tfPublisher.setText("");
+
+		if (tfVolume.getText() == null)
+			tfVolume.setText("");
+		if (tfNumber.getText() == null)
+			tfNumber.setText("");
+		if (tfSeries.getText() == null)
+			tfSeries.setText("");
+		if (tfEdition.getText() == null)
+			tfEdition.setText("");
+		if (tfMonth.getText() == null)
+			tfMonth.setText("");
+		if (tfNote.getText() == null)
+			tfNote.setText("");
+		if (tfKey.getText() == null)
+			tfKey.setText("");
+		if (tfUrl.getText() == null)
+			tfUrl.setText("");
+		if (tfBibKey.getText() == null)
+			tfBibKey.setText("");
+		if (tfkeywords.getText() == null)
+			tfkeywords.setText("");
+		if (tfchapter.getText() == null)
+			tfchapter.setText("");
+		if (tfpages.getText() == null)
+			tfpages.setText("");
+		if (tfType.getText() == null)
+			tfType.setText("");
+		
+
 		if (tfAuthor.getText().isEmpty() && tfEditor.getText().isEmpty()) {
 			badValidation = true;
 		}
@@ -308,13 +357,14 @@ public class InbookController implements Initializable {
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Inbook book : ClassOfLists.listOfInbook) {
-			if (inbookToDelete.equals(book)) {
+			if (inbookToDelete.myequals(book)) {
 				ClassOfLists.listOfInbook.remove(toDelInLoop);
 				break;
 			}
 			toDelInLoop += 1;
+			System.out.println(" " + toDelInLoop + " " + book.getAuthor());
 		}
-		System.out.println("przed refresh");
+		System.out.println("usunieto " + toDelInLoop);
 		refresh();
 		Main.mainController.changeLabelCountBook(Integer.toString((ClassOfLists.listOfInbook.size())));
 
@@ -340,6 +390,7 @@ public class InbookController implements Initializable {
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Keywords"));
 		tcChapter.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Chapter"));
 		tcPages.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Pages"));
+		tcType.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Type"));
 		refresh();
 	}
 

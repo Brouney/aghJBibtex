@@ -425,7 +425,37 @@ public class Conference extends EntryTypes {
 		this.key = key;
 	}
 
-	public boolean equals(Conference toCompare) {
+	public boolean myequals(Conference toCompare) {
+
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getVolume() == null)
+			toCompare.setVolume("");
+		if (toCompare.getNumber() == null)
+			toCompare.setNumber("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getEditor() == null)
+			toCompare.setEditor("");
+		if (toCompare.getOrganization() == null)
+			toCompare.setOrganization("");
+		if (toCompare.getPublisher() == null)
+			toCompare.setPublisher("");
+		if (toCompare.getBooktitle() == null)
+			toCompare.setBooktitle("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+		if (toCompare.getPages() == null)
+			toCompare.setPages("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getSeries() == null)
+			toCompare.setSeries("");
+
 		if ((this.author.equals(toCompare.getAuthor())) && (this.booktitle.equals(toCompare.getBooktitle()))
 				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear())) &&
 

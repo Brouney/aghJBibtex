@@ -109,6 +109,28 @@ public class BookletController implements Initializable {
 
 	private void validate() {
 
+		if (tfAuthor.getText() == null)
+			tfAuthor.setText("");
+		if (tfTitle.getText() == null)
+			tfTitle.setText("");
+		if (tfYear.getText() == null)
+			tfYear.setText("");
+
+		if (tfMonth.getText() == null)
+			tfMonth.setText("");
+		if (tfNote.getText() == null)
+			tfNote.setText("");
+		if (tfKey.getText() == null)
+			tfKey.setText("");
+		if (tfAddress.getText() == null)
+			tfAddress.setText("");
+		if (tfHowpublished.getText() == null)
+			tfHowpublished.setText("");
+		if (tfBibKey.getText() == null)
+			tfBibKey.setText("");
+		if (tfkeywords.getText() == null)
+			tfkeywords.setText("");
+
 		if (tfTitle.getText().isEmpty()) {
 			myAlertClass.objectErrorAlert();
 
@@ -241,7 +263,7 @@ public class BookletController implements Initializable {
 		tcBibKey.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Bibkey"));
 
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Booklet, String>("Keywords"));
-		
+
 		myAlertClass = new MyAlertClass();
 		refresh();
 	}

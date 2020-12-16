@@ -324,7 +324,31 @@ public class Article extends EntryTypes {
 		this.key = key;
 	}
 
-	public boolean equals(Article toCompare) {
+	public boolean myequals(Article toCompare) {
+
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getJournal() == null)
+			toCompare.setJournal("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getVolume() == null)
+			toCompare.setVolume("");
+		if (toCompare.getNumber() == null)
+			toCompare.setNumber("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getDoi() == null)
+			toCompare.setDoi("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+		if (toCompare.getPages() == null)
+			toCompare.setPages("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+
 		if ((this.author.equals(toCompare.getAuthor())) && (this.journal.equals(toCompare.getJournal()))
 				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
 				&& (this.volume.equals(toCompare.getVolume())) && (this.pages.equals(toCompare.getPages()))

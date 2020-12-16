@@ -410,7 +410,37 @@ public class Book extends EntryTypes {
 		this.url = url;
 	}
 
-	public boolean equals(Book toCompare) {
+	public boolean myequals(Book toCompare) {
+
+		if (toCompare.getAddress() == null)
+			toCompare.setAddress("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getPublisher() == null)
+			toCompare.setPublisher("");
+		if (toCompare.getVolume() == null)
+			toCompare.setVolume("");
+		if (toCompare.getSeries() == null)
+			toCompare.setSeries("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getUrl() == null)
+			toCompare.setUrl("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getEdition() == null)
+			toCompare.setEdition("");
+		if (toCompare.getNumber() == null)
+			toCompare.setNumber("");
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+		if (toCompare.getEditor() == null)
+			toCompare.setEditor("");
+
 		if ((this.address.equals(toCompare.getAddress())) && (this.editor.equals(toCompare.getEditor()))
 				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
 				&& (this.publisher.equals(toCompare.getPublisher())) && (this.author.equals(toCompare.getAuthor()))

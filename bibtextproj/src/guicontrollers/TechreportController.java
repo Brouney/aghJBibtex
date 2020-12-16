@@ -116,6 +116,28 @@ public class TechreportController implements Initializable {
 	MyAlertClass myAlertClass = new MyAlertClass();
 
 	private void validate() {
+		if (tfAuthor.getText() == null)
+			tfAuthor.setText("");
+		if (tfAddress.getText() == null)
+			tfAddress.setText("");
+		if (tfTitle.getText() == null)
+			tfTitle.setText("");
+		if (tfYear.getText() == null)
+			tfYear.setText("");
+		if (tfMonth.getText() == null)
+			tfMonth.setText("");
+		if (tfNote.getText() == null)
+			tfNote.setText("");
+		if (tfKey.getText() == null)
+			tfKey.setText("");
+		if (tfType.getText() == null)
+			tfType.setText("");
+		if (tfInstitution.getText() == null)
+			tfInstitution.setText("");
+		if (tfBibKey.getText() == null)
+			tfBibKey.setText("");
+		if (tfkeywords.getText() == null)
+			tfkeywords.setText("");
 
 		if (tfAuthor.getText().isEmpty() || tfInstitution.getText().isEmpty() || tfTitle.getText().isEmpty()
 				|| tfYear.getText().isEmpty()) {

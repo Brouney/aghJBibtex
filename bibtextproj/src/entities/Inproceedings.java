@@ -422,6 +422,39 @@ public class Inproceedings extends EntryTypes {
 	}
 
 	public boolean myequals(Inproceedings toCompare) {
+
+		if (toCompare.getAddress() == null)
+			toCompare.setAddress("");
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getBooktitle() == null)
+			toCompare.setBooktitle("");
+		if (toCompare.getEditor() == null)
+			toCompare.setEditor("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getNumber() == null)
+			toCompare.setNumber("");
+		if (toCompare.getOrganization() == null)
+			toCompare.setOrganization("");
+
+		if (toCompare.getPages() == null)
+			toCompare.setPages("");
+		if (toCompare.getPublisher() == null)
+			toCompare.setPublisher("");
+		if (toCompare.getSeries() == null)
+			toCompare.setSeries("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getVolume() == null)
+			toCompare.setVolume("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+
 		if ((this.address.equals(toCompare.getAddress())) && (this.editor.equals(toCompare.getEditor()))
 				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
 				&& (this.publisher.equals(toCompare.getPublisher())) && (this.author.equals(toCompare.getAuthor()))

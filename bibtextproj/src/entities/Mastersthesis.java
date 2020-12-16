@@ -273,6 +273,26 @@ public class Mastersthesis extends EntryTypes {
 	}
 
 	public boolean myequals(Mastersthesis toCompare) {
+
+		if (toCompare.getAddress() == null)
+			toCompare.setAddress("");
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getSchool() == null)
+			toCompare.setSchool("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getType() == null)
+			toCompare.setType("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+
 		if ((this.address.equals(toCompare.getAddress())) && (this.title.equals(toCompare.getTitle()))
 				&& (this.year.equals(toCompare.getYear())) && (this.author.equals(toCompare.getAuthor()))
 				&& (this.month.equals(toCompare.getMonth())) && (this.note.equals(toCompare.getNote()))
@@ -332,20 +352,21 @@ public class Mastersthesis extends EntryTypes {
 
 		return fileString;
 	}
-public String generateQuery()  {
-		
+
+	public String generateQuery() {
+
 		String query = "select f from fields f where bibitem = 'Mastersthesis' ";
-if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
-			query += " AND bibkey LIKE '%"+this.getBibkey() + "%' ";
+		if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
+			query += " AND bibkey LIKE '%" + this.getBibkey() + "%' ";
 		}
 		if ((this.address != (null)) && !this.address.isEmpty()) {
 			query += " AND address LIKE '%" + this.address + "%' ";
 		}
-		
+
 		if ((this.author != (null)) && !this.author.isEmpty()) {
 			query += " AND author LIKE '%" + this.author + "%' ";
 		}
-	
+
 		if ((this.key != (null)) && !this.key.isEmpty()) {
 			query += " AND key LIKE '%" + this.key + "%' ";
 		}
@@ -359,24 +380,23 @@ if ((this.getBibkey() != (null)) && !this.getBibkey().isEmpty()) {
 		if ((this.school != (null)) && !this.school.isEmpty()) {
 			query += " AND school LIKE '%" + this.school + "%' ";
 		}
-		
+
 		if ((this.title != (null)) && !this.title.isEmpty()) {
 			query += " AND title LIKE '%" + this.title + "%' ";
 		}
 		if ((this.type != (null)) && !this.type.isEmpty()) {
 			query += " AND type LIKE '%" + this.type + "%' ";
 		}
-		
+
 		if ((this.year != (null)) && !this.year.isEmpty()) {
 			query += " AND year LIKE '%" + this.year + "%' ";
 		}
-		
-		
+
 		if ((this.getKeywords() != (null)) && !this.getKeywords().isEmpty()) {
 			query += "AND keywords LIKE '%" + this.getKeywords() + "%' ";
 		}
-		
+
 		return query;
 	}
-	
+
 }

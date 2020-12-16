@@ -152,6 +152,42 @@ public class ConferenceController implements Initializable {
 
 	private void validate() {
 
+		if (tfAuthor.getText() == null)
+			tfAuthor.setText("");
+		if (tfBooktitle.getText() == null)
+			tfBooktitle.setText("");
+		if (tfTitle.getText() == null)
+			tfTitle.setText("");
+		if (tfYear.getText() == null)
+			tfYear.setText("");
+
+		if (tfVolume.getText() == null)
+			tfVolume.setText("");
+		if (tfPublisher.getText() == null)
+			tfPublisher.setText("");
+		if (tfNumber.getText() == null)
+			tfNumber.setText("");
+		if (tfMonth.getText() == null)
+			tfMonth.setText("");
+		if (tfNote.getText() == null)
+			tfNote.setText("");
+		if (tfKey.getText() == null)
+			tfKey.setText("");
+		if (tfOrganization.getText() == null)
+			tfOrganization.setText("");
+		if (tfAddress.getText() == null)
+			tfAddress.setText("");
+		if (tfPages.getText() == null)
+			tfPages.setText("");
+		if (tfSeries.getText() == null)
+			tfSeries.setText("");
+		if (tfEditor.getText() == null)
+			tfEditor.setText("");
+		if (tfBibKey.getText() == null)
+			tfBibKey.setText("");
+		if (tfkeywords.getText() == null)
+			tfkeywords.setText("");
+
 		if (tfAuthor.getText().isEmpty() || tfBooktitle.getText().isEmpty() || tfTitle.getText().isEmpty()
 				|| tfYear.getText().isEmpty()) {
 
@@ -281,7 +317,7 @@ public class ConferenceController implements Initializable {
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Conference art : ClassOfLists.listOfConference) {
-			if (conferenceToDel.equals(art)) {
+			if (conferenceToDel.myequals(art)) {
 				ClassOfLists.listOfConference.remove(toDelInLoop);
 				break;
 			}

@@ -473,6 +473,42 @@ public class Incollection extends EntryTypes {
 	}
 
 	public boolean myequals(Incollection toCompare) {
+
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getPublisher() == null)
+			toCompare.setPublisher("");
+		if (toCompare.getVolume() == null)
+			toCompare.setVolume("");
+		if (toCompare.getNumber() == null)
+			toCompare.setNumber("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getSeries() == null)
+			toCompare.setSeries("");
+		if (toCompare.getEdition() == null)
+			toCompare.setEdition("");
+		if (toCompare.getEditor() == null)
+			toCompare.setEditor("");
+		if (toCompare.getBooktitle() == null)
+			toCompare.setBooktitle("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+		if (toCompare.getPages() == null)
+			toCompare.setPages("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getType() == null)
+			toCompare.setType("");
+		if (toCompare.getChapter() == null)
+			toCompare.setChapter("");
+		if (toCompare.getAddress() == null)
+			toCompare.setAddress("");
+
 		if ((this.author.equals(toCompare.getAuthor())) && (this.booktitle.equals(toCompare.getBooktitle()))
 				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
 				&& (this.publisher.equals(toCompare.getPublisher())) &&
@@ -480,10 +516,10 @@ public class Incollection extends EntryTypes {
 				(this.volume.equals(toCompare.getVolume())) && (this.pages.equals(toCompare.getPages()))
 				&& (this.number.equals(toCompare.getNumber())) && (this.month.equals(toCompare.getMonth()))
 				&& (this.note.equals(toCompare.getNote())) && (this.key.equals(toCompare.getKey())) &&
-				// (this.editor.equals(toCompare.getEditor())) &&
+
 				(this.series.equals(toCompare.getSeries())) && (this.type.equals(toCompare.getType()))
 				&& (this.edition.equals(toCompare.getEdition())) && (this.chapter.equals(toCompare.getChapter()))
-				&& (this.address.equals(toCompare.getAddress()))) {
+				&& (this.editor.equals(toCompare.getEditor())) && (this.address.equals(toCompare.getAddress()))) {
 			return true;
 		} else {
 			return false;

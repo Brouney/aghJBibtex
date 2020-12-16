@@ -275,6 +275,25 @@ public class Phdthesis extends EntryTypes {
 	}
 
 	public boolean myequals(Phdthesis toCompare) {
+		if (toCompare.getAddress() == null)
+			toCompare.setAddress("");
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getSchool() == null)
+			toCompare.setSchool("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getType() == null)
+			toCompare.setType("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+
 		if ((this.address.equals(toCompare.getAddress())) && (this.title.equals(toCompare.getTitle()))
 				&& (this.year.equals(toCompare.getYear())) && (this.author.equals(toCompare.getAuthor()))
 				&& (this.month.equals(toCompare.getMonth())) && (this.note.equals(toCompare.getNote()))

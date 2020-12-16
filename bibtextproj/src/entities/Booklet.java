@@ -248,11 +248,28 @@ public class Booklet extends EntryTypes {
 	}
 
 	public boolean myequals(Booklet toCompare) {
-		if ((this.author.equals(toCompare.getAuthor())) && (this.title.equals(toCompare.getTitle()))
-				&& (this.year.equals(toCompare.getYear())) &&
 
-				(this.month.equals(toCompare.getMonth())) && (this.note.equals(toCompare.getNote()))
-				&& (this.key.equals(toCompare.getKey())) && (this.howpublished.equals(toCompare.getHowpublished()))
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getAddress() == null)
+			toCompare.setAddress("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getHowpublished() == null)
+			toCompare.setHowpublished("");
+
+		if ((this.author.equals(toCompare.getAuthor())) && (this.title.equals(toCompare.getTitle()))
+				&& (this.year.equals(toCompare.getYear())) && (this.month.equals(toCompare.getMonth()))
+				&& (this.note.equals(toCompare.getNote())) && (this.key.equals(toCompare.getKey()))
+				&& (this.howpublished.equals(toCompare.getHowpublished()))
 				&& (this.address.equals(toCompare.getAddress()))) {
 			return true;
 		} else {

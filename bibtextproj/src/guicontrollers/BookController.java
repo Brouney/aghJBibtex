@@ -247,6 +247,40 @@ public class BookController implements Initializable {
 
 	private void validate() {
 
+		if (tfAuthor.getText() == null)
+			tfAuthor.setText("");
+		if (tfAddress.getText() == null)
+			tfAddress.setText("");
+		if (tfEditor.getText() == null)
+			tfEditor.setText("");
+		if (tfTitle.getText() == null)
+			tfTitle.setText("");
+		if (tfYear.getText() == null)
+			tfYear.setText("");
+		if (tfPublisher.getText() == null)
+			tfPublisher.setText("");
+
+		if (tfVolume.getText() == null)
+			tfVolume.setText("");
+		if (tfNumber.getText() == null)
+			tfNumber.setText("");
+		if (tfSeries.getText() == null)
+			tfSeries.setText("");
+		if (tfEdition.getText() == null)
+			tfEdition.setText("");
+		if (tfMonth.getText() == null)
+			tfMonth.setText("");
+		if (tfNote.getText() == null)
+			tfNote.setText("");
+		if (tfKey.getText() == null)
+			tfKey.setText("");
+		if (tfUrl.getText() == null)
+			tfUrl.setText("");
+		if (tfBibKey.getText() == null)
+			tfBibKey.setText("");
+		if (tfkeywords.getText() == null)
+			tfkeywords.setText("");
+
 		boolean badValidation = false;
 		if (tfTitle.getText().isEmpty() || tfYear.getText().isEmpty() || tfPublisher.getText().isEmpty()) {
 			badValidation = true;
@@ -296,7 +330,7 @@ public class BookController implements Initializable {
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Book book : ClassOfLists.listOfBooks) {
-			if (bookToDelete.equals(book)) {
+			if (bookToDelete.myequals(book)) {
 				ClassOfLists.listOfBooks.remove(toDelInLoop);
 				break;
 			}

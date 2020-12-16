@@ -76,6 +76,64 @@ public class Inbook extends EntryTypes {
 	public Inbook() {
 	}
 
+	public boolean myequals(Inbook toCompare) {
+
+		if (toCompare.getAddress() == null)
+			toCompare.setAddress("");
+
+		if (toCompare.getEditor() == null)
+			toCompare.setEditor("");
+		if (toCompare.getTitle() == null)
+			toCompare.setTitle("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
+		if (toCompare.getPublisher() == null)
+			toCompare.setPublisher("");
+		if (toCompare.getAuthor() == null)
+			toCompare.setAuthor("");
+		if (toCompare.getVolume() == null)
+			toCompare.setVolume("");
+		if (toCompare.getSeries() == null)
+			toCompare.setSeries("");
+		if (toCompare.getMonth() == null)
+			toCompare.setMonth("");
+
+		if (toCompare.getKey() == null)
+			toCompare.setKey("");
+		if (toCompare.getPages() == null)
+			toCompare.setPages("");
+		if (toCompare.getUrl() == null)
+			toCompare.setUrl("");
+		if (toCompare.getNumber() == null)
+			toCompare.setNumber("");
+		if (toCompare.getEdition() == null)
+			toCompare.setEdition("");
+		if (toCompare.getNote() == null)
+			toCompare.setNote("");
+		if (toCompare.getChapter() == null)
+			toCompare.setChapter("");
+		if (toCompare.getType() == null)
+			toCompare.setType("");
+
+		
+		
+		
+		if ((this.address.equals(toCompare.getAddress())) && (this.editor.equals(toCompare.getEditor()))
+				&& (this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
+				&& (this.publisher.equals(toCompare.getPublisher())) && (this.author.equals(toCompare.getAuthor()))
+				&& (this.volume.equals(toCompare.getVolume())) && (this.number.equals(toCompare.getNumber()))
+				&& (this.series.equals(toCompare.getSeries())) && (this.edition.equals(toCompare.getEdition()))
+				&& (this.month.equals(toCompare.getMonth())) && (this.note.equals(toCompare.getNote()))
+				&& (this.key.equals(toCompare.getKey())) && (this.chapter.equals(toCompare.getChapter()))
+				&& (this.pages.equals(toCompare.getPages())) && (this.type.equals(toCompare.getType()))
+				&& (this.url.equals(toCompare.getUrl()))) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	public Inbook(BibTeXEntry createFrom) {
 
 		Value val = null;

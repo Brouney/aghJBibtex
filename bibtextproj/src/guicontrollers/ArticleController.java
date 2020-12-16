@@ -127,6 +127,23 @@ public class ArticleController implements Initializable {
 
 	private void validate() {
 
+		if ( tfAuthor.getText()==null)tfAuthor.setText("");
+		if ( tfJournal.getText()==null)	tfJournal.setText("");
+		if ( tfTitle.getText()==null)	tfTitle.setText("");
+		if ( tfYear.getText()==null)	tfYear.setText("");
+		if ( tfVolume.getText()==null)	tfVolume.setText("");
+
+		if ( tfPages.getText()==null)	tfPages.setText("");
+		if ( tfNumber.getText()==null)	tfNumber.setText("");
+		if ( tfMonth.getText()==null)tfMonth.setText("");
+		if ( tfNote.getText()==null)	tfNote.setText("");
+		if ( tfKey.getText()==null)	tfKey.setText("");
+		if ( tfAuthor.getText()==null)	tfAuthor.setText("");
+		if ( tfBibKey.getText()==null)	tfBibKey.setText("");
+		if ( tfkeywords.getText()==null)	tfkeywords.setText("");
+		
+		
+		
 		if (tfAuthor.getText().isEmpty() || tfJournal.getText().isEmpty() || tfTitle.getText().isEmpty()
 				|| tfYear.getText().isEmpty()) {
 			myAlertClass.objectErrorAlert();
@@ -247,7 +264,7 @@ public class ArticleController implements Initializable {
 		int toDelInLoop = 0;
 		System.out.println("przed forem");
 		for (Article art : ClassOfLists.listOfArticles) {
-			if (articleToDel.equals(art)) {
+			if (articleToDel.myequals(art)) {
 				ClassOfLists.listOfArticles.remove(toDelInLoop);
 				break;
 			}

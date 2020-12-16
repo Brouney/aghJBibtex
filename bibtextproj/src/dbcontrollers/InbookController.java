@@ -58,7 +58,8 @@ public class InbookController implements Initializable {
 
 	@FXML
 	private TextField tfAddress;
-
+	@FXML
+	private TextField tfType;
 	@FXML
 	private TextField tfEdition;
 
@@ -160,6 +161,8 @@ public class InbookController implements Initializable {
 	private TableColumn<Inbook, String> tcPages;
 	@FXML
 	private TableColumn<Inbook, String> tcChapter;
+	@FXML
+	private TableColumn<Inbook, String> tcType;
 
 	MyAlertClass myAlertClass;
 
@@ -229,6 +232,7 @@ public class InbookController implements Initializable {
 
 		tfchapter.setText(fromtable.getChapter());
 		tfpages.setText(fromtable.getPages());
+		tfType.setText(fromtable.getType());
 	}
 
 	@FXML
@@ -305,6 +309,7 @@ public class InbookController implements Initializable {
 		inbook.setKeywords(tfkeywords.getText());
 		inbook.setChapter(tfchapter.getText());
 		inbook.setPages(tfpages.getText());
+		inbook.setType(tfType.getText());
 	}
 
 	private void validate() {
@@ -417,6 +422,7 @@ public class InbookController implements Initializable {
 		tcKeywords.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Keywords"));
 		tcChapter.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Chapter"));
 		tcPages.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Pages"));
+		tcType.setCellValueFactory(new PropertyValueFactory<Inbook, String>("Type"));
 		refresh();
 		myAlertClass = new MyAlertClass();
 	}
