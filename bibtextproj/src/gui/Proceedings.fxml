@@ -32,7 +32,7 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label prefHeight="17.0" prefWidth="54.0" text="BibKey*">
+                                    <Label prefHeight="17.0" prefWidth="54.0" text="BibKey">
                                        <VBox.margin>
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
@@ -118,7 +118,7 @@
                                     </Label>
                                     <Label text="Organization">
                                        <VBox.margin>
-                                          <Insets left="30.0" top="8.0" />
+                                          <Insets left="5.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
                                  </children>

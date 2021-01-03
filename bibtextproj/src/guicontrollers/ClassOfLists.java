@@ -27,4 +27,6 @@ public class ClassOfLists {
 	public static List<Proceedings> listOfProceedings = new ArrayList<Proceedings>();
 	public static List<Techreport> listOfTechreport = new ArrayList<Techreport>();
 	public static List<Unpublished> listOfUnpublished = new ArrayList<Unpublished>();
+	
+	
 }

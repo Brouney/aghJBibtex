@@ -30,6 +30,7 @@ import org.jbibtex.Value;
 import entities.Article;
 import entities.*;
 import gui.FxmlLoader;
+import gui.MyAlertClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -159,11 +160,7 @@ public class MainPageController implements Initializable {
 		fileToExport = fileChooser.showOpenDialog(stage);
 
 		if (fileToExport == null) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Opening file error");
-			alert.setHeaderText(null);
-			alert.setContentText("Please choose one .bib file.");
-			alert.showAndWait();
+			new MyAlertClass().openExportFileErrorAlert();
 
 		}
 		System.out.println(fileToExport.getAbsolutePath());
@@ -329,6 +326,38 @@ public class MainPageController implements Initializable {
 		if (changeboolean) {
 			downloadDBbt.setDisable(true);
 			Loadfilebt.setDisable(false);
+			
+			
+			changeLabelCountArticle(Integer.toString(ClassOfLists.listOfArticles.size()));
+			
+			changeLabelCountBook(Integer.toString(ClassOfLists.listOfBooks.size()));
+			
+			changeLabelCountBooklet(Integer.toString(ClassOfLists.listOfBooklet.size()));
+			
+			changeLabelCountConference(Integer.toString(ClassOfLists.listOfConference.size()));
+			
+			changeLabelCountInbook(Integer.toString(ClassOfLists.listOfInbook.size()));
+		
+			changeLabelCountIncollection(Integer.toString(ClassOfLists.listOfIncollection.size()));
+			
+			changeLabelCountInproceedings(Integer.toString(ClassOfLists.listOfInproceedings.size()));
+			
+			changeLabelCountManual(Integer.toString(ClassOfLists.listOfManual.size()));
+			
+			changeLabelCountMastersthesis(Integer.toString(ClassOfLists.listOfMastersthesis.size()));
+			
+			changeLabelCountMisc(Integer.toString(ClassOfLists.listOfMisc.size()));
+			
+			changeLabelCountPhdthesis(Integer.toString(ClassOfLists.listOfPhdthesis.size()));
+		
+			changeLabelCountProceedings(Integer.toString(ClassOfLists.listOfProceedings.size()));
+			
+			changeLabelCountTechreport(Integer.toString(ClassOfLists.listOfTechreport.size()));
+		
+			changeLabelCountUnpublished(Integer.toString(ClassOfLists.listOfUnpublished.size()));
+			
+			
+			
 
 		} else {
 			Loadfilebt.setDisable(true);
@@ -348,11 +377,8 @@ public class MainPageController implements Initializable {
 		List<File> fileList = fileChooser.showOpenMultipleDialog(stage);
 		boolean enable = true;
 		if (fileList == null) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Opening file error");
-			alert.setHeaderText(null);
-			alert.setContentText("Please choose at least one .bib file.");
-			alert.showAndWait();
+			new MyAlertClass().openImportFileErrorAlert();
+			
 			enable = false;
 
 		}

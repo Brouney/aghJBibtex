@@ -231,6 +231,8 @@ public class Misc extends EntryTypes {
 
 		if (toCompare.getAuthor() == null)
 			toCompare.setAuthor("");
+		if (toCompare.getHowpublished() == null)
+			toCompare.setHowpublished("");
 		if (toCompare.getKey() == null)
 			toCompare.setKey("");
 		if (toCompare.getMonth() == null)
@@ -239,6 +241,8 @@ public class Misc extends EntryTypes {
 			toCompare.setNote("");
 		if (toCompare.getTitle() == null)
 			toCompare.setTitle("");
+		if (toCompare.getYear() == null)
+			toCompare.setYear("");
 
 		if ((this.title.equals(toCompare.getTitle())) && (this.year.equals(toCompare.getYear()))
 				&& (this.author.equals(toCompare.getAuthor())) && (this.month.equals(toCompare.getMonth()))

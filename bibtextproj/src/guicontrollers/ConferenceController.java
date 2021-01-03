@@ -226,12 +226,16 @@ public class ConferenceController implements Initializable {
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
-		em.getTransaction().begin();
+		
 
 		for (Conference toAdd : ClassOfLists.listOfConference) {
-			em.persist(toAdd);
+			try {
+				em.getTransaction().begin();
+				em.persist(toAdd);
+				em.getTransaction().commit();
+				}catch(Exception e) { System.out.println(e.getMessage());}
 		}
-		em.getTransaction().commit();
+		
 
 		em.close();
 		emf.close();

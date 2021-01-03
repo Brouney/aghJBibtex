@@ -100,9 +100,9 @@ public class MiscController implements Initializable {
 
 	@FXML
 	private Button addfromtablebt;
-	
+
 	MyAlertClass myAlertClass = new MyAlertClass();
-	
+
 	@FXML
 	void addFromTable(ActionEvent event) {
 		Misc fromtable = tvMisc.getSelectionModel().getSelectedItem();
@@ -117,19 +117,23 @@ public class MiscController implements Initializable {
 		tfBibKey.setText(fromtable.getBibkey());
 		tfkeywords.setText(fromtable.getKeywords());
 	}
-	
+
 	@FXML
 	void addAllToDB(ActionEvent event) {
 		EntityManagerFactory emf = null;
 		emf = Persistence.createEntityManagerFactory("bibtextproj");
 		EntityManager em = null;
 		em = emf.createEntityManager();
-		em.getTransaction().begin();
 
 		for (Misc toAdd : ClassOfLists.listOfMisc) {
-			em.persist(toAdd);
+			try {
+				em.getTransaction().begin();
+				em.persist(toAdd);
+				em.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
-		em.getTransaction().commit();
 
 		em.close();
 		emf.close();
@@ -142,7 +146,7 @@ public class MiscController implements Initializable {
 
 	@FXML
 	void addElementToList(ActionEvent event) {
-		
+
 		try {
 			Misc miscToAdd = createElement();
 
@@ -151,9 +155,8 @@ public class MiscController implements Initializable {
 			System.out.println(e.getMessage());
 		}
 
-		
 		refresh();
-	
+
 		Main.mainController.changeLabelCountMisc(Integer.toString((ClassOfLists.listOfMisc.size())));
 
 	}
@@ -187,7 +190,7 @@ public class MiscController implements Initializable {
 	}
 
 	private Misc createElement() {
-
+		validate();
 		Misc misc = new Misc();
 
 		misc.setAuthor(tfAuthor.getText());
@@ -200,9 +203,31 @@ public class MiscController implements Initializable {
 		misc.setBibkey(tfBibKey.getText());
 
 		misc.setKeywords(tfkeywords.getText());
-		
-		
+
 		return misc;
+	}
+
+	private void validate() {
+
+		if (tfAuthor.getText() == null)
+			tfAuthor.setText("");
+		if (tfTitle.getText() == null)
+			tfTitle.setText("");
+		if (tfYear.getText() == null)
+			tfYear.setText("");
+		if (tfMonth.getText() == null)
+			tfMonth.setText("");
+		if (tfNote.getText() == null)
+			tfNote.setText("");
+		if (tfKey.getText() == null)
+			tfKey.setText("");
+		if (tfHowpublished.getText() == null)
+			tfHowpublished.setText("");
+		if (tfBibKey.getText() == null)
+			tfBibKey.setText("");
+		if (tfkeywords.getText() == null)
+			tfkeywords.setText("");
+
 	}
 
 	@FXML

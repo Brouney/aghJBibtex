@@ -27,9 +27,9 @@
                                           <Insets left="30.0" top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label prefHeight="17.0" prefWidth="56.0" text="or Editor*">
+                                    <Label prefHeight="17.0" prefWidth="63.0" text="lub Editor*">
                                        <VBox.margin>
-                                          <Insets left="30.0" top="8.0" />
+                                          <Insets left="15.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
                                     <Label prefHeight="17.0" prefWidth="57.0" text="Title*">
@@ -47,7 +47,7 @@
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label prefHeight="17.0" prefWidth="54.0" text="BibKey*">
+                                    <Label prefHeight="17.0" prefWidth="54.0" text="BibKey">
                                        <VBox.margin>
                                           <Insets left="30.0" top="8.0" />
                                        </VBox.margin>
@@ -57,7 +57,7 @@
                                           <Insets left="20.0" top="18.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label prefHeight="25.0" prefWidth="90.0" text="and/or Pages*">
+                                    <Label prefHeight="25.0" prefWidth="90.0" text="oraz/lub Pages*">
                                        <padding>
                                           <Insets left="5.0" top="8.0" />
                                        </padding>
@@ -116,9 +116,9 @@
                                           <Insets left="30.0" top="10.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label text="Number">
+                                    <Label text="lub Number">
                                        <VBox.margin>
-                                          <Insets left="30.0" top="8.0" />
+                                          <Insets left="15.0" top="8.0" />
                                        </VBox.margin>
                                     </Label>
                                     <Label text="Series">
