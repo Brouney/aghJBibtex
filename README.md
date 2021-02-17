@@ -4,6 +4,18 @@
 
 ### The bibliography database for the system typesetting LaTeX <br>
 
+### Technologies used in application:
+* Java
+* Apache Maven
+* JavaFX and JavaFX Scene Builder
+* PostgreSQL
+* JPA Hibernate
+* BibTeX
+* JBibTex - Java BibTeX API
+* Eclipse
+* JUnit
+<br>
+
 ### Functionalities common for every interface
 * Clearing  text fields
 * Adding elements to text fields
@@ -26,4 +38,11 @@
 * Adding elements to database
 * Editing elements in tabel
 
+### Example of panel in database mode 
+
 ![databasepanel](https://user-images.githubusercontent.com/37865264/108226043-d0345880-713c-11eb-9d6c-abdd45a455ec.PNG)
+<br>
+
+### Example of panel in local mode
+
+![localpanel](https://user-images.githubusercontent.com/37865264/108226174-efcb8100-713c-11eb-9a75-17e45e239d0c.PNG)
