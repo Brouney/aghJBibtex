@@ -1,9 +1,8 @@
 # aghJBibtex
-[INZ] Piotr Brunarski
 
-## Engineering Thesis <br>
+### Engineering Thesis of Piotr Brunarski <br>
 
-## The bibliography database for the system typesetting LaTeX <br>
+### The bibliography database for the system typesetting LaTeX <br>
 
 ### Functionalities common for every interface
 * Clearing  text fields
@@ -13,12 +12,14 @@
 * Changing mode of application -> local or database
 * Choosing file to export data
 <br>
+
 ### Functionalities in database mode
 * Editing, deleting elements in database
 * Adding elements to database, .bib file
 * Searching for elements
 * Deleting all elements from database
 <br>
+
 ### Functionalities in local mode
 * Adding elements to list in tabel
 * Deleting one or all elements from tabel
