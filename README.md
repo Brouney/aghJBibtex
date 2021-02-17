@@ -39,6 +39,8 @@
 * Editing elements in tabel
 
 <br>
+### Each object has its own panel in database and local mode.
+<br>
 
 ### Example of panel in database mode: 
 
