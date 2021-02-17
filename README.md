@@ -1,8 +1,6 @@
-# aghJBibtex
+# aghJBibtex - The bibliography database for the system typesetting LaTeX
 
-### Engineering Thesis of Piotr Brunarski <br>
-
-### The bibliography database for the system typesetting LaTeX <br>
+### Application for Engineering Thesis - author Piotr Brunarski <br>
 
 ### Technologies used in application:
 * Java
