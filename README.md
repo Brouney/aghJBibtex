@@ -26,3 +26,4 @@
 * Adding elements to database
 * Editing elements in tabel
 
+![databasepanel](https://user-images.githubusercontent.com/37865264/108226043-d0345880-713c-11eb-9d6c-abdd45a455ec.PNG)
